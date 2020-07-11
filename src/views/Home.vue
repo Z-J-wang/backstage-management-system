@@ -5,20 +5,17 @@
                 <header-bar></header-bar>
             </el-header>
             <el-container>
-                <el-aside
-                    width="200px"
-                    style="background-color: rgb(238, 241, 246)"
-                >
+                <el-aside>
                     <aside-menu></aside-menu>
                 </el-aside>
 
                 <el-main>
                     <router-view></router-view>
+                    <!-- <el-footer>
+                        <footer-bar></footer-bar>
+                    </el-footer> -->
                 </el-main>
             </el-container>
-            <el-footer>
-                <footer-bar></footer-bar>
-            </el-footer>
         </el-container>
         <back-top></back-top>
     </div>
@@ -28,7 +25,7 @@
 import asideMenu from "@c/common/AsideMenu.vue";
 import headerBar from "@c/common/HeaderBar.vue";
 import footerbar from "@c/common/FooterBar.vue";
-import backtop from '@c/common/BackTop.vue'
+import backtop from "@c/common/BackTop.vue";
 
 export default {
     components: {
@@ -41,8 +38,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@header-height:60px;
-@footer-height: 60px;
+@header-height: 60px;
+@footer-height: 0px;
 @main-height: calc(~"100vh - @{header-height} - @{footer-height}");
 .el-header {
     background-color: #eff2f7;
@@ -50,16 +47,18 @@ export default {
     line-height: 60px;
 }
 .el-aside {
+    width: 300px;
     color: #333;
+    background-color: rgb(238, 241, 246);
 }
-.el-main{
+.el-main {
     box-sizing: border-box;
     height: @main-height;
     overflow-y: auto;
     padding-bottom: 10px;
 }
 .el-footer {
-    color: #ffffff;
-    background-color: #484545;
+    color: #333;
+    background-color: #fff;
 }
 </style>

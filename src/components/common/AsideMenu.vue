@@ -5,16 +5,22 @@
                 <template slot="title"><i class="el-icon-message"></i>导航一</template>
                 <el-menu-item-group>
                     <template slot="title">分组一</template>
-                     <router-link to="/tableView" tag="span"> 
+                    <router-link
+                        to="/tableView"
+                        tag="li"
+                    >
                         <el-menu-item index="1-1">
-                           dataView
+                            dataView
                         </el-menu-item>
-                     </router-link>
-                     <router-link to="/test" tag="span"> 
+                    </router-link>
+                    <router-link
+                        to="/test"
+                        tag="li"
+                    >
                         <el-menu-item index="1-2">
-                           测试图片压缩
+                            测试图片压缩
                         </el-menu-item>
-                     </router-link>
+                    </router-link>
                 </el-menu-item-group>
                 <el-menu-item-group title="分组2">
                     <el-menu-item index="1-3">选项3</el-menu-item>
@@ -64,6 +70,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+// .el-menu {
+//     background-color: #324057;
 
+//     li {
+//         color: #bfcbd9 !important;
+//         &:hover {
+//             background-color: #48576a;
+//         }
+//     }
+// }
 </style>
