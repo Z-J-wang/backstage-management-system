@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-container style="height: 100%; border: 1px solid #eee">
+        <el-container style="height: 100%;">
             <el-header style="text-align: right; font-size: 12px">
                 <header-bar></header-bar>
             </el-header>
@@ -20,6 +20,7 @@
                 <footer-bar></footer-bar>
             </el-footer>
         </el-container>
+        <back-top></back-top>
     </div>
 </template>
 
@@ -27,24 +28,35 @@
 import asideMenu from "@c/common/AsideMenu.vue";
 import headerBar from "@c/common/HeaderBar.vue";
 import footerbar from "@c/common/FooterBar.vue";
+import backtop from '@c/common/BackTop.vue'
 
 export default {
     components: {
         "aside-menu": asideMenu,
         "header-bar": headerBar,
-        "footer-bar": footerbar
+        "footer-bar": footerbar,
+        "back-top": backtop
     }
 };
 </script>
 
 <style lang="less" scoped>
+@header-height:60px;
+@footer-height: 60px;
+@main-height: calc(~"100vh - @{header-height} - @{footer-height}");
 .el-header {
-    background-color: #b3c0d1;
+    background-color: #eff2f7;
     color: #333;
     line-height: 60px;
 }
 .el-aside {
     color: #333;
+}
+.el-main{
+    box-sizing: border-box;
+    height: @main-height;
+    overflow-y: auto;
+    padding-bottom: 10px;
 }
 .el-footer {
     color: #ffffff;

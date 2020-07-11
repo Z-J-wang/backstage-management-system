@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3>后台管理系统</h3>
         <el-dropdown>
             <i
                 class="el-icon-setting"
@@ -21,6 +22,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+h3{
+    display: block;
+    float: left;
+    margin: 0;
+    font-size: 24px;
+}
 </style>

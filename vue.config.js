@@ -124,8 +124,8 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: true,
-    inline: true, // 开启实时刷新
-    host: '0.0.0.0', // 允许外部ip访问
+    // inline: true, // 开启实时刷新
+    // host: '0.0.0.0', // 允许外部ip访问
     port: 8024, // 端口
     https: false, // 启用https
     overlay: {
