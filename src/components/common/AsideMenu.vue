@@ -1,15 +1,22 @@
 <template>
     <div>
-        <el-menu :default-openeds="['1', '3']">
+        <el-menu :default-openeds="['1']">
             <el-submenu index="1">
-                <template slot="title"><i class="el-icon-message"></i>导航一</template>
+                <template slot="title"><i class="el-icon-message"></i>个人信息管理</template>
                 <el-menu-item-group>
-                    <template slot="title">分组一</template>
+                    <router-link
+                        to="/PersonalInfo"
+                        tag="li"
+                    >
+                        <el-menu-item index="1-1">
+                            个人基础信息
+                        </el-menu-item>
+                    </router-link>
                     <router-link
                         to="/tableView"
                         tag="li"
                     >
-                        <el-menu-item index="1-1">
+                        <el-menu-item index="1-2">
                             dataView
                         </el-menu-item>
                     </router-link>
@@ -17,18 +24,11 @@
                         to="/test"
                         tag="li"
                     >
-                        <el-menu-item index="1-2">
+                        <el-menu-item index="1-3">
                             测试图片压缩
                         </el-menu-item>
                     </router-link>
                 </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-                </el-submenu>
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title"><i class="el-icon-menu"></i>导航二</template>
@@ -66,7 +66,73 @@
 
 <script>
 export default {
-    name: "aside-menu"
+    name: "aside-menu",
+    data() {
+        return {
+            menuList: [
+                {
+                    title: "个人信息管理",
+                    path: "",
+                    group: [
+                        {
+                            groupTitle: "分组一",
+                            groupList: [
+                                {
+                                    title: "个人基础信息",
+                                    path: "/PersonalInfo"
+                                },
+                                {
+                                    title: "dataView",
+                                    path: "/tableView"
+                                },
+                                {
+                                    title: "测试图片压缩",
+                                    path: "/test"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "导航二",
+                    path: "",
+                    group: [
+                        {
+                            groupTitle: "分组一",
+                            groupList: [
+                                {
+                                    title: "选项1",
+                                    path: ""
+                                },
+                                {
+                                    title: "选项2",
+                                    path: ""
+                                }
+                            ]
+                        },
+                        {
+                            groupTitle: "分组2",
+                            groupList: [
+                                {
+                                    title: "选项3",
+                                    path: ""
+                                }
+                            ]
+                        },
+                        {
+                            groupTitle: "",
+                            groupList: [
+                                {
+                                    title: "选项4",
+                                    path: ""
+                                }
+                            ]
+                        },
+                    ]
+                },
+            ]
+        };
+    }
 };
 </script>
 

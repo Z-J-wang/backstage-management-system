@@ -10,6 +10,11 @@
                 </el-aside>
 
                 <el-main>
+                    <el-page-header
+                        @back="goBack"
+                        :content="$route.name"
+                    >
+                    </el-page-header>
                     <router-view></router-view>
                     <!-- <el-footer>
                         <footer-bar></footer-bar>
@@ -60,5 +65,8 @@ export default {
 .el-footer {
     color: #333;
     background-color: #fff;
+}
+.el-page-header{
+    margin-bottom: 50px;
 }
 </style>

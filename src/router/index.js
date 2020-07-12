@@ -9,18 +9,23 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home,
-    redirect:'tableView',
+    redirect:'PersonalInfo',
     children:[
         {
           path: '/test',
-          name: 'test',
+          name: '测试页面',
           component: () => import(/* webpackChunkName: "test" */ '@c/Test.vue')
         },
         {
           path: '/tableView',
-          name: 'tableView',
+          name: '表格页面',
           component: () => import(/* webpackChunkName: "test" */ '../components/TableView.vue')
         },
+        {
+            path: '/PersonalInfo',
+            name: '个人基础信息',
+            component: () => import(/* webpackChunkName: "PersonalInfo" */ '../components/Person/PersonalInfo.vue')
+          },
     ]
   },
   {

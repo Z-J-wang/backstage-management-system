@@ -5,6 +5,8 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import '@a/css/common.less'
+
 Vue.config.productionTip = false
 
 // 全局注册 element-ui
