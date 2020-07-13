@@ -29,15 +29,18 @@
 <script>
 import asideMenu from "@c/common/AsideMenu.vue";
 import headerBar from "@c/common/HeaderBar.vue";
-import footerbar from "@c/common/FooterBar.vue";
+// import footerbar from "@c/common/FooterBar.vue";
 import backtop from "@c/common/BackTop.vue";
 
 export default {
     components: {
         "aside-menu": asideMenu,
         "header-bar": headerBar,
-        "footer-bar": footerbar,
+        // "footer-bar": footerbar,
         "back-top": backtop
+    },
+    methods:{
+        goBack(){}
     }
 };
 </script>

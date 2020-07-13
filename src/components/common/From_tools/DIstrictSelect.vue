@@ -1,13 +1,15 @@
 <template>
     <el-cascader
+        :id="id"
+        :name="name"
         :value="district"
         :options="options_area"
         :props="{ label:'name',children:'cities',value:'name' }"
+        :size="size"
         filterable
         clearable
+        style="width:100%"
         @change="handleChange"
-        :size="size"
-        :style="width?`width:${width}`:''"
     ></el-cascader>
 </template>
 
@@ -18,13 +20,19 @@ export default {
     props: {
         size: {
             type: String,
-            default: "small "
+            default: "medium" // medium / small / mini
         },
         width: {
             type: Number
         },
         district: {
             type: Array
+        },
+        id: {
+            type: String
+        },
+        name: {
+            type: String
         }
     },
     // 自定义组件实现v-model
@@ -35,7 +43,7 @@ export default {
     data() {
         return {
             value: [],
-            options_area: city.provinces,
+            options_area: city.provinces
         };
     },
     methods: {
