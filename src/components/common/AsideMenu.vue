@@ -1,7 +1,7 @@
 <template>
     <el-menu
         :default-openeds="['1']"
-        router="true"
+        router
         default-active="/edu_experience"
         class="el-menu-vertical"
         :collapse="isCollapse"

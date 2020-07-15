@@ -27,7 +27,7 @@ const routes = [{
             {
                 path: '/edu_experience',
                 name: '教育经历',
-                component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience.vue')
+                component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience/index.vue')
             },
         ]
     },
