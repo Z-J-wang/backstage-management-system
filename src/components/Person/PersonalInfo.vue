@@ -175,7 +175,7 @@
 
 <script>
 import headPortrait from "./HeadPortrait.vue";
-import districtSelect from "../common/From_tools/DistrictSelect.vue";
+import districtSelect from "../common/From_tools/DIstrictSelect.vue";
 
 export default {
     name: "peronal-info",
