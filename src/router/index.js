@@ -8,7 +8,7 @@ const routes = [{
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: 'blogs',
+        redirect: 'messages',
         children: [{
                 path: '/test',
                 name: '测试页面',
@@ -33,6 +33,11 @@ const routes = [{
                 path: '/blogs',
                 name: '个人博客',
                 component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Blog/index.vue')
+            },
+            {
+                path: '/messages',
+                name: '信息管理',
+                component: () => import( /* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
             },
         ]
     },
