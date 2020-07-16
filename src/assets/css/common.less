@@ -29,9 +29,17 @@ li {
 }
 
 .text-indent-en {
-    text-indent: @default-fontSize * 2;
+    text-indent: @default-fontSize;
 }
 
 .nowrap div {
     white-space: nowrap !important;
+}
+
+.line-break,
+.line-break div,
+.line-break p
+.line-break li {
+    white-space: normal;
+    word-break: break-all;
 }

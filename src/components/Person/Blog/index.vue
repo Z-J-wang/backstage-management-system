@@ -3,15 +3,23 @@
         <div class="table_tool">
             <el-button type="primary" icon="el-icon-plus" @click="itemEditorVisible = true">新增一笔</el-button>
         </div>
-        <el-table :data="blogs" stripe border style="width: 100%" highlight-current-row>
-            <el-table-column prop="title" label="文章名" width="180"></el-table-column>
-            <el-table-column prop="href" label="文章链接" sortable width="240"></el-table-column>
-            <el-table-column prop="imgSrc" label="文章图片链接"></el-table-column>
+        <el-table
+            :data="blogs"
+            class="nowrap"
+            stripe
+            border
+            style="width: 100%"
+            highlight-current-row
+        >
+            <el-table-column prop="title" label="博客标题" sortable></el-table-column>
+            <el-table-column prop="publishTime" label="发布时间" sortable width="240"></el-table-column>
+            <el-table-column prop="href" label="博客链接" width="240"></el-table-column>
+            <el-table-column prop="imgSrc" label="博客图片链接"></el-table-column>
             <el-table-column prop="digest" label="摘要"></el-table-column>
             <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button
-                        @click.native.prevent="deleteRow(scope.$index, scope)"
+                        @click.native.prevent="itemCheck(scope.row)"
                         icon="el-icon-view"
                         circle
                         size="small"
@@ -48,32 +56,105 @@
             :form-item="itemValue"
             @close="closeItemEditor"
         ></item-editor>
+
+        <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
     </div>
 </template>
 
 <script>
-
-import itemEditor from './component/ItemEditor.vue'
+import itemEditor from "./component/ItemEditor.vue";
+import itemCheck from "./component/ItemCheck.vue";
 export default {
     name: "",
     data() {
         return {
             itemEditorVisible: false,
+            itemCheckVisible: false,
+            itemValue: {
+                id: 1,
+                title: "",
+                publishTime: "",
+                href: "",
+                imgSrc: "",
+                digest: ""
+            },
             blogs: [
                 {
                     id: 1,
                     title:
+                        "Aum sociis natoque penatibus et magnis dis parturient montes",
+                    publishTime: "2020-07-16",
+                    href: "https://www.csdn.net/",
+                    imgSrc:
+                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
+                    digest:
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
+                },
+                {
+                    id: 1,
+                    title:
+                        "Bum sociis natoque penatibus et magnis dis parturient montes",
+                    publishTime: "2018-07-16",
+                    href: "https://www.csdn.net/",
+                    imgSrc:
+                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
+                    digest:
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
+                },
+                {
+                    id: 1,
+                    title:
                         "Cum sociis natoque penatibus et magnis dis parturient montes",
-                    href: "#",
-                    imgSrc: "@/assets/images/blog/1.jpg",
+                    publishTime: "2019-07-16",
+                    href: "https://www.csdn.net/",
+                    imgSrc:
+                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
                     digest:
                         "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
                 }
             ]
         };
     },
-    components:{
-        itemEditor
+    components: {
+        itemEditor,
+        itemCheck
+    },
+    methods: {
+        confirm() {
+            alert("confirm");
+        },
+
+        /**
+         * 编辑一条记录
+         * @param  data
+         */
+        itemChange(data) {
+            this.itemValue = Object.assign({}, data);
+            this.itemEditorVisible = true;
+        },
+
+        /**
+         * 关闭 itemEditor
+         */
+        closeItemEditor() {
+            this.itemEditorVisible = false;
+        },
+
+        /**
+         * 查看一条记录
+         * @param data
+         */
+        itemCheck(data) {
+            this.itemValue = Object.assign({}, data);
+            this.itemCheckVisible = true;
+        },
+
+        /**
+         * 关闭 itemCheck
+         */
+        closeItemCheck() {
+            this.itemCheckVisible = false;
+        }
     }
 };
 </script>

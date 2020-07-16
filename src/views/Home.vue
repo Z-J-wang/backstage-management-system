@@ -73,3 +73,8 @@ export default {
     margin-bottom: 50px;
 }
 </style>
+<style>
+.el-image-viewer__close{
+    color: white;
+}
+</style>

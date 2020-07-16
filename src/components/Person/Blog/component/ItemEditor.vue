@@ -15,27 +15,32 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="主题" prop="theme">
-                    <el-input v-model="formItem.theme" placeholder="请输入主题"></el-input>
+                <el-form-item label="博客标题" prop="title">
+                    <el-input v-model="formItem.title" placeholder="请输入博客标题"></el-input>
                 </el-form-item>
-                <el-form-item label="时间" prop="dateTime">
+                <el-form-item label="发布时间" prop="publishTime">
                     <el-date-picker
-                        v-model="formItem.dateTime"
-                        type="daterange"
-                        range-separator="至"
-                        start-placeholder="开始时间"
-                        end-placeholder="结束时间"
+                        v-model="formItem.publishTime"
+                        type="date"
+                        placeholder="选择日期"
                         value-format="yyyy-MM-dd"
-                        style="width: 100%;"
+                        :picker-options="pickerOptions"
+                        style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="描述" prop="detail">
+                <el-form-item label="博客链接" prop="href">
+                    <el-input v-model="formItem.href" placeholder="请输入博客链接"></el-input>
+                </el-form-item>
+                <el-form-item label="图片链接" prop="imgSrc">
+                    <el-input v-model="formItem.imgSrc" placeholder="请输入博客介绍图片链接"></el-input>
+                </el-form-item>
+                <el-form-item label="博客摘要" prop="digest">
                     <el-input
-                        v-model="formItem.detail"
+                        v-model="formItem.digest"
                         type="textarea"
-                        maxlength="250"
+                        maxlength="400"
                         show-word-limit
-                        placeholder="请输入描述"
+                        placeholder="请输入博客摘要"
                     ></el-input>
                 </el-form-item>
             </el-form>
@@ -59,31 +64,90 @@ export default {
         }
     },
     mounted() {
-        if(this.formItem.theme){
-            this.title = "编辑教育经历记录"
+        if (this.formItem.theme) {
+            this.title = "编辑教育经历记录";
         }
     },
     data() {
         return {
             rules: {
-                theme: [
-                    { required: true, message: "请输入主题", trigger: "blur" }
+                title: [
+                    {
+                        required: true,
+                        message: "请输入博客标题",
+                        trigger: "blur"
+                    }
                 ],
-                dateTime: [
-                    { required: true, message: "请输入时间", trigger: "blur" }
+                publishTime: [
+                    {
+                        required: true,
+                        message: "请输入博客发布时间",
+                        trigger: "blur"
+                    }
                 ],
-                detail: [
-                    { required: true, message: "请输入描述", trigger: "blur" }
+                href: [
+                    {
+                        required: true,
+                        message: "请输入博客链接",
+                        trigger: "blur"
+                    }
+                ],
+                imgSrc: [
+                    {
+                        required: true,
+                        message: "请输入博客介绍图片链接",
+                        trigger: "blur"
+                    }
+                ],
+                digest: [
+                    {
+                        required: true,
+                        message: "请输入博客摘要",
+                        trigger: "blur"
+                    },{
+                        maxLength: 250,
+                        message: "请输入博客摘要",
+                        trigger: "blur"
+                    }
                 ]
             },
-            title: "新增一条教育经历记录"
+            title: "新增一条教育经历记录",
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+                shortcuts: [
+                    {
+                        text: "今天",
+                        onClick(picker) {
+                            picker.$emit("pick", new Date());
+                        }
+                    },
+                    {
+                        text: "昨天",
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit("pick", date);
+                        }
+                    },
+                    {
+                        text: "一周前",
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit("pick", date);
+                        }
+                    }
+                ]
+            }
         };
     },
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.$refs['form'].resetFields();
+                    this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
                 .catch(() => {});
