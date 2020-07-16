@@ -2,7 +2,7 @@
     <el-menu
         :default-openeds="['1']"
         router
-        default-active="/edu_experience"
+        default-active="/blogs"
         class="el-menu-vertical"
         :collapse="isCollapse"
     >
@@ -23,7 +23,7 @@
             <el-menu-item-group>
                 <el-menu-item index="/personalInfo">基础信息</el-menu-item>
                 <el-menu-item index="/edu_experience">教育经历</el-menu-item>
-                <el-menu-item index="/test">测试压缩</el-menu-item>
+                <el-menu-item index="/blogs">个人博客</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
