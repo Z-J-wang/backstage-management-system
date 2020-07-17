@@ -39,7 +39,7 @@
             <el-table-column
                 fixed="right"
                 label="操作"
-                width="140"
+                width="100"
             >
                 <template slot-scope="scope">
                     <el-button
@@ -67,12 +67,6 @@
             </el-table-column>
         </el-table>
 
-        <item-editor
-            :dialog-visible="itemEditorVisible"
-            :form-item="itemValue"
-            @close="closeItemEditor"
-        ></item-editor>
-
         <item-check
             :drawer-visible="itemCheckVisible"
             :item="itemValue"
@@ -82,7 +76,6 @@
 </template>
 
 <script>
-import itemEditor from "./component/ItemEditor.vue";
 import itemCheck from "./component/ItemCheck.vue";
 export default {
     name: "messages",
@@ -92,11 +85,12 @@ export default {
             itemCheckVisible: false,
             itemValue: {
                 id: 1,
-                title: "",
-                publishTime: "",
-                href: "",
-                imgSrc: "",
-                digest: ""
+                name: "",
+                datatime: "",
+                emial: "",
+                website: "",
+                subject: "",
+                content: "",
             },
             messages: [
                 {
@@ -105,18 +99,13 @@ export default {
                     email: "123@qq.com",
                     website: "www.jay.com",
                     subject: "web 开发",
-                    content: `最早的软件都是运行在大型机上的，软件使用者通过“哑终端”登陆到大型机上去运行软件。后来随着PC机的兴起，软件开始主要运行在桌面上，而数据库这样的软件运行在服务器端，这种Client/Server模式简称CS架构。
-
-随着互联网的兴起，人们发现，CS架构不适合Web，最大的原因是Web应用程序的修改和升级非常迅速，而CS架构需要每个客户端逐个升级桌面App，因此，Browser/Server模式开始流行，简称BS架构。
-
-在BS架构下，客户端只需要浏览器，应用程序的逻辑和数据都存储在服务器端。浏览器只需要请求服务器，获取Web页面，并把Web页面展示给用户即可。`,
+                    content: `最早的软件都是运行在大型机上的，软件使用者通过“哑终端”登陆到大型机上去运行软件。后来随着PC机的兴起，软件开始主要运行在桌面上，而数据库这样的软件运行在服务器端，这种Client/Server模式简称CS架构。随着互联网的兴起，人们发现，CS架构不适合Web，最大的原因是Web应用程序的修改和升级非常迅速，而CS架构需要每个客户端逐个升级桌面App，因此，Browser/Server模式开始流行，简称BS架构。在BS架构下，客户端只需要浏览器，应用程序的逻辑和数据都存储在服务器端。浏览器只需要请求服务器，获取Web页面，并把Web页面展示给用户即可。`,
                     datetime: "2020-7-16 21:56:00"
                 }
             ]
         };
     },
     components: {
-        itemEditor,
         itemCheck
     },
     methods: {

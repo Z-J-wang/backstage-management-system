@@ -1,6 +1,6 @@
 <template>
     <el-drawer
-        title=""
+        title="教育经历详情"
         direction="ltr"
         :visible.sync="drawerVisible"
         :before-close="handleClose"

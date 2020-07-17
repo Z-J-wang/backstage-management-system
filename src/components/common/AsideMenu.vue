@@ -24,7 +24,7 @@
                 <el-menu-item index="/personalInfo">基础信息</el-menu-item>
                 <el-menu-item index="/edu_experience">教育经历</el-menu-item>
                 <el-menu-item index="/blogs">个人博客</el-menu-item>
-                <el-menu-item index="/messages">个人博客</el-menu-item>
+                <el-menu-item index="/messages">来访信件</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">

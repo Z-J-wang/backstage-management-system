@@ -1,5 +1,5 @@
 <template>
-    <el-drawer title direction="ltr" :visible.sync="drawerVisible" :before-close="handleClose">
+    <el-drawer title="博客详情" direction="ltr" :visible.sync="drawerVisible" :before-close="handleClose">
         <el-row class="text-l">
             <el-col :span="8">博客标题：</el-col>
             <el-col :span="16">{{ item.title }}</el-col>
