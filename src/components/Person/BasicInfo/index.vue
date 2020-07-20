@@ -226,6 +226,10 @@ export default {
         headPortrait,
         districtSelect
     },
+    created(){
+        // this.personalInfo = 
+        this.$HttpApi.getBasicinfo();
+    },
     methods: {
         AlleditorClose() {
             this.name_editor = false;
