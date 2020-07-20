@@ -23,7 +23,7 @@ export default {
     name: "head-portrait",
     data() {
         return {
-            imageUrl: require("../../assets/logo.png")
+            imageUrl: require("@a//logo.png")
         };
     },
     methods: {

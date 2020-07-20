@@ -4,7 +4,12 @@
             <el-col :span="12" style="padding-left:60px;">
                 <el-row>
                     <el-col :span="18">
-                        <el-form ref="personalInfo" :model="personalInfo" :rules="rules" label-width="100px">
+                        <el-form
+                            ref="personalInfo"
+                            :model="personalInfo"
+                            :rules="rules"
+                            label-width="100px"
+                        >
                             <el-form-item label="姓名" prop="name">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!name_editor">
@@ -174,8 +179,8 @@
 </template>
 
 <script>
-import headPortrait from "./HeadPortrait.vue";
-import districtSelect from "../common/From_tools/DIstrictSelect.vue";
+import headPortrait from "./component/HeadPortrait.vue";
+import districtSelect from "@c/common/From_tools/DIstrictSelect.vue";
 
 export default {
     name: "peronal-info",
@@ -191,16 +196,23 @@ export default {
 
             // 个人基础数据
             personalInfo: {
-                name: "xxx",
-                birthday: "1996-10-04",
-                placeOfBirth: "广东湛江",
+                name: "Jay",
+                gender: true,
+                birthday: "1996-10-04T00:00:00.000Z",
+                placeOfBirth: "广东省湛江市",
                 nationality: "中国",
-                presentAddress: ["广东省", "湛江市"],
-                introducts: "Vest"
+                presentAddress: ['广东省','深圳市'],
+                introducts: "Web 开发"
             },
 
-            rules:{
-                name: [{required: true, message: '请输入活动名称', trigger: 'blur'}]
+            rules: {
+                name: [
+                    {
+                        required: true,
+                        message: "请输入活动名称",
+                        trigger: "blur"
+                    }
+                ]
             }
         };
     },
@@ -229,10 +241,8 @@ export default {
                 elem.focus();
             }, 0);
         },
-        onSubmit(){
-
-        },
-        resetForm(from){
+        onSubmit() {},
+        resetForm(from) {
             this.$refs[from].resetFields();
         }
     }

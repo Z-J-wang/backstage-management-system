@@ -9,20 +9,11 @@ const routes = [{
         name: 'Home',
         component: Home,
         redirect: 'messages',
-        children: [{
-                path: '/test',
-                name: '测试页面',
-                component: () => import( /* webpackChunkName: "test" */ '@c/Test.vue')
-            },
-            {
-                path: '/tableView',
-                name: '表格页面',
-                component: () => import( /* webpackChunkName: "test" */ '../components/TableView.vue')
-            },
+        children: [
             {
                 path: '/personalInfo',
                 name: '个人基础信息',
-                component: () => import( /* webpackChunkName: "PersonalInfo" */ '../components/Person/PersonalInfo.vue')
+                component: () => import( /* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
             },
             {
                 path: '/edu_experience',
