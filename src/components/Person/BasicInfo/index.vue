@@ -34,7 +34,7 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="籍贯">
+                            <el-form-item label="籍贯" prop="placeOfBirth">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!placeOfBirth_editor">
                                         {{personalInfo.placeOfBirth.join(' / ')}}
@@ -64,7 +64,7 @@
                                     ></district-select>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="出生日期">
+                            <el-form-item label="出生日期" prop="birthday">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!birthday_editor">
                                         {{personalInfo.birthday}}
@@ -92,7 +92,7 @@
                                     ></el-date-picker>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="国籍">
+                            <el-form-item label="国籍" prop="nationality">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!nationality_editor">
                                         {{personalInfo.nationality}}
@@ -116,7 +116,7 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="现居地">
+                            <el-form-item label="现居地" prop="presentAddress">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!presentAddress_editor">
                                         {{personalInfo.presentAddress.join(' / ')}}
@@ -140,7 +140,7 @@
                                     ></district-select>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="个人简介">
+                            <el-form-item label="个人简介" prop="introducts">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!introducts_editor">
                                         {{personalInfo.introducts}}
@@ -187,6 +187,7 @@
 <script>
 import headPortrait from "./component/HeadPortrait.vue";
 import districtSelect from "@c/common/From_tools/DIstrictSelect.vue";
+import validate_rules from "./validate_rules.js"; // 引入 validate rules
 
 export default {
     name: "peronal-info",
@@ -210,17 +211,7 @@ export default {
                 presentAddress: ["广东省", "深圳市"],
                 introducts: "Web 开发"
             },
-
-            rules: {
-                name: [
-                    {
-                        required: true,
-                        message: "请输入活动名称",
-                        trigger: "blur"
-                    }
-                ]
-            },
-
+            rules: validate_rules,
             btn_changeVisible: false
         };
     },
@@ -229,7 +220,7 @@ export default {
         districtSelect
     },
     created() {
-        this.getBasicinfo()
+        this.getBasicinfo();
     },
     watch: {
         personalInfo: {
@@ -240,6 +231,9 @@ export default {
         }
     },
     methods: {
+        /**
+         * 隐藏表单控件
+         */
         AlleditorClose() {
             this.name_editor = false;
             this.placeOfBirth_editor = false;
@@ -248,38 +242,55 @@ export default {
             this.presentAddress_editor = false;
             this.introducts_editor = false;
         },
+
+        /**
+         * input 的 id 获取焦点
+         * @param {string} id
+         */
         editorGetFocus(id) {
             const elem = document.getElementById(id);
             setTimeout(function() {
                 elem.focus();
             }, 0);
         },
-        onSubmit() {
-            this.$confirm("确认提交？")
-                .then(() => {
-                    this.changeBasicinfo(this.personalInfo)
-                })
 
-            //  this.$refs[formName].validate(valid => {
-            //     if (valid) {
-            //         this.$emit("close");
-            //     } else {
-            //         return false;
-            //     }
-            // });
-        },
-        resetForm(from) {
-            this.$refs[from].resetFields();
+        /**
+         * 提交修改的个人基础信息
+         * @param {string} formName
+         */
+        async onSubmit(formName) {
+            let ret_confirm = await this.$confirm("确认提交？");
+            if (ret_confirm) {
+                let ret_valid = await this.$refs[formName].validate(); // 进行表单验证
+                if (ret_valid) {
+                    this.changeBasicinfo(this.personalInfo);
+                }
+            }
         },
 
-        // ajax 部分
-        async getBasicinfo(){
-           let res = await this.$HttpApi.getBasicinfo();
-            if(res.status === 200){
+        /**
+         * 重置表单
+         * @param {string} formName
+         */
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ajax 部分 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /**
+         * 获取个人基础信息
+         */
+        async getBasicinfo() {
+            let res = await this.$HttpApi.getBasicinfo();
+            if (res.status === 200) {
                 this.personalInfo = res.data;
-                this.btn_changeVisible = false;
-            }else{
-                this.$message.error("糟糕！！系统出错！请刷新页面重新获取！")
+                
+                // 获取个人信息后，强制隐藏提价btn
+                setTimeout(()=> {
+                    this.btn_changeVisible = false;
+                }, 0)
+            } else {
+                this.$message.error("糟糕！！系统出错！请刷新页面重新获取！");
             }
         },
 
@@ -287,14 +298,14 @@ export default {
          * 修改个人基础信息
          * @param {object} params
          */
-        async changeBasicinfo(params){
+        async changeBasicinfo(params) {
             let res = await this.$HttpApi.updateBasicinfo(params);
-            if(res.status === 200){
+            if (res.status === 200) {
                 this.$message({
-                    message: '个人基础信息更新成功！'
-                })
-            }else{
-                 this.$message.error("糟糕！！系统出错！请重试！")
+                    message: "个人基础信息更新成功！"
+                });
+            } else {
+                this.$message.error("糟糕！！系统出错！请重试！");
             }
         }
     }
