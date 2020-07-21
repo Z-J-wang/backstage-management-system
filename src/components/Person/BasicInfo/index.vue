@@ -22,7 +22,7 @@
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
-                                                @dblclick="name_editor = true; editorGetFocus('placeOfBirth');"
+                                                @dblclick="name_editor = true; editorGetFocus('name');"
                                             ></i>
                                         </el-tooltip>
                                     </div>
@@ -37,7 +37,7 @@
                             <el-form-item label="籍贯">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!placeOfBirth_editor">
-                                        {{personalInfo.placeOfBirth}}
+                                        {{personalInfo.placeOfBirth.join(' / ')}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
@@ -50,12 +50,18 @@
                                             ></i>
                                         </el-tooltip>
                                     </div>
-                                    <el-input
+                                    <!-- <el-input
                                         id="placeOfBirth"
                                         v-model="personalInfo.placeOfBirth"
                                         v-show="placeOfBirth_editor"
                                         @click.stop.native
-                                    ></el-input>
+                                    ></el-input>-->
+                                    <district-select
+                                        id="placeOfBirth"
+                                        v-model="personalInfo.placeOfBirth"
+                                        v-show="placeOfBirth_editor"
+                                        @click.stop.native
+                                    ></district-select>
                                 </div>
                             </el-form-item>
                             <el-form-item label="出生日期">
@@ -113,7 +119,7 @@
                             <el-form-item label="现居地">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!presentAddress_editor">
-                                        {{formatOfPresentAddress}}
+                                        {{personalInfo.presentAddress.join(' / ')}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
@@ -163,8 +169,8 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item style="margin-top: 100px;">
-                                <el-button type="primary" @click="onSubmit('personalInfo')">立即创建</el-button>
+                            <el-form-item style="margin-top: 100px;" v-show="btn_changeVisible">
+                                <el-button type="primary" @click="onSubmit('personalInfo')">确定修改</el-button>
                                 <el-button @click="resetForm('personalInfo')">取消</el-button>
                             </el-form-item>
                         </el-form>
@@ -198,10 +204,10 @@ export default {
             personalInfo: {
                 name: "Jay",
                 gender: true,
-                birthday: "1996-10-04T00:00:00.000Z",
-                placeOfBirth: "广东省湛江市",
+                birthday: "1996-10-04",
+                placeOfBirth: ["广东省", "深圳市"],
                 nationality: "中国",
-                presentAddress: ['广东省','深圳市'],
+                presentAddress: ["广东省", "深圳市"],
                 introducts: "Web 开发"
             },
 
@@ -213,22 +219,25 @@ export default {
                         trigger: "blur"
                     }
                 ]
-            }
+            },
+
+            btn_changeVisible: false
         };
-    },
-    computed: {
-        // 现居地格式化
-        formatOfPresentAddress() {
-            return this.personalInfo.presentAddress.join(" / ");
-        }
     },
     components: {
         headPortrait,
         districtSelect
     },
-    created(){
-        // this.personalInfo = 
-        this.$HttpApi.getBasicinfo();
+    created() {
+        this.getBasicinfo()
+    },
+    watch: {
+        personalInfo: {
+            handler: function() {
+                this.btn_changeVisible = true;
+            },
+            deep: true
+        }
     },
     methods: {
         AlleditorClose() {
@@ -245,9 +254,48 @@ export default {
                 elem.focus();
             }, 0);
         },
-        onSubmit() {},
+        onSubmit() {
+            this.$confirm("确认提交？")
+                .then(() => {
+                    this.changeBasicinfo(this.personalInfo)
+                })
+
+            //  this.$refs[formName].validate(valid => {
+            //     if (valid) {
+            //         this.$emit("close");
+            //     } else {
+            //         return false;
+            //     }
+            // });
+        },
         resetForm(from) {
             this.$refs[from].resetFields();
+        },
+
+        // ajax 部分
+        async getBasicinfo(){
+           let res = await this.$HttpApi.getBasicinfo();
+            if(res.status === 200){
+                this.personalInfo = res.data;
+                this.btn_changeVisible = false;
+            }else{
+                this.$message.error("糟糕！！系统出错！请刷新页面重新获取！")
+            }
+        },
+
+        /**
+         * 修改个人基础信息
+         * @param {object} params
+         */
+        async changeBasicinfo(params){
+            let res = await this.$HttpApi.updateBasicinfo(params);
+            if(res.status === 200){
+                this.$message({
+                    message: '个人基础信息更新成功！'
+                })
+            }else{
+                 this.$message.error("糟糕！！系统出错！请重试！")
+            }
         }
     }
 };
