@@ -34,6 +34,33 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
+                            <el-form-item label="性别" prop="gender">
+                                <div class="p-l-60">
+                                    <div style="text-align:left;" v-show="!gender_editor">
+                                        {{personalInfo.gender ? '男' : '女'}}
+                                        <el-tooltip
+                                            class="item"
+                                            effect="light"
+                                            content="双击进行编辑"
+                                            placement="right"
+                                        >
+                                            <i
+                                                class="el-icon-edit pointer"
+                                                @dblclick="gender_editor = true; editorGetFocus('gender');"
+                                            ></i>
+                                        </el-tooltip>
+                                    </div>
+                                    <el-radio-group
+                                        id="gender"
+                                        v-model="personalInfo.gender"
+                                        v-show="gender_editor"
+                                        @click.stop.native
+                                    >
+                                        <el-radio :label="true">男</el-radio>
+                                        <el-radio :label="false">女</el-radio>
+                                    </el-radio-group>
+                                </div>
+                            </el-form-item>
                             <el-form-item label="籍贯" prop="placeOfBirth">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!placeOfBirth_editor">
@@ -195,6 +222,7 @@ export default {
         return {
             /* 编辑器控制器 */
             name_editor: false,
+            gender_editor: false,
             placeOfBirth_editor: false,
             birthday_editor: false,
             nationality_editor: false,
@@ -236,6 +264,7 @@ export default {
          */
         AlleditorClose() {
             this.name_editor = false;
+            this.gender_editor = false;
             this.placeOfBirth_editor = false;
             this.birthday_editor = false;
             this.nationality_editor = false;
@@ -284,11 +313,11 @@ export default {
             let res = await this.$HttpApi.getBasicinfo();
             if (res.status === 200) {
                 this.personalInfo = res.data;
-                
+
                 // 获取个人信息后，强制隐藏提价btn
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.btn_changeVisible = false;
-                }, 0)
+                }, 0);
             } else {
                 this.$message.error("糟糕！！系统出错！请刷新页面重新获取！");
             }
