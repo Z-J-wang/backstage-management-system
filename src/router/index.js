@@ -2,6 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -9,8 +15,7 @@ const routes = [{
         name: 'Home',
         component: Home,
         redirect: 'messages',
-        children: [
-            {
+        children: [{
                 path: '/personalInfo',
                 name: '个人基础信息',
                 component: () => import( /* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
@@ -29,6 +34,17 @@ const routes = [{
                 path: '/messages',
                 name: '信息管理',
                 component: () => import( /* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
+            },
+            {
+                path: 'BMYX/',
+                name: 'BMYX',
+                redirect: '/BMYX/product',
+                component: () => import( /* webpackChunkName: "BMYX_Product" */ '../components/BMYX/Product/index.vue'),
+                children: [{
+                    path: 'product',
+                    name: '产品列表',
+                    component: () => import( /* webpackChunkName: "BMYX_Product" */ '../components/BMYX/Product/index.vue')
+                }]
             },
         ]
     },

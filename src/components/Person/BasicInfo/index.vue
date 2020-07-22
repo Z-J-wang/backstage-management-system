@@ -313,7 +313,7 @@ export default {
             let res = await this.$HttpApi.getBasicinfo();
             if (res.status === 200) {
                 this.personalInfo = res.data;
-
+                console.log(res)
                 // 获取个人信息后，强制隐藏提价btn
                 setTimeout(() => {
                     this.btn_changeVisible = false;

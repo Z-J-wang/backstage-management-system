@@ -30,11 +30,11 @@
         <el-submenu index="2">
             <template slot="title">
                 <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
+                <span slot="title">便民优享</span>
             </template>
             <el-menu-item-group>
                 <template slot="title">分组一</template>
-                <el-menu-item index="2-1">选项1</el-menu-item>
+               <el-menu-item index="/BMYX/product">产品列表</el-menu-item>
                 <el-menu-item index="2-2">选项2</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
