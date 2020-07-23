@@ -331,7 +331,8 @@ export default {
             let res = await this.$HttpApi.updateBasicinfo(params);
             if (res.status === 200) {
                 this.$message({
-                    message: "个人基础信息更新成功！"
+                    message: "个人基础信息更新成功！",
+                    type:'success'
                 });
             } else {
                 this.$message.error("糟糕！！系统出错！请重试！");

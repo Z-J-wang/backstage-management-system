@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="title"
-        :visible.sync="dialogVisible"
+        :visible.sync="visible"
         width="30%"
         :before-close="handleClose"
         :close-on-click-modal="false"
@@ -15,7 +15,7 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="菜名" prop="title">
+                <el-form-item label="菜名" prop="name">
                     <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
                 </el-form-item>
                 <el-form-item label="今天价格" prop="nowPrice">
@@ -58,29 +58,27 @@
 </template>
 <script>
 import uploadImage from "@c/common/From_tools/UploadImage.vue";
-import validate_rules from "./validate-rule";
+import validate_rules from "./validate-rule.js";
 
 export default {
-    name: "changeItem",
+    name: "addNewItem",
     props: {
-        dialogVisible: {
+        visible: {
             type: Boolean,
             default: false
-        },
-        formItem: {
-            type: Object
-        }
-    },
-    mounted() {
-        if (this.formItem.theme) {
-            this.title = "编辑教育经历记录";
         }
     },
     data() {
         return {
             action: "",
             rules: validate_rules,
-            title: "新增一条菜品"
+            title: "新增一条菜品",
+            formItem: {
+                name: "",
+                nowPrice: "",
+                imgSrc: "",
+                detail: ""
+            }
         };
     },
     components: {
@@ -98,16 +96,16 @@ export default {
         async onSubmit(formName) {
             let valid = await this.$refs[formName].validate();
             if (valid) {
-                this.createNewProduct(this.formItem);
+                await this.createNewProduct(this.formItem);
                 this.$emit("close");
             }
         },
 
         async createNewProduct(data) {
             let ret = await this.$HttpApi.createProduct(data);
-            if (ret.status === 200 && ret.data.code == 200) {
+            if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
-                    message: "个人基础信息更新成功！",
+                    message: `${ret.data.data.name} 添加成功！`,
                     type: "success"
                 });
             } else {

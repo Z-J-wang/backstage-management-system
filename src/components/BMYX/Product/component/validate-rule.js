@@ -1,5 +1,5 @@
 const rules = {
-    title: [{
+    name: [{
         required: true,
         message: "请输入菜名",
         trigger: "blur"

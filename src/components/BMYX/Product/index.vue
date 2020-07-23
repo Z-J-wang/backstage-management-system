@@ -1,7 +1,7 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="itemEditorVisible = true">新增一笔</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -17,10 +17,7 @@
             <el-table-column prop="oldPrice" label="昨天价格"></el-table-column>
             <el-table-column prop="imgSrc" label="图片">
                 <template slot-scope="scope">
-                    <el-image
-                        style="width: 80px; height: 80px"
-                        :src="scope.row.imgSrc"
-                    ></el-image>
+                    <el-image style="width: 80px; height: 80px" :src="scope.row.imgSrc"></el-image>
                 </template>
             </el-table-column>
             <el-table-column prop="detail" label="介绍"></el-table-column>
@@ -66,16 +63,20 @@
         ></item-editor>
 
         <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
+        <add-item :visible="addItemVisible" @close="closeAddItem"></add-item>
     </div>
 </template>
 
 <script>
 import itemEditor from "./component/ItemEditor.vue";
 import itemCheck from "./component/ItemCheck.vue";
+import addItem from "./component/AddItem.vue";
+
 export default {
     name: "",
     data() {
         return {
+            addItemVisible: false,
             itemEditorVisible: false,
             itemCheckVisible: false,
             itemValue: {
@@ -92,7 +93,8 @@ export default {
                     name: "上海青",
                     nowPrice: "10.00",
                     oldPrice: "9.00",
-                    imgSrc: "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
+                    imgSrc:
+                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
                     detail: "上海青"
                 }
             ]
@@ -100,11 +102,22 @@ export default {
     },
     components: {
         itemEditor,
-        itemCheck
+        itemCheck,
+        addItem
+    },
+    async mounted(){
+        this.dataList = await this.getData();
     },
     methods: {
         confirm() {
             alert("confirm");
+        },
+
+        /**
+         * 关闭 addItem
+         */
+        closeAddItem() {
+            this.addItemVisible = false;
         },
 
         /**
@@ -137,6 +150,18 @@ export default {
          */
         closeItemCheck() {
             this.itemCheckVisible = false;
+        },
+
+        async getData(selectCond) {
+            let res = await this.$HttpApi.getBMYXProductList(selectCond);
+            let data = [];
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
         }
     }
 };
