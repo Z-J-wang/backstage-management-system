@@ -1,7 +1,11 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
+            <el-button
+                type="primary"
+                icon="el-icon-plus"
+                @click="addItemVisible = true"
+            >新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -11,17 +15,45 @@
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column prop="id" label="id" sortable></el-table-column>
-            <el-table-column prop="name" label="菜品" sortable width="240"></el-table-column>
-            <el-table-column prop="nowPrice" label="今天价格"></el-table-column>
-            <el-table-column prop="oldPrice" label="昨天价格"></el-table-column>
-            <el-table-column prop="imgSrc" label="图片">
+            <el-table-column
+                prop="id"
+                label="id"
+                sortable
+            ></el-table-column>
+            <el-table-column
+                prop="name"
+                label="菜品"
+                sortable
+                width="240"
+            ></el-table-column>
+            <el-table-column
+                prop="nowPrice"
+                label="今天价格"
+            ></el-table-column>
+            <el-table-column
+                prop="oldPrice"
+                label="昨天价格"
+            ></el-table-column>
+            <el-table-column
+                prop="imgSrc"
+                label="图片"
+            >
                 <template slot-scope="scope">
-                    <el-image style="width: 80px; height: 80px" :src="scope.row.imgSrc"></el-image>
+                    <el-image
+                        style="width: 50px; height: 50px"
+                        :src="scope.row.imgSrc"
+                    ></el-image>
                 </template>
             </el-table-column>
-            <el-table-column prop="detail" label="介绍"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="140">
+            <el-table-column
+                prop="detail"
+                label="介绍"
+            ></el-table-column>
+            <el-table-column
+                fixed="right"
+                label="操作"
+                width="140"
+            >
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemCheck(scope.row)"
@@ -41,7 +73,7 @@
                     <el-popconfirm
                         title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
-                        @onConfirm="confirm()"
+                        @onConfirm="delConfirm(scope.row.id)"
                     >
                         <el-button
                             type="danger"
@@ -62,8 +94,16 @@
             @close="closeItemEditor"
         ></item-editor>
 
-        <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
-        <add-item :visible="addItemVisible" @close="closeAddItem"></add-item>
+        <item-check
+            :drawer-visible="itemCheckVisible"
+            :item="itemValue"
+            @close="closeItemCheck"
+        ></item-check>
+
+        <add-item
+            :visible="addItemVisible"
+            @close="closeAddItem"
+        ></add-item>
     </div>
 </template>
 
@@ -85,32 +125,28 @@ export default {
                 nowPrice: "",
                 oldPrice: "",
                 imgSrc: "",
-                detail: ""
+                detail: "",
             },
-            dataList: [
-                {
-                    id: 1,
-                    name: "上海青",
-                    nowPrice: "10.00",
-                    oldPrice: "9.00",
-                    imgSrc:
-                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
-                    detail: "上海青"
-                }
-            ]
+            dataList: [{}],
         };
     },
     components: {
         itemEditor,
         itemCheck,
-        addItem
+        addItem,
     },
-    async mounted(){
-        this.dataList = await this.getData();
+     mounted() {
+        this.setDataList();
     },
     methods: {
-        confirm() {
-            alert("confirm");
+        delConfirm(id) {
+            this.delPriduct(id);
+        },
+
+        async setDataList(){
+            this.dataList.length = 0;
+            this.dataList = await this.getData();
+
         },
 
         /**
@@ -152,6 +188,11 @@ export default {
             this.itemCheckVisible = false;
         },
 
+        // ajax 部分
+        /**
+         * 条件查询
+         * @param selectCond
+         */
         async getData(selectCond) {
             let res = await this.$HttpApi.getBMYXProductList(selectCond);
             let data = [];
@@ -162,8 +203,27 @@ export default {
             }
 
             return data;
+        },
+
+        /**
+         * 删除指定的 product
+         * @param {number} id
+         */
+        async delPriduct(id){
+            let res = await this.$HttpApi.getBMYXProductList(selectCond);
+
+            if (res.status === 200 && res.data.code === 1000) {
+                this.$message({
+                    message:"删除成功！",
+                    type: "success"
+                })
+                this.setDataList()
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
         }
-    }
+    },
 };
 </script>
 

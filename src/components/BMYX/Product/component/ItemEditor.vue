@@ -15,13 +15,37 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="菜名" prop="title">
-                    <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
+                <el-form-item
+                    label="菜名"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入菜名"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="今天价格" prop="nowPrice">
-                    <el-input v-model="formItem.nowPrice" placeholder="请输入今天价格"></el-input>
+                <el-form-item
+                    label="今天价格"
+                    prop="nowPrice"
+                >
+                    <el-input
+                        v-model="formItem.nowPrice"
+                        placeholder="请输入今天价格"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item
+                    label="昨天价格"
+                    prop="oldPrice"
+                >
+                    <el-input
+                        v-model="formItem.oldPrice"
+                        placeholder="请输入昨天价格"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="图片链接"
+                    prop="imgSrc"
+                >
                     <el-row>
                         <el-col :span="12">
                             <upload-image
@@ -39,7 +63,10 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="介绍" prop="detail">
+                <el-form-item
+                    label="介绍"
+                    prop="detail"
+                >
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -50,9 +77,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -65,26 +98,21 @@ export default {
     props: {
         dialogVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         formItem: {
-            type: Object
-        }
-    },
-    mounted() {
-        if (this.formItem.theme) {
-            this.title = "编辑教育经历记录";
-        }
+            type: Object,
+        },
     },
     data() {
         return {
             action: "",
             rules: validate_rules,
-            title: "新增一条菜品"
+            title: "修改一条菜品",
         };
     },
     components: {
-        uploadImage
+        uploadImage,
     },
     methods: {
         handleClose() {
@@ -95,26 +123,28 @@ export default {
                 })
                 .catch(() => {});
         },
+
         async onSubmit(formName) {
             let valid = await this.$refs[formName].validate();
             if (valid) {
-                this.createNewProduct(this.formItem);
+                this.updatedProduct(this.formItem);
                 this.$emit("close");
+                this.$parent.setDataList();
             }
         },
 
-        async createNewProduct(data) {
-            let ret = await this.$HttpApi.createProduct(data);
-            if (ret.status === 200 && ret.data.code == 200) {
+        async updatedProduct(data) {
+            let ret = await this.$HttpApi.updatedProduct(data);
+            if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: "个人基础信息更新成功！",
-                    type: "success"
+                    type: "success",
                 });
             } else {
                 this.$message.error("系统出错，请重试！");
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

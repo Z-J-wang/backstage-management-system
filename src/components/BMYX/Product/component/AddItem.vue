@@ -108,6 +108,7 @@ export default {
                     message: `${ret.data.data.name} 添加成功！`,
                     type: "success"
                 });
+                this.$parent.setDataList()
             } else {
                 this.$message.error("系统出错，请重试！");
             }

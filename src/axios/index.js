@@ -34,4 +34,8 @@ export default class HttpApi {
     createProduct(params){
         return instance.post('/api/bmyx/createProduct', params)
     }
+
+    updatedProduct(params){
+        return instance.post('/api/bmyx/updateProduct', params)
+    }
 }

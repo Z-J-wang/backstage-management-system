@@ -9,6 +9,11 @@ const rules = {
         message: "请输入今天的价格",
         trigger: "blur"
     }],
+    oldPrice: [{
+        required: true,
+        message: "请输入昨天的价格",
+        trigger: "blur"
+    }],
     digest: [
         {
             maxLength: 250,
