@@ -140,7 +140,7 @@ export default {
     },
     methods: {
         delConfirm(id) {
-            this.delPriduct(id);
+            this.delProduct(id);
         },
 
         async setDataList(){
@@ -209,8 +209,9 @@ export default {
          * 删除指定的 product
          * @param {number} id
          */
-        async delPriduct(id){
-            let res = await this.$HttpApi.delPriduct(id);
+        async delProduct(id){
+
+            let res = await this.$HttpApi.delProduct({id: id});
 
             if (res.status === 200 && res.data.code === 1000) {
                 this.$message({

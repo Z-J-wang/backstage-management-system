@@ -40,7 +40,7 @@ export default class HttpApi {
     }
 
 
-    delPriduct(params) {
-        return instance.post('/api/bmyx/delPriduct', params)
+    delProduct(params) {
+        return instance.post('/api/bmyx/delProduct', params)
     }
 }
