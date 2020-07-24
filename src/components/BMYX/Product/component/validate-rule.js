@@ -4,7 +4,7 @@ const rules = {
         message: "请输入菜名",
         trigger: "blur"
     }],
-    sort: [{
+    s_Id: [{
         required: true,
         message: "请选择类别",
         trigger: "blur"

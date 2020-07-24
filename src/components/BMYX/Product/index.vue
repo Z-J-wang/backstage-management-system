@@ -27,10 +27,13 @@
                 width="240"
             ></el-table-column>
             <el-table-column
-                prop="sort"
                 label="类别"
                 sortable
-            ></el-table-column>
+            >
+                <template slot-scope="scope">
+                    <span>{{ scope.row['sort.name'] }}</span>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="nowPrice"
                 label="今天价格"
@@ -127,7 +130,7 @@ export default {
             itemValue: {
                 id: 1,
                 name: "",
-                sort:"",
+                sort: "",
                 nowPrice: "",
                 oldPrice: "",
                 imgSrc: "",
@@ -141,7 +144,7 @@ export default {
         itemCheck,
         addItem,
     },
-     mounted() {
+    mounted() {
         this.setDataList();
     },
     methods: {
@@ -149,10 +152,10 @@ export default {
             this.delProduct(id);
         },
 
-        async setDataList(){
+        async setDataList() {
             this.dataList.length = 0;
             this.dataList = await this.getData();
-
+            console.log(this.dataList);
         },
 
         /**
@@ -215,21 +218,19 @@ export default {
          * 删除指定的 product
          * @param {number} id
          */
-        async delProduct(id){
-
-            let res = await this.$HttpApi.delProduct({id: id});
+        async delProduct(id) {
+            let res = await this.$HttpApi.delProduct({ id: id });
 
             if (res.status === 200 && res.data.code === 1000) {
                 this.$message({
-                    message:"删除成功！",
-                    type: "success"
-                })
-                this.setDataList()
+                    message: "删除成功！",
+                    type: "success",
+                });
+                this.setDataList();
             } else {
                 this.$message.error(res.data.msg);
             }
-
-        }
+        },
     },
 };
 </script>

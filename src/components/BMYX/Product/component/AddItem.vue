@@ -26,10 +26,10 @@
                 </el-form-item>
                 <el-form-item
                     label="类别"
-                    prop="sort"
+                    prop="s_Id"
                 >
                     <el-select
-                        v-model="formItem.sort"
+                        v-model="formItem.s_Id"
                         clearable
                         placeholder="请选择"
                         style="width:100%;"
@@ -38,7 +38,7 @@
                             v-for="item in options"
                             :key="item.id"
                             :label="item.name"
-                            :value="item.name"
+                            :value="item.id"
                         >
                         </el-option>
                     </el-select>
@@ -118,7 +118,7 @@ export default {
             title: "新增一条菜品",
             formItem: {
                 name: "",
-                sort: "",
+                s_Id: "",
                 nowPrice: "",
                 imgSrc: "",
                 detail: "",
