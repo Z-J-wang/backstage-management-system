@@ -15,14 +15,26 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="分类" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入分类"></el-input>
+                <el-form-item
+                    label="分类"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入分类"
+                    ></el-input>
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -73,12 +85,19 @@ export default {
 
         async createNewProduct(data) {
             let ret = await this.$HttpApi.createSort(data);
-            if (ret.status === 200 && ret.data.code == 1000) {
-                this.$message({
-                    message: `${ret.data.data.name} 添加成功！`,
-                    type: "success",
-                });
-                this.$parent.setDataList();
+            if (ret.status === 200) {
+                if (ret.data.code == 1000) {
+                    this.$message({
+                        message: `${ret.data.data.name} 添加成功！`,
+                        type: "success",
+                    });
+                    this.$parent.setDataList();
+                }else{
+                    this.$message({
+                        message: ret.data.msg,
+                        type: "error",
+                    });
+                }
             } else {
                 this.$message.error("系统出错，请重试！");
             }

@@ -27,6 +27,11 @@
                 width="240"
             ></el-table-column>
             <el-table-column
+                prop="sort"
+                label="类别"
+                sortable
+            ></el-table-column>
+            <el-table-column
                 prop="nowPrice"
                 label="今天价格"
             ></el-table-column>
@@ -122,6 +127,7 @@ export default {
             itemValue: {
                 id: 1,
                 name: "",
+                sort:"",
                 nowPrice: "",
                 oldPrice: "",
                 imgSrc: "",

@@ -15,13 +15,47 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="菜名" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
+                <el-form-item
+                    label="菜名"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入菜名"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="今天价格" prop="nowPrice">
-                    <el-input v-model="formItem.nowPrice" placeholder="请输入今天价格"></el-input>
+                <el-form-item
+                    label="类别"
+                    prop="sort"
+                >
+                    <el-select
+                        v-model="formItem.sort"
+                        clearable
+                        placeholder="请选择"
+                        style="width:100%;"
+                    >
+                        <el-option
+                            v-for="item in options"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.name"
+                        >
+                        </el-option>
+                    </el-select>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item
+                    label="今天价格"
+                    prop="nowPrice"
+                >
+                    <el-input
+                        v-model="formItem.nowPrice"
+                        placeholder="请输入今天价格"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item
+                    label="图片链接"
+                    prop="imgSrc"
+                >
                     <el-row>
                         <el-col :span="12">
                             <upload-image
@@ -39,7 +73,10 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="介绍" prop="detail">
+                <el-form-item
+                    label="介绍"
+                    prop="detail"
+                >
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -50,9 +87,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -65,8 +108,8 @@ export default {
     props: {
         visible: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
@@ -75,14 +118,20 @@ export default {
             title: "新增一条菜品",
             formItem: {
                 name: "",
+                sort: "",
                 nowPrice: "",
                 imgSrc: "",
-                detail: ""
-            }
+                detail: "",
+            },
+            options: [],
         };
     },
     components: {
-        uploadImage
+        uploadImage,
+    },
+    async mounted(){
+        this.options = await this.getSort();
+        console.log(this.options)
     },
     methods: {
         handleClose() {
@@ -106,14 +155,29 @@ export default {
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: `${ret.data.data.name} 添加成功！`,
-                    type: "success"
+                    type: "success",
                 });
-                this.$parent.setDataList()
+                this.$parent.setDataList();
             } else {
                 this.$message.error("系统出错，请重试！");
             }
-        }
-    }
+        },
+
+        /**
+         * 获取类别
+         */
+        async getSort() {
+            let res = await this.$HttpApi.getBMYXSort();
+            let data = [];
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
+        },
+    },
 };
 </script>
 

@@ -10,6 +10,10 @@
             <el-col :span="16">{{ item.name }}</el-col>
         </el-row>
         <el-row class="text-l">
+            <el-col :span="8">类别：</el-col>
+            <el-col :span="16">{{ item.sort }}</el-col>
+        </el-row>
+        <el-row class="text-l">
             <el-col :span="8">今天价格</el-col>
             <el-col :span="16">{{ item.nowPrice }}</el-col>
         </el-row>
@@ -20,12 +24,18 @@
         <el-row class="text-l">
             <el-col :span="8">图片:</el-col>
             <el-col :span="16">
-                <el-image :src="item.imgSrc" :preview-src-list="[item.imgSrc]"></el-image>
+                <el-image
+                    :src="item.imgSrc"
+                    :preview-src-list="[item.imgSrc]"
+                ></el-image>
             </el-col>
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">介绍:</el-col>
-            <el-col :span="16" class="text-indent-en">{{ item.detail }}</el-col>
+            <el-col
+                :span="16"
+                class="text-indent-en"
+            >{{ item.detail }}</el-col>
         </el-row>
     </el-drawer>
 </template>
@@ -36,17 +46,17 @@ export default {
     props: {
         drawerVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         item: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     methods: {
         handleClose() {
             this.$emit("close");
-        }
-    }
+        },
+    },
 };
 </script>
 

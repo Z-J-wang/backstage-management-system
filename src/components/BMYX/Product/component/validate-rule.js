@@ -4,6 +4,11 @@ const rules = {
         message: "请输入菜名",
         trigger: "blur"
     }],
+    sort: [{
+        required: true,
+        message: "请选择类别",
+        trigger: "blur"
+    }],
     nowPrice: [{
         required: true,
         message: "请输入今天的价格",

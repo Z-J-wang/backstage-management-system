@@ -25,6 +25,25 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
+                    label="类别"
+                    prop="sort"
+                >
+                    <el-select
+                        v-model="formItem.sort"
+                        clearable
+                        placeholder="请选择"
+                        style="width:100%;"
+                    >
+                        <el-option
+                            v-for="item in options"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.name"
+                        >
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item
                     label="今天价格"
                     prop="nowPrice"
                 >
@@ -109,7 +128,12 @@ export default {
             action: "",
             rules: validate_rules,
             title: "修改一条菜品",
+            options: [],
         };
+    },
+    async mounted() {
+        this.options = await this.getSort();
+        console.log(this.options);
     },
     components: {
         uploadImage,
@@ -143,6 +167,21 @@ export default {
             } else {
                 this.$message.error("系统出错，请重试！");
             }
+        },
+
+        /**
+         * 获取类别
+         */
+        async getSort() {
+            let res = await this.$HttpApi.getBMYXSort();
+            let data = [];
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
         },
     },
 };
