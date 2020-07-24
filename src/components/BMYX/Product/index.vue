@@ -210,7 +210,7 @@ export default {
          * @param {number} id
          */
         async delPriduct(id){
-            let res = await this.$HttpApi.getBMYXProductList(selectCond);
+            let res = await this.$HttpApi.delPriduct(id);
 
             if (res.status === 200 && res.data.code === 1000) {
                 this.$message({
