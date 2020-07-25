@@ -95,6 +95,18 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+            @size-change="paginationSizeChange"
+            @current-change="paginationCurrentChange"
+            :current-page="pagination.currentPage"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="10"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pagination.total"
+            class="text-l"
+            style="margin-top: 10px;"
+        >
+        </el-pagination>
 
         <item-editor
             :dialog-visible="itemEditorVisible"
@@ -137,6 +149,12 @@ export default {
                 detail: "",
             },
             dataList: [{}],
+            pagination: {
+                total: 0,
+                currentPage: 1,
+                size: 10,
+                currentPage: 1,
+            },
         };
     },
     components: {
@@ -152,10 +170,27 @@ export default {
             this.delProduct(id);
         },
 
-        async setDataList() {
+        async setDataList(size, currentPage, selectCond) {
             this.dataList.length = 0;
-            this.dataList = await this.getData();
-            console.log(this.dataList);
+            let res_data = await this.getData(size, currentPage, selectCond);
+            this.dataList = res_data.rows;
+            this.pagination.total = res_data.count;
+        },
+
+        /**
+         * 分页控件，size change 事件
+         */
+        paginationSizeChange(val) {
+            this.setDataList(val, this.pagination.currentPage);
+            console.log(`每页 ${val}条`);
+        },
+
+        /**
+         * 分页控件，换页事件
+         */
+        paginationCurrentChange(val) {
+            this.setDataList(this.pagination.size, val);
+            console.log(`当前页: ${val}`);
         },
 
         /**
@@ -201,9 +236,19 @@ export default {
         /**
          * 条件查询
          * @param selectCond
+         * @param size 每页的记录条数
+         * @param currentPage 当前页数
          */
-        async getData(selectCond) {
-            let res = await this.$HttpApi.getBMYXProductList(selectCond);
+        async getData(size, currentPage, selectCond) {
+            let params = {
+                cond: selectCond,
+                pageSize: size || this.pagination.size,
+                start:
+                    (currentPage - 1) * this.pagination.size +
+                        this.dataList.length || 0,
+            };
+
+            let res = await this.$HttpApi.getBMYXProductList(params);
             let data = [];
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
