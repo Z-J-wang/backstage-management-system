@@ -55,6 +55,7 @@
                             <upload-image
                                 :imageUrl="formItem.imgSrc"
                                 :action="action"
+                                @updateImgSrc="updateImgSrc"
                                 width="120"
                                 height="120"
                             ></upload-image>
@@ -102,7 +103,7 @@ export default {
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
-            action: "",
+            action: "http://localhost:3000/api/bmyx/uploadImage",
             title: "修改一条菜品",
             options: [],
             rules: Object.assign(validate_rules, 
@@ -131,12 +132,19 @@ export default {
     },
     async mounted() {
         this.options = await this.getSort();
-        console.log(this.options);
     },
     components: {
         uploadImage,
     },
     methods: {
+         /**
+         * 更新图片 src
+         */
+        updateImgSrc(imgSrc) {
+            this.formItem.imgSrc = imgSrc;
+            console.log(`新增图片：${this.formItem.imgSrc}`);
+        },
+
         /**
          * 今天价格的 change 事件
          */
@@ -218,6 +226,21 @@ export default {
             return data;
         },
     },
+
+    /**
+         * 删除图片
+         */
+        async delUploadImage(filename) {
+            let res = await this.$HttpApi.delUploadImage(filename);
+            let flat = false;
+            if (res.status === 200 && res.data.code === 1000) {
+                flat = true;
+            } else {
+                flat = false;
+            }
+
+            return flat;
+        },
 };
 </script>
 
