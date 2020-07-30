@@ -3,12 +3,13 @@
         class="avatar-uploader"
         :action="action"
         :show-file-list="false"
+        :data="oldSrc"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
     >
         <img
-            v-if="imageUrl"
-            :src="imageUrl"
+            v-if="mutableImageUrl"
+            :src="`http://localhost:3000/upload/${mutableImageUrl}`"
             class="avatar"
             :style="{width:width+ 'px', height:height+ 'px'}"
         />
@@ -41,15 +42,19 @@ export default {
     },
     data() {
         return {
-            // imageUrl: ""
+            mutableImageUrl: this.imageUrl,
+            oldSrc:{
+                oldImgSrc: ''
+            }
         };
     },
-    updated() {
-        console.log(this.imageUrl);
+    updated(){
+        this.oldSrc.oldImgSrc = this.mutableImageUrl;
     },
     methods: {
-        handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
+        handleAvatarSuccess(res) {
+            this.mutableImageUrl =res.data;
+            this.$emit("updateImgSrc", this.mutableImageUrl);
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === "image/jpeg";

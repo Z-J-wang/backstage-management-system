@@ -48,6 +48,8 @@
                             <upload-image
                                 :imageUrl="formItem.imgSrc"
                                 :action="action"
+                                :headers="headers"
+                                @updateImgSrc="updateImgSrc"
                                 width="120"
                                 height="120"
                             ></upload-image>
@@ -92,9 +94,12 @@ export default {
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
-            action: "",
+            action: "http://localhost:3000/api/bmyx/uploadImage",
             options: [],
             title: "新增一条菜品",
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
             formItem: {
                 name: "",
                 s_Id: "",
@@ -102,19 +107,21 @@ export default {
                 imgSrc: "",
                 detail: "",
             },
-            rules: Object.assign(validate_rules, 
-            // 此部分为自定义表单验证规则
-            {
-                nowPrice: [
-                    // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
-                    {
-                        required: true,
-                        message: "请输入今天的价格",
-                        trigger: "blur",
-                    },
-                    { validator: validatePrice, trigger: "blur" },
-                ],
-            })
+            rules: Object.assign(
+                validate_rules,
+                // 此部分为自定义表单验证规则
+                {
+                    nowPrice: [
+                        // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
+                        {
+                            required: true,
+                            message: "请输入今天的价格",
+                            trigger: "blur",
+                        },
+                        { validator: validatePrice, trigger: "blur" },
+                    ],
+                }
+            ),
         };
     },
     components: {
@@ -125,12 +132,21 @@ export default {
     },
     methods: {
         /**
+         * 更新图片 src
+         */
+        updateImgSrc(imgSrc) {
+            this.formItem.imgSrc = imgSrc;
+            console.log(`新增图片：${this.formItem.imgSrc}`);
+        },
+
+        /**
          * 今天价格的 change 事件
          */
         changeNowPrice() {
             let price = Number(this.formItem.nowPrice);
             this.formItem.nowPrice = price.toFixed(2);
         },
+
         /**
          * 今天价格的 input 事件
          */
@@ -141,9 +157,11 @@ export default {
                 ? this.formItem.nowPrice.match(/\d+(\.\d{0,2})?/)[0]
                 : "";
         },
+
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
+                    this.delUploadImage(this.formItem.imgSrc)
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
@@ -158,6 +176,9 @@ export default {
             }
         },
 
+        /**
+         * 新增一笔商品信息
+         */
         async createNewProduct(data) {
             let ret = await this.$HttpApi.createProduct(data);
             if (ret.status === 200 && ret.data.code == 1000) {
@@ -184,6 +205,21 @@ export default {
             }
 
             return data;
+        },
+
+        /**
+         * 删除图片
+         */
+        async delUploadImage(filename) {
+            let res = await this.$HttpApi.delUploadImage(filename);
+            let flat = false;
+            if (res.status === 200 && res.data.code === 1000) {
+                flat = true;
+            } else {
+                flat = false;
+            }
+
+            return flat;
         },
     },
 };

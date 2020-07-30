@@ -78,9 +78,17 @@ export default class HttpApi {
 
     /**
      * 根据id 删除 sort
-     * @param {*} params 
+     * @param {object} params 
      */
     delSort(params) {
         return instance.post('/api/bmyx/delSort', params)
+    }
+
+    /**
+     * 删除指定图片
+     * @param {object} params 
+     */
+    delUploadImage(params) {
+        return instance.post('/api/bmyx/delUploadImage', { filename: params })
     }
 }
