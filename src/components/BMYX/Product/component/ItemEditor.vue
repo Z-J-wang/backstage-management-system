@@ -105,6 +105,7 @@ export default {
         return {
             action: "http://localhost:3000/api/bmyx/uploadImage",
             title: "修改一条菜品",
+            cur_imgSrc: '',
             options: [],
             rules: Object.assign(validate_rules, 
             // 此部分为自定义表单验证规则
@@ -135,6 +136,13 @@ export default {
     },
     components: {
         uploadImage,
+    },
+    watch:{
+        formItem(val){
+            this.cur_imgSrc = val.imgSrc;
+            console.log(this.formItem.imgSrc)
+            console.log(this.cur_imgSrc)
+        }
     },
     methods: {
          /**
@@ -182,10 +190,16 @@ export default {
                 : "";
         },
         handleClose() {
+            let imgsrc = this.formItem.imgSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.$refs["form"].resetFields();
+                    console.log(imgsrc)
+                    console.log(this.cur_imgSrc)
+                    if(imgsrc !== this.cur_imgSrc){
+                        this.delUploadImage(imgsrc)
+                    }
                     this.$emit("close");
+                    this.$refs["form"].resetFields();
                 })
                 .catch(() => {});
         },
@@ -201,11 +215,15 @@ export default {
 
         async updatedProduct(data) {
             let ret = await this.$HttpApi.updatedProduct(data);
+            let newImgSrc = ret.data.data.rows[0].imgSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
-                    message: "个人基础信息更新成功！",
+                    message: "商品信息更新成功！",
                     type: "success",
                 });
+                if(newImgSrc !== this.cur_imgSrc){
+                    this.delUploadImage(this.cur_imgSrc);
+                }
             } else {
                 this.$message.error("系统出错，请重试！");
             }
@@ -225,9 +243,8 @@ export default {
 
             return data;
         },
-    },
 
-    /**
+        /**
          * 删除图片
          */
         async delUploadImage(filename) {
@@ -241,6 +258,7 @@ export default {
 
             return flat;
         },
+    },
 };
 </script>
 

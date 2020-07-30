@@ -49,7 +49,7 @@
                 <template slot-scope="scope">
                     <el-image
                         style="width: 50px; height: 50px"
-                        :src="scope.row.imgSrc"
+                        :src="`http://localhost:3000/upload/${scope.row.imgSrc}`"
                     ></el-image>
                 </template>
             </el-table-column>
