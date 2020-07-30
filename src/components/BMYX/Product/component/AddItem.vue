@@ -15,19 +15,10 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item
-                    label="菜名"
-                    prop="name"
-                >
-                    <el-input
-                        v-model="formItem.name"
-                        placeholder="请输入菜名"
-                    ></el-input>
+                <el-form-item label="菜名" prop="name">
+                    <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
                 </el-form-item>
-                <el-form-item
-                    label="类别"
-                    prop="s_Id"
-                >
+                <el-form-item label="类别" prop="s_Id">
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
@@ -39,23 +30,19 @@
                             :key="item.id"
                             :label="item.name"
                             :value="item.id"
-                        >
-                        </el-option>
+                        ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item
-                    label="今天价格"
-                    prop="nowPrice"
-                >
+                <el-form-item label="今天价格" prop="nowPrice">
                     <el-input
+                        type="text"
                         v-model="formItem.nowPrice"
                         placeholder="请输入今天价格"
+                        @change="changeNowPrice()"
+                        @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item
-                    label="图片链接"
-                    prop="imgSrc"
-                >
+                <el-form-item label="图片链接" prop="imgSrc">
                     <el-row>
                         <el-col :span="12">
                             <upload-image
@@ -73,10 +60,7 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item
-                    label="介绍"
-                    prop="detail"
-                >
+                <el-form-item label="介绍" prop="detail">
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -87,15 +71,9 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span
-            slot="footer"
-            class="dialog-footer"
-        >
+        <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="onSubmit('form')"
-            >提 交</el-button>
+            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -112,9 +90,10 @@ export default {
         },
     },
     data() {
+        let validatePrice = this.$CustomValidator.validatePrice;
         return {
             action: "",
-            rules: validate_rules,
+            options: [],
             title: "新增一条菜品",
             formItem: {
                 name: "",
@@ -123,17 +102,45 @@ export default {
                 imgSrc: "",
                 detail: "",
             },
-            options: [],
+            rules: Object.assign(validate_rules, 
+            // 此部分为自定义表单验证规则
+            {
+                nowPrice: [
+                    // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
+                    {
+                        required: true,
+                        message: "请输入今天的价格",
+                        trigger: "blur",
+                    },
+                    { validator: validatePrice, trigger: "blur" },
+                ],
+            })
         };
     },
     components: {
         uploadImage,
     },
-    async mounted(){
+    async mounted() {
         this.options = await this.getSort();
-        console.log(this.options)
     },
     methods: {
+        /**
+         * 今天价格的 change 事件
+         */
+        changeNowPrice() {
+            let price = Number(this.formItem.nowPrice);
+            this.formItem.nowPrice = price.toFixed(2);
+        },
+        /**
+         * 今天价格的 input 事件
+         */
+        inputNowPrice() {
+            this.formItem.nowPrice = this.formItem.nowPrice.match(
+                /\d+(\.\d{0,2})?/
+            )
+                ? this.formItem.nowPrice.match(/\d+(\.\d{0,2})?/)[0]
+                : "";
+        },
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
@@ -146,6 +153,7 @@ export default {
             let valid = await this.$refs[formName].validate();
             if (valid) {
                 await this.createNewProduct(this.formItem);
+                this.$refs["form"].resetFields();
                 this.$emit("close");
             }
         },

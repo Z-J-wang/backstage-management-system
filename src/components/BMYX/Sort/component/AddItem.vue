@@ -15,26 +15,18 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item
-                    label="分类"
-                    prop="name"
-                >
+                <el-form-item label="分类" prop="name">
                     <el-input
                         v-model="formItem.name"
                         placeholder="请输入分类"
+                        @keyup.enter.native="onSubmit('form')"
                     ></el-input>
                 </el-form-item>
             </el-form>
         </div>
-        <span
-            slot="footer"
-            class="dialog-footer"
-        >
+        <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="onSubmit('form')"
-            >提 交</el-button>
+            <el-button type="primary" @click.enter="onSubmit('form')">提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -79,6 +71,7 @@ export default {
             let valid = await this.$refs[formName].validate();
             if (valid) {
                 await this.createNewProduct(this.formItem);
+                this.$refs["form"].resetFields();
                 this.$emit("close");
             }
         },
@@ -92,7 +85,7 @@ export default {
                         type: "success",
                     });
                     this.$parent.setDataList();
-                }else{
+                } else {
                     this.$message({
                         message: ret.data.msg,
                         type: "error",
