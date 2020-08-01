@@ -179,6 +179,7 @@ export default {
             let price = Number(this.formItem.oldPrice);
             this.formItem.oldPrice = price.toFixed(2);
         },
+
         /**
          * 昨天价格的 input 事件
          */
@@ -189,6 +190,10 @@ export default {
                 ? this.formItem.oldPrice.match(/\d+(\.\d{0,2})?/)[0]
                 : "";
         },
+        
+        /**
+         * close 事件
+         */
         handleClose() {
             let imgsrc = this.formItem.imgSrc;
             this.$confirm("确认关闭？")
@@ -251,8 +256,10 @@ export default {
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
+                console.log(`删除图片：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
+                console.log(`删除图片失败`);
                 flat = false;
             }
 

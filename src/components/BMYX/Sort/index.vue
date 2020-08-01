@@ -13,6 +13,17 @@
         >
             <el-table-column prop="id" label="id" width="240" sortable></el-table-column>
             <el-table-column prop="name" label="分类名称" sortable></el-table-column>
+            <el-table-column
+                prop="imgSrc"
+                label="图片"
+            >
+                <template slot-scope="scope">
+                    <el-image
+                        style="width: 50px; height: 50px"
+                        :src="`http://localhost:3000/upload/${scope.row.imgSrc}`"
+                    ></el-image>
+                </template>
+            </el-table-column>
             <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button
@@ -65,6 +76,7 @@ export default {
             itemValue: {
                 id: 1,
                 name: "",
+                imgSrc:""
             },
             dataList: [{}],
         };

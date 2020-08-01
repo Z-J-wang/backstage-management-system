@@ -158,6 +158,9 @@ export default {
                 : "";
         },
 
+        /**
+         * close 事件
+         */
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
@@ -167,6 +170,7 @@ export default {
                 })
                 .catch(() => {});
         },
+        
         async onSubmit(formName) {
             let valid = await this.$refs[formName].validate();
             if (valid) {
@@ -214,13 +218,15 @@ export default {
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
+                console.log(`删除图片：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
+                console.log("图片删除失败")
                 flat = false;
             }
 
             return flat;
-        },
+        }
     },
 };
 </script>
