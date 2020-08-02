@@ -103,7 +103,7 @@ export default {
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
-            action: "http://localhost:3000/api/bmyx/uploadImage",
+            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
             title: "修改一条菜品",
             cur_imgSrc: '',
             options: [],

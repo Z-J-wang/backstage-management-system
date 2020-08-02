@@ -60,7 +60,7 @@ export default {
     },
     data() {
         return {
-            action: "http://localhost:3000/api/bmyx/uploadImage",
+            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
             cur_imgSrc: '',
             rules: {
                 name: [

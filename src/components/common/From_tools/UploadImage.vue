@@ -9,7 +9,7 @@
     >
         <img
             v-if="mutableImageUrl"
-            :src="`http://localhost:3000/upload/${mutableImageUrl}`"
+            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
             class="avatar"
             :style="{width:width+ 'px', height:height+ 'px'}"
         />
