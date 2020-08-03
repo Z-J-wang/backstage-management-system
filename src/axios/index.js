@@ -91,4 +91,19 @@ export default class HttpApi {
     delUploadImage(params) {
         return instance.post('/api/bmyx/delUploadImage', { filename: params })
     }
+
+    /**
+ * 获取 notice
+ */
+    getBMYXNotice() {
+        return instance.get('/api/bmyx/getNotice')
+    }
+
+    /**
+ * 更新 notice
+ * @param {object} params 
+ */
+    updatedNotice(params) {
+        return instance.post('/api/bmyx/updateNotice', params)
+    }
 }

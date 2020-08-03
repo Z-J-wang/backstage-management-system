@@ -1,8 +1,8 @@
 <template>
     <el-menu
-        :default-openeds="['1']"
+        :default-openeds="['2']"
         router
-        default-active="/messages"
+        default-active="/BMYX/notice"
         class="el-menu-vertical"
         :collapse="isCollapse"
     >
@@ -18,7 +18,7 @@
         <el-submenu index="1">
             <template slot="title">
                 <i class="el-icon-message"></i>
-                <span slot="title">个人信息管理</span>
+                <span slot="title">个人信息</span>
             </template>
             <el-menu-item-group>
                 <el-menu-item index="/personalInfo">基础信息</el-menu-item>
@@ -33,12 +33,10 @@
                 <span slot="title">便民优享</span>
             </template>
             <el-menu-item-group>
-                <template slot="title">分组一</template>
-               <el-menu-item index="/BMYX/product">产品列表</el-menu-item>
+                <template slot="title">小程序首页</template>
+                <el-menu-item index="/BMYX/product">产品列表</el-menu-item>
                 <el-menu-item index="/BMYX/sort">分类列表</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-                <el-menu-item index="2-3">选项3</el-menu-item>
+                <el-menu-item index="/BMYX/notice">通告栏</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="2-4">
                 <template slot="title">选项4</template>
@@ -82,19 +80,19 @@ export default {
                             groupList: [
                                 {
                                     title: "个人基础信息",
-                                    path: "/PersonalInfo"
+                                    path: "/PersonalInfo",
                                 },
                                 {
                                     title: "dataView",
-                                    path: "/tableView"
+                                    path: "/tableView",
                                 },
                                 {
                                     title: "测试图片压缩",
-                                    path: "/test"
-                                }
-                            ]
-                        }
-                    ]
+                                    path: "/test",
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     title: "导航二",
@@ -105,37 +103,37 @@ export default {
                             groupList: [
                                 {
                                     title: "选项1",
-                                    path: ""
+                                    path: "",
                                 },
                                 {
                                     title: "选项2",
-                                    path: ""
-                                }
-                            ]
+                                    path: "",
+                                },
+                            ],
                         },
                         {
                             groupTitle: "分组2",
                             groupList: [
                                 {
                                     title: "选项3",
-                                    path: ""
-                                }
-                            ]
+                                    path: "",
+                                },
+                            ],
                         },
                         {
                             groupTitle: "",
                             groupList: [
                                 {
                                     title: "选项4",
-                                    path: ""
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                                    path: "",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
         };
-    }
+    },
 };
 </script>
 

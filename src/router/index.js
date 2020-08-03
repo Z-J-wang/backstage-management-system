@@ -49,6 +49,11 @@ const routes = [{
             path: 'sort',
             name: '分类列表',
             component: () => import( /* webpackChunkName: "BMYX_Sort" */ '../components/BMYX/Sort/index.vue')
+        },
+        {
+            path: 'notice',
+            name: '通告栏',
+            component: () => import( /* webpackChunkName: "BMYX_Sort" */ '../components/BMYX/Notice/index.vue')
         }]
     },
     ]

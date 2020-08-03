@@ -139,6 +139,7 @@ export default {
 
         async updatedProduct(data) {
             let ret = await this.$HttpApi.updatedSort(data);
+            let newImgSrc = ret.data.data.rows[0].imgSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: "分类信息更新成功！",
