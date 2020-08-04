@@ -30,6 +30,7 @@
                             :key="item.id"
                             :label="item.name"
                             :value="item.id"
+                            :disabled="item.name == '全部'"
                         ></el-option>
                     </el-select>
                 </el-form-item>

@@ -1,5 +1,14 @@
 <template>
     <div class="tableContain">
+        <div class="text-l">
+            <h4>说明：</h4>
+            <p>1. 分类应该存在一个“全部”类别；</p>
+            <p>2. 分类最多只能为8个分类，且最好八个；</p>
+            <p>3. 商品类别不能设置为“全部”。</p>
+        </div>
+        <el-divider>
+            <i class="el-icon-mobile-phone"></i>
+        </el-divider>
         <div class="table_tool">
             <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
         </div>
@@ -11,12 +20,10 @@
             style="width: 100%"
             highlight-current-row
         >
+            <el-table-column type="index" width="50"></el-table-column>
             <el-table-column prop="id" label="id" width="240" sortable></el-table-column>
             <el-table-column prop="name" label="分类名称" sortable></el-table-column>
-            <el-table-column
-                prop="imgSrc"
-                label="图片"
-            >
+            <el-table-column prop="imgSrc" label="图片">
                 <template slot-scope="scope">
                     <el-image
                         style="width: 50px; height: 50px"
@@ -76,7 +83,7 @@ export default {
             itemValue: {
                 id: 1,
                 name: "",
-                imgSrc:""
+                imgSrc: "",
             },
             dataList: [{}],
         };
@@ -163,6 +170,7 @@ export default {
 .tableContain {
     max-width: 1200px;
     margin-left: 60px;
+    margin-bottom: 50px;
     .table_tool {
         margin-bottom: 20px;
         padding-right: 25px;
