@@ -104,7 +104,7 @@ export default {
             });
         },
 
-        async createNewProduct(data) {
+        async updatedAcount(data) {
             let ret = await this.$HttpApi.createSort(data);
             if (ret.status === 200) {
                 if (ret.data.code == 1000) {

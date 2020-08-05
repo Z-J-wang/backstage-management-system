@@ -93,17 +93,41 @@ export default class HttpApi {
     }
 
     /**
- * 获取 notice
- */
+     * 获取 notice
+     */
     getBMYXNotice() {
         return instance.get('/api/bmyx/getNotice')
     }
 
     /**
- * 更新 notice
- * @param {object} params 
- */
+     * 更新 notice
+     * @param {object} params 
+     */
     updatedNotice(params) {
         return instance.post('/api/bmyx/updateNotice', params)
+    }
+
+    /**
+     * 登录
+     * @param {object} params 
+     */
+    login(params) {
+        return instance.post('/api/account/login', params)
+    }
+    
+    /**
+     * 获取 account
+     * @param {object} params 
+     */
+    getAccountByCond(params) {
+        return instance.get('/api/account/getAccountByCond', { params: params })
+    }
+
+    /**
+     * 创建账户
+     * @param {object} params
+     */
+    createAccount(params){
+        return instance.post('/api/account/createAccount', params)
     }
 }

@@ -61,7 +61,7 @@ export default {
             }
         };
         return {
-            title: "新增一笔分类",
+            title: "新增一个账户",
             formItem: {
                 account: "",
                 password: "",
@@ -114,6 +114,7 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
+                    delete this.formItem.pwdAgain;
                     await this.createNewProduct(this.formItem);
                     this.$refs["form"].resetFields();
                     this.$emit("close");
@@ -122,11 +123,11 @@ export default {
         },
 
         async createNewProduct(data) {
-            let ret = await this.$HttpApi.createSort(data);
+            let ret = await this.$HttpApi.createAccount(data);
             if (ret.status === 200) {
                 if (ret.data.code == 1000) {
                     this.$message({
-                        message: `${ret.data.data.name} 添加成功！`,
+                        message: `${ret.data.data.name} 创建成功`,
                         type: "success",
                     });
                     this.$parent.setDataList();

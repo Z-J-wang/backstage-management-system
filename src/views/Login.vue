@@ -14,11 +14,7 @@
                     <el-input v-model="loginForm.account"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input
-                        type="password"
-                        v-model="loginForm.password"
-                        autocomplete="off"
-                    ></el-input>
+                    <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" class="submit" @click="submitForm('loginForm')">登录</el-button>
@@ -40,7 +36,12 @@ export default {
             rules: {
                 account: [
                     { required: true, message: "请输入账户", trigger: "blur" },
-                    { max: 16, min: 6,message: "账户字符在6-16之间", trigger: "blur" },
+                    {
+                        max: 16,
+                        min: 6,
+                        message: "账户字符在6-16之间",
+                        trigger: "blur",
+                    },
                 ],
                 password: [
                     { required: true, message: "请输入密码", trigger: "blur" },
@@ -49,23 +50,31 @@ export default {
         };
     },
     methods: {
-         submitForm(formName) {
-             this.$refs[formName].validate((valid) => {
-                 if(valid) {
-                     this.$store.commit("setAccount",{ account:"admin", auth: 1 });
-                     this.$router.push({name:"Home"})
-                 }
-             })
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.login(this.loginForm);
+                }
+            });
+        },
+
+        async login(data) {
+            let res = await this.$HttpApi.login(data);
+            if (res.data.code === 1000) {
+                this.$store.commit("setAccount", { account: "admin", auth: 1 });
+                this.$router.push({ name: "Home" });
+            }else{
+                 this.$message.error(res.data.msg);
+            }
         },
     },
 };
 </script>
 
 <style lang="less" scoped>
-.window-container{
-    
+.window-container {
 }
-.login{
+.login {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -74,7 +83,7 @@ export default {
     padding: 30px;
     border: 1px solid #c5c2c2;
     border-radius: 20px;
-    .submit{
+    .submit {
         width: 100%;
     }
 }

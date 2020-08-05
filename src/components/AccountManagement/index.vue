@@ -88,7 +88,7 @@ export default {
         addItem,
     },
     mounted() {
-        // this.setDataList();
+        this.setDataList();
     },
     methods: {
         delConfirm(id) {
@@ -129,7 +129,7 @@ export default {
          * @param selectCond
          */
         async getData(selectCond) {
-            let res = await this.$HttpApi.getBMYXSort(selectCond);
+            let res = await this.$HttpApi.getAccountByCond(selectCond);
             let data = [];
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
