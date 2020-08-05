@@ -5,9 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    server_url: process.env.VUE_APP_SERVER_URL
+    server_url: process.env.VUE_APP_SERVER_URL, // 后台服务器网址
+    account:{
+        type: Object
+    }
   },
   mutations: {
+      setAccount(state, account){
+          state.account = account;
+      }
   },
   actions: {
   },

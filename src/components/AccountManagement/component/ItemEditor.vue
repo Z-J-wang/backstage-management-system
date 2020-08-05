@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="title"
-        :visible.sync="visible"
+        :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose"
         :close-on-click-modal="false"
@@ -15,30 +15,18 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="分类" prop="name">
-                    <el-input
-                        v-model="formItem.name"
-                        placeholder="请输入分类"
-                    ></el-input>
+                <el-form-item label="账户" prop="account">
+                    <el-input v-model="formItem.account" placeholder="请输入账户"></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
-                    <el-row>
-                        <el-col :span="12">
-                            <upload-image
-                                :imageUrl="formItem.imgSrc"
-                                :action="action"
-                                @updateImgSrc="updateImgSrc"
-                                width="120"
-                                height="120"
-                            ></upload-image>
-                        </el-col>
-                        <el-col :span="12">
-                            <div style="text-align: left; padding-top:30px">
-                                点击左侧，进行菜品图片上传
-                                <br />注意，图片上传完成及图片修改完毕
-                            </div>
-                        </el-col>
-                    </el-row>
+                <el-form-item label="权限等级" prop="auth">
+                    <el-select v-model="formItem.auth" placeholder="请选择账户权限等级" style="width: 100%">
+                        <el-option
+                            v-for="item in options"
+                            :key="item.code"
+                            :label="item.name"
+                            :value="item.code"
+                        ></el-option>
+                    </el-select>
                 </el-form-item>
             </el-form>
         </div>
@@ -49,37 +37,41 @@
     </el-dialog>
 </template>
 <script>
-import uploadImage from "@c/common/From_tools/UploadImage.vue";
-
+import valid_rules from "./validate-rule";
 export default {
     name: "addNewItem",
     props: {
-        visible: {
+        dialogVisible: {
             type: Boolean,
             default: false,
+        },
+        formItem: {
+            type: Object,
         },
     },
     data() {
         return {
-            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
-            rules: {
-                name: [
-                    {
-                        required: true,
-                        message: "请输入分类",
-                        trigger: "blur",
-                    },
-                ],
-            },
-            title: "新增一笔分类",
-            formItem: {
-                name: "",
-                imgSrc:""
-            },
+            title: "修改用户信息",
+            options: [
+                { code: 0, name: "超级管理员" },
+                { code: 1, name: "一般管理员" },
+            ],
+            rules: valid_rules,
         };
     },
-    components: {
-        uploadImage,
+    watch: {
+        "formItem.auth": function (val) {
+            console.log(val);
+            let user_account = this.$store.state.account;
+            console.log(user_account);
+            if (val === 0 && user_account.auth !== 0) {
+                this.$message({
+                    message:
+                        "你不是超级管理员，不能添加权限等级比你高的账户！！",
+                    type: "warning",
+                });
+            }
+        },
     },
     methods: {
         /**
@@ -88,7 +80,6 @@ export default {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.delUploadImage(this.formItem.imgSrc)
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
@@ -103,30 +94,14 @@ export default {
             console.log(`新增图片：${this.formItem.imgSrc}`);
         },
 
-                /**
-         * 删除图片
-         */
-        async delUploadImage(filename) {
-            let res = await this.$HttpApi.delUploadImage(filename);
-            let flat = false;
-            if (res.status === 200 && res.data.code === 1000) {
-                console.log(`删除图片：${this.formItem.imgSrc}`);
-                flat = true;
-            } else {
-                console.log("图片删除失败")
-                flat = false;
-            }
-
-            return flat;
-        },
-
-        async onSubmit(formName) {
-            let valid = await this.$refs[formName].validate();
-            if (valid) {
-                await this.createNewProduct(this.formItem);
-                this.$refs["form"].resetFields();
-                this.$emit("close");
-            }
+        onSubmit(formName) {
+            this.$refs[formName].validate(async (valid) => {
+                if (valid) {
+                    await this.createNewProduct(this.formItem);
+                    this.$refs["form"].resetFields();
+                    this.$emit("close");
+                }
+            });
         },
 
         async createNewProduct(data) {
