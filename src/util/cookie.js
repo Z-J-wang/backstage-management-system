@@ -5,6 +5,14 @@ export default class Cookies {
         // 设置全局 Cookie 过期时间
         vueCookies.config('30d')
     }
+
+    /**
+     * 获取 token
+     */
+    getToken(){
+        return vueCookies.get('token');
+    }
+
     /**
      * 添加一个 token
      * @param token 

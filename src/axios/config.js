@@ -1,9 +1,13 @@
 import axios from 'axios'
+import Cookie from '../util/cookie'
 
+const cookie = new Cookie();
+const token = cookie.getToken()
+console.log(token)
 const instance = axios.create({
     baseURL: process.env.VUE_APP_SERVER_URL,
     timeout: 1000,
-    // headers: {'X-Custom-Header': 'foobar'}
+    headers: {'Authorization': token}
 });
 
 // 添加请求拦截器
