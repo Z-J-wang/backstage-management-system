@@ -5,12 +5,14 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import Cookies from './util/cookie'
 import Axios from './axios/index.js'
 import custom_validator from "@a/js/custom-validator.js";
 
 import '@a/css/common.less'
 
 Vue.config.productionTip = false
+Vue.prototype.$Cookie = new Cookies();
 Vue.prototype.$HttpApi = new Axios();
 Vue.prototype.$CustomValidator = custom_validator;
 

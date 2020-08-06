@@ -37,9 +37,9 @@ export default {
                 account: [
                     { required: true, message: "请输入账户", trigger: "blur" },
                     {
-                        max: 16,
+                        max: 18,
                         min: 6,
-                        message: "账户字符在6-16之间",
+                        message: "账户字符在6-18之间",
                         trigger: "blur",
                     },
                 ],
@@ -61,10 +61,11 @@ export default {
         async login(data) {
             let res = await this.$HttpApi.login(data);
             if (res.data.code === 1000) {
+                this.$Cookie.setToken(res.data.data.token);
                 this.$store.commit("setAccount", { account: "admin", auth: 1 });
                 this.$router.push({ name: "Home" });
-            }else{
-                 this.$message.error(res.data.msg);
+            } else {
+                this.$message.error(res.data.msg);
             }
         },
     },

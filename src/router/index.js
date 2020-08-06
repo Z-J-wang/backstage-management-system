@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store/index'
+// import store from '../store/index'
 import Home from '../views/Home.vue'
+import Cookie from '../util/cookie'
+
+const cookie = new Cookie();
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -90,11 +93,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    let account = store.state.account;
-    console.log(to)
-    console.log(account)
-    console.log(account.auth)
-    if (account.auth != undefined) {
+    let token = cookie.hasToken();
+    if (token) {
         next();
     } else {
         if (to.name !== "Login") {

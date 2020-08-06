@@ -84,20 +84,20 @@ export default {
             }),
         };
     },
-    watch: {
-        "formItem.auth": function (val) {
-            console.log(val);
-            let user_account = this.$store.state.account;
-            console.log(user_account);
-            if (val === 0 && user_account.auth !== 0) {
-                this.$message({
-                    message:
-                        "你不是超级管理员，不能添加权限等级比你高的账户！！",
-                    type: "warning",
-                });
-            }
-        },
-    },
+    // watch: {
+    //     "formItem.auth": function (val) {
+    //         console.log(val);
+    //         let user_account = this.$store.state.account;
+    //         console.log(user_account);
+    //         if (val === 0 && user_account.auth !== 0) {
+    //             this.$message({
+    //                 message:
+    //                     "你不是超级管理员，不能添加权限等级比你高的账户！！",
+    //                 type: "warning",
+    //             });
+    //         }
+    //     },
+    // },
     methods: {
         /**
          * close 事件
@@ -114,10 +114,9 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    delete this.formItem.pwdAgain;
-                    await this.createNewProduct(this.formItem);
-                    this.$refs["form"].resetFields();
-                    this.$emit("close");
+                    const newAccount = Object.assign({}, this.formItem);
+                    delete newAccount.pwdAgain;
+                    await this.createNewProduct(newAccount);
                 }
             });
         },
@@ -127,10 +126,12 @@ export default {
             if (ret.status === 200) {
                 if (ret.data.code == 1000) {
                     this.$message({
-                        message: `${ret.data.data.name} 创建成功`,
-                        type: "success",
+                        message: ret.data.msg,
+                        type: "success"
                     });
                     this.$parent.setDataList();
+                    this.$refs["form"].resetFields();
+                    this.$emit("close");
                 } else {
                     this.$message({
                         message: ret.data.msg,
