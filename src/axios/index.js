@@ -116,6 +116,13 @@ export default class HttpApi {
     }
     
     /**
+     * 登出
+     */
+    logout(){
+        return instance.get('/api/account/logout')
+    }
+
+    /**
      * 获取 account
      * @param {object} params 
      */
@@ -127,7 +134,22 @@ export default class HttpApi {
      * 创建账户
      * @param {object} params
      */
-    createAccount(params){
+    createAccount(params) {
         return instance.post('/api/account/createAccount', params)
+    }
+
+    /**
+     * 创建账户
+     * @param {object} params
+     */
+    updatedAccount(params) {
+        return instance.post('/api/account/updateAccount', params)
+    }
+
+    /**
+     * 获取当前用户信息
+     */
+    getCurrentAccount(){
+        return instance.get("/api/account/getCurrentAccount")
     }
 }

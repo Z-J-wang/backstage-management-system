@@ -1,6 +1,6 @@
 <template>
     <div class="tableContain">
-        <div class="text-l">
+        <!-- <div class="text-l">
             <h4>说明：</h4>
             <p>1. 分类应该存在一个“全部”类别；</p>
             <p>2. 分类最多只能为8个分类，且最好八个；</p>
@@ -8,7 +8,7 @@
         </div>
         <el-divider>
             <i class="el-icon-mobile-phone"></i>
-        </el-divider>
+        </el-divider> -->
         <div class="table_tool">
             <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增账户</el-button>
         </div>
@@ -23,8 +23,11 @@
             <el-table-column type="index" width="50"></el-table-column>
             <el-table-column prop="id" label="id" sortable></el-table-column>
             <el-table-column prop="account" label="账户" sortable></el-table-column>
-            <el-table-column prop="password" label="密码" sortable></el-table-column>
-            <el-table-column prop="auth" label="等级" sortable></el-table-column>
+            <el-table-column prop="password" label="密码"></el-table-column>
+            <el-table-column prop="auth" label="等级"></el-table-column>
+            <el-table-column prop="token" label="token"></el-table-column>
+            <el-table-column prop="createdAt" label="创建时间" sortable width="160"></el-table-column>
+            <el-table-column prop="updatedAt" label="最近修改时间" sortable width="160"></el-table-column>
             <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button
@@ -35,7 +38,7 @@
                         size="small"
                         title="编辑"
                     ></el-button>
-                    <el-popconfirm
+                    <!-- <el-popconfirm
                         title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
                         @onConfirm="delConfirm(scope.row.id)"
@@ -48,7 +51,7 @@
                             title="移除"
                             slot="reference"
                         ></el-button>
-                    </el-popconfirm>
+                    </el-popconfirm> -->
                 </template>
             </el-table-column>
         </el-table>
@@ -79,6 +82,7 @@ export default {
                 account: "",
                 password: "",
                 auth: "",
+                token:""
             },
             dataList: [{}],
         };

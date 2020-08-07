@@ -3,11 +3,11 @@ import Cookie from '../util/cookie'
 
 const cookie = new Cookie();
 const token = cookie.getToken()
-console.log(token)
 const instance = axios.create({
     baseURL: process.env.VUE_APP_SERVER_URL,
     timeout: 1000,
-    headers: {'Authorization': token}
+    headers: { 'Authorization': `${token}`}
+    // headers: { 'Authorization': `Bearer ${token}` }
 });
 
 // 添加请求拦截器
