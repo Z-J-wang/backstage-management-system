@@ -135,6 +135,8 @@ router.beforeEach((to, from, next) => {
             } else {
                 next({ name: 'Login' })
             }
+        }).catch(() => {
+            next({ name: 'Home' })
         })
     } else {
         if (to.name !== "Login") {

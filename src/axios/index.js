@@ -1,7 +1,10 @@
 import instance from './config'
+import Cookie from '../util/cookie'
 
 export default class HttpApi {
-    constructor() { }
+    constructor() {
+        this.cookie = new Cookie()
+    }
 
     /**
      * 获取个人基础信息
@@ -114,11 +117,11 @@ export default class HttpApi {
     login(params) {
         return instance.post('/api/account/login', params)
     }
-    
+
     /**
      * 登出
      */
-    logout(){
+    logout() {
         return instance.get('/api/account/logout')
     }
 
@@ -149,7 +152,8 @@ export default class HttpApi {
     /**
      * 获取当前用户信息
      */
-    getCurrentAccount(){
-        return instance.get("/api/account/getCurrentAccount")
+    getCurrentAccount() {
+        let account = this.cookie.getUserInfo()
+        return instance.get("/api/account/getCurrentAccount", { params: { account: account } });
     }
 }
