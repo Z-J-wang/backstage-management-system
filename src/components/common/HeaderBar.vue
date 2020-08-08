@@ -7,18 +7,37 @@
                 style="margin-right: 15px"
             ></i>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>查看</el-dropdown-item>
-                <el-dropdown-item>新增</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
+                <el-dropdown-item @click.native="logout">登出</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{ userInfo || '管理员'}}</span>
     </div>
 </template>
 
 <script>
 export default {
-    name: "headerBar"
+    name: "headerBar",
+    data(){
+        return {
+            userInfo:{}
+        }
+    },
+    mounted(){
+        this.userInfo = this.$Cookie.getUserInfo();
+    },
+    methods:{
+        logout(){
+            let res = this.$HttpApi.logout();
+            if(res.status === 200 && res.data.data.code !== 1000){
+                this.$message.error(res.data.msg);
+            }else{
+                this.$Cookie.removeToken();
+                this.$Cookie.removeUserInfo();
+                this.$Cookie.removeCookie('auth');
+                this.$router.push({ name: 'login' })
+            }
+        }
+    }
 };
 </script>
 

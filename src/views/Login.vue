@@ -61,8 +61,9 @@ export default {
         async login(data) {
             let res = await this.$HttpApi.login(data);
             if (res.data.code === 1000) {
+                this.$Cookie.setUserInfo(res.data.data.account);
+                this.$Cookie.setCookie('auth', res.data.data.auth);
                 this.$Cookie.setToken(res.data.data.token);
-                this.$store.commit("setAccount", { account: "admin", auth: 1 });
                 this.$router.push({ name: "Home" });
             } else {
                 this.$message.error(res.data.msg);

@@ -59,20 +59,6 @@ export default {
             rules: valid_rules,
         };
     },
-    watch: {
-        "formItem.auth": function (val) {
-            console.log(val);
-            let user_account = this.$store.state.account;
-            console.log(user_account);
-            if (val === 0 && user_account.auth !== 0) {
-                this.$message({
-                    message:
-                        "你不是超级管理员，不能添加权限等级比你高的账户！！",
-                    type: "warning",
-                });
-            }
-        },
-    },
     methods: {
         /**
          * close 事件
@@ -86,30 +72,22 @@ export default {
                 .catch(() => {});
         },
 
-        /**
-         * 更新图片 src
-         */
-        updateImgSrc(imgSrc) {
-            this.formItem.imgSrc = imgSrc;
-            console.log(`新增图片：${this.formItem.imgSrc}`);
-        },
-
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    await this.createNewProduct(this.formItem);
+                    await this.updatedAccount(this.formItem);
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 }
             });
         },
 
-        async updatedAcount(data) {
-            let ret = await this.$HttpApi.createSort(data);
+        async updatedAccount(data) {
+            let ret = await this.$HttpApi.updatedAccount(data);
             if (ret.status === 200) {
                 if (ret.data.code == 1000) {
                     this.$message({
-                        message: `${ret.data.data.name} 添加成功！`,
+                        message: `修改成功！`,
                         type: "success",
                     });
                     this.$parent.setDataList();
