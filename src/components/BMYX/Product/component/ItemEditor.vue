@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="菜名" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
+                <el-form-item
+                    label="菜名"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入菜名"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="类别" prop="s_Id">
+                <el-form-item
+                    label="类别"
+                    prop="s_Id"
+                >
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
@@ -34,7 +43,10 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="今天价格" prop="nowPrice">
+                <el-form-item
+                    label="今天价格"
+                    prop="nowPrice"
+                >
                     <el-input
                         v-model="formItem.nowPrice"
                         placeholder="请输入今天价格"
@@ -42,7 +54,10 @@
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="昨天价格" prop="oldPrice">
+                <el-form-item
+                    label="昨天价格"
+                    prop="oldPrice"
+                >
                     <el-input
                         v-model="formItem.oldPrice"
                         @change="changeOldPrice()"
@@ -50,26 +65,23 @@
                         placeholder="请输入昨天价格"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item label="图片链接" prop="imgSrcList">
                     <el-row>
-                        <el-col :span="12">
-                            <upload-image
-                                :imageUrl="formItem.imgSrc"
+                        <el-col :span="24">
+                            <div>注意：您对图片的所有操作将直接被记录。</div>
+                            <upload-image-list
                                 :action="action"
-                                @updateImgSrc="updateImgSrc"
-                                width="120"
-                                height="120"
-                            ></upload-image>
-                        </el-col>
-                        <el-col :span="12">
-                            <div style="text-align: left; padding-top:30px">
-                                点击左侧，进行菜品图片上传
-                                <br />注意，图片上传完成及图片修改完毕
-                            </div>
+                                :imageUrlList="formItem.imgSrcList"
+                                @updateImgSrcList="updateImgSrcList"
+                                @delUploadImage="delUploadImage"
+                            ></upload-image-list>
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="介绍" prop="detail">
+                <el-form-item
+                    label="介绍"
+                    prop="detail"
+                >
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -80,14 +92,20 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
 <script>
-import uploadImage from "@c/common/From_tools/UploadImage.vue";
+import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
 import validate_rules from "./validate-rule";
 
 export default {
@@ -104,54 +122,49 @@ export default {
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
-            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
+            action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             title: "修改一条菜品",
-            cur_imgSrc: '',
             options: [],
-            rules: Object.assign(validate_rules, 
-            // 此部分为自定义表单验证规则
-            {
-                nowPrice: [
-                    // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
-                    {
-                        required: true,
-                        message: "请输入价格",
-                        trigger: "blur",
-                    },
-                    { validator: validatePrice, trigger: "blur" },
-                ],
-                oldPrice: [
-                    // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
-                    {
-                        required: true,
-                        message: "请输入价格",
-                        trigger: "blur",
-                    },
-                    { validator: validatePrice, trigger: "blur" },
-                ],
-            })
+            rules: Object.assign(
+                validate_rules,
+                // 此部分为自定义表单验证规则
+                {
+                    nowPrice: [
+                        // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
+                        {
+                            required: true,
+                            message: "请输入价格",
+                            trigger: "blur",
+                        },
+                        { validator: validatePrice, trigger: "blur" },
+                    ],
+                    oldPrice: [
+                        // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
+                        {
+                            required: true,
+                            message: "请输入价格",
+                            trigger: "blur",
+                        },
+                        { validator: validatePrice, trigger: "blur" },
+                    ],
+                }
+            ),
         };
     },
     async mounted() {
         this.options = await this.getSort();
     },
     components: {
-        uploadImage,
-    },
-    watch:{
-        formItem(val){
-            this.cur_imgSrc = val.imgSrc;
-            console.log(this.formItem.imgSrc)
-            console.log(this.cur_imgSrc)
-        }
+        uploadImageList,
     },
     methods: {
-         /**
+        /**
          * 更新图片 src
          */
-        updateImgSrc(imgSrc) {
-            this.formItem.imgSrc = imgSrc;
-            console.log(`新增图片：${this.formItem.imgSrc}`);
+        updateImgSrcList(imgSrcList) {
+            this.formItem.imgSrcList = imgSrcList;
+            this.updatedProduct(this.formItem);
+            console.log(`新增图片：${this.formItem.imgSrcList}`);
         },
 
         /**
@@ -191,7 +204,7 @@ export default {
                 ? this.formItem.oldPrice.match(/\d+(\.\d{0,2})?/)[0]
                 : "";
         },
-        
+
         /**
          * close 事件
          */
@@ -199,11 +212,6 @@ export default {
             let imgsrc = this.formItem.imgSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
-                    console.log(imgsrc)
-                    console.log(this.cur_imgSrc)
-                    if(imgsrc !== this.cur_imgSrc){
-                        this.delUploadImage(imgsrc)
-                    }
                     this.$emit("close");
                     this.$refs["form"].resetFields();
                 })
@@ -227,9 +235,6 @@ export default {
                     message: "商品信息更新成功！",
                     type: "success",
                 });
-                if(newImgSrc !== this.cur_imgSrc){
-                    this.delUploadImage(this.cur_imgSrc);
-                }
             } else {
                 this.$message.error("系统出错，请重试！");
             }
@@ -254,9 +259,13 @@ export default {
          * 删除图片
          */
         async delUploadImage(filename) {
+            let index = this.formItem.imgSrcList.indexOf(filename);
+            this.formItem.imgSrcList.splice(index, 1);
+
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
+                this.updatedProduct(this.formItem);
                 console.log(`删除图片：${this.formItem.imgSrc}`);
                 flat = true;
             } else {

@@ -173,7 +173,7 @@ export default {
         async setDataList(size, currentPage, selectCond) {
             this.dataList.length = 0;
             let res_data = await this.getData(size, currentPage, selectCond);
-            this.dataList = res_data.rows;
+            this.dataList = [...res_data.rows];
             this.pagination.total = res_data.count;
         },
 

@@ -49,16 +49,11 @@
                             <upload-image-list
                                 :action="action"
                                 :headers="headers"
+                                :imageUrlList="formItem.imgSrcList"
                                 @updateImgSrcList="updateImgSrcList"
                                 @delUploadImage="delUploadImage"
                             ></upload-image-list>
                         </el-col>
-                        <!-- <el-col :span="12">
-                            <div style="text-align: left; padding-top:30px">
-                                点击左侧，进行菜品图片上传
-                                <br />注意，图片上传完成及图片修改完毕
-                            </div>
-                        </el-col> -->
                     </el-row>
                 </el-form-item>
                 <el-form-item label="介绍" prop="detail">

@@ -28,13 +28,34 @@ export default {
         action: {
             type: String,
         },
+        imageUrlList: {
+            type: Array,
+        },
     },
     data() {
         return {
             fileList: [],
-            imageUrlList: [],
             limit: 4,
         };
+    },
+    watch: {
+        imageUrlList(list) {
+            this.fileList = [];
+            list.forEach((element) => {
+                this.fileList.push({
+                    name: element,
+                    url: `${this.$store.state.server_url}/upload/${element}`,
+                });
+            });
+        },
+    },
+    mounted(){
+        this.imageUrlList.forEach((element) => {
+                this.fileList.push({
+                    name: element,
+                    url: `${this.$store.state.server_url}/upload/${element}`,
+                });
+            });
     },
     methods: {
         handleExceed() {
@@ -44,10 +65,14 @@ export default {
             });
         },
         handleAvatarSuccess(res, file, fileList) {
+            console.log(fileList)
+            console.log(res)
             fileList.forEach((element) => {
-                element.name = element.response.data;
+                if (element.response) {
+                    element.name = element.response.data;
+                    this.imageUrlList.push(element.response.data);
+                }
             });
-            this.imageUrlList.push(res.data);
             this.$emit("updateImgSrcList", this.imageUrlList);
         },
         beforeAvatarUpload(file) {
