@@ -130,13 +130,14 @@ router.beforeEach((to, from, next) => {
     if (token) {
         axios.getCurrentAccount().then((res) => {
             auth = res.data.data.auth
+        }).catch((err) => {
+            console.log(err)
+        }).finally(()=>{
             if (to.meta.auth >= auth) {
                 next();
             } else {
                 next({ name: 'Login' })
             }
-        }).catch(() => {
-            next({ name: 'Home' })
         })
     } else {
         if (to.name !== "Login") {
