@@ -1,7 +1,7 @@
 // 本文件的详细说明请查阅：https://blog.csdn.net/weixin_44869002/article/details/106826503
 
 const path = require('path')
-const UglifyPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyPlugin = require('uglifyjs-webpack-plugin')
 // const CompressionPlugin = require("compression-webpack-plugin")
 const webpack = require('webpack')
 
@@ -75,16 +75,16 @@ module.exports = {
         },
 
         // 移除console
-        minimizer: [new UglifyPlugin({
-          uglifyOptions: {
-            warnings: false,
-            compress: {
-              drop_console: true, // console
-              drop_debugger: false,
-              pure_funcs: ['console.log'] // 移除console
-            }
-          }
-        })]
+        // minimizer: [new UglifyPlugin({
+        //   uglifyOptions: {
+        //     warnings: false,
+        //     compress: {
+        //       drop_console: true, // console
+        //       drop_debugger: false,
+        //       pure_funcs: ['console.log'] // 移除console
+        //     }
+        //   }
+        // })]
       }
       Object.assign(config, {
         optimization
