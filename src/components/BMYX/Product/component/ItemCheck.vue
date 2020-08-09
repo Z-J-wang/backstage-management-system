@@ -11,7 +11,7 @@
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">类别：</el-col>
-            <el-col :span="16">{{ item.sort }}</el-col>
+            <el-col :span="16">{{ item.sort.name }}</el-col>
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">今天价格</el-col>
@@ -24,10 +24,17 @@
         <el-row class="text-l">
             <el-col :span="8">图片:</el-col>
             <el-col :span="16">
-                <el-image
-                    :src="item.imgSrc"
-                    :preview-src-list="[item.imgSrc]"
-                ></el-image>
+                <el-row :gutter="10" style="padding: 0;">
+                    <el-col :span="12"
+                        v-for="imgSrc in imageList"
+                        :key="imgSrc"
+                    >
+                        <el-image
+                            :src="imgSrc"
+                            :preview-src-list="imageList"
+                        ></el-image>
+                    </el-col>
+                </el-row>
             </el-col>
         </el-row>
         <el-row class="text-l">
@@ -50,6 +57,21 @@ export default {
         },
         item: {
             type: Object,
+        },
+    },
+    data() {
+        return {
+            imageList: [],
+        };
+    },
+    watch: {
+        item() {
+            this.imageList = [];
+            this.item.imgSrcList.forEach((element) => {
+                this.imageList.push(
+                    `${this.$store.state.server_url}/upload/${element}`
+                );
+            });
         },
     },
     methods: {
