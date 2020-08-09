@@ -43,13 +43,13 @@
                 label="昨天价格"
             ></el-table-column>
             <el-table-column
-                prop="imgSrc"
+                prop="imgSrcList"
                 label="图片"
             >
                 <template slot-scope="scope">
                     <el-image
                         style="width: 50px; height: 50px"
-                        :src="`${$store.state.server_url}/upload/${scope.row.imgSrc}`"
+                        :src="`${$store.state.server_url}/upload/${scope.row.imgSrcList[0]}`"
                     ></el-image>
                 </template>
             </el-table-column>
@@ -145,7 +145,7 @@ export default {
                 sort: "",
                 nowPrice: "",
                 oldPrice: "",
-                imgSrc: "",
+                imgSrcList: "",
                 detail: "",
             },
             dataList: [{}],

@@ -43,24 +43,22 @@
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item label="图片链接" prop="imgSrcList">
                     <el-row>
-                        <el-col :span="12">
-                            <upload-image
-                                :imageUrl="formItem.imgSrc"
+                        <el-col :span="24">
+                            <upload-image-list
                                 :action="action"
                                 :headers="headers"
-                                @updateImgSrc="updateImgSrc"
-                                width="120"
-                                height="120"
-                            ></upload-image>
+                                @updateImgSrcList="updateImgSrcList"
+                                @delUploadImage="delUploadImage"
+                            ></upload-image-list>
                         </el-col>
-                        <el-col :span="12">
+                        <!-- <el-col :span="12">
                             <div style="text-align: left; padding-top:30px">
                                 点击左侧，进行菜品图片上传
                                 <br />注意，图片上传完成及图片修改完毕
                             </div>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
                 </el-form-item>
                 <el-form-item label="介绍" prop="detail">
@@ -81,7 +79,7 @@
     </el-dialog>
 </template>
 <script>
-import uploadImage from "@c/common/From_tools/UploadImage.vue";
+import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
 import validate_rules from "./validate-rule.js";
 
 export default {
@@ -105,7 +103,7 @@ export default {
                 name: "",
                 s_Id: "",
                 nowPrice: "",
-                imgSrc: "",
+                imgSrcList: [],
                 detail: "",
             },
             rules: Object.assign(
@@ -126,7 +124,7 @@ export default {
         };
     },
     components: {
-        uploadImage,
+        uploadImageList
     },
     async mounted() {
         this.options = await this.getSort();
@@ -135,9 +133,9 @@ export default {
         /**
          * 更新图片 src
          */
-        updateImgSrc(imgSrc) {
-            this.formItem.imgSrc = imgSrc;
-            console.log(`新增图片：${this.formItem.imgSrc}`);
+        updateImgSrcList(imgSrcList) {
+            this.formItem.imgSrcList = imgSrcList;
+            console.log(`新增图片：${this.formItem.imgSrcList}`);
         },
 
         /**
@@ -165,7 +163,9 @@ export default {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.delUploadImage(this.formItem.imgSrc)
+                    this.formItem.imgSrcList.forEach(element => {
+                        this.delUploadImage(element)
+                    });
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
@@ -219,7 +219,7 @@ export default {
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
-                console.log(`删除图片：${this.formItem.imgSrc}`);
+                console.log(`删除图片：${filename}`);
                 flat = true;
             } else {
                 console.log("图片删除失败")

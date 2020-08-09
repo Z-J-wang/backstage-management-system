@@ -1,11 +1,11 @@
 <template>
     <el-upload
-        class="avatar-uploader"
+        class="text-l"
         :action="action"
         :file-list="fileList"
         list-type="picture"
-        :on-progress="handleProgress"
-        :on-preview="handlePreview"
+        :limit="limit"
+        :on-exceed="handleExceed"
         :on-remove="handleRemove"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
@@ -27,21 +27,27 @@ export default {
     props: {
         action: {
             type: String,
-        }
+        },
     },
     data() {
         return {
             fileList: [],
-            imageUrlList:[],
+            imageUrlList: [],
+            limit: 4,
         };
     },
     methods: {
-        handleProgress(event, file, fileList){
-            console.log(event.percent)
+        handleExceed() {
+            this.$message({
+                message: `一个商品只能添加${this.limit}张图片。`,
+                type: "warning",
+            });
         },
-        handleAvatarSuccess(res) {
+        handleAvatarSuccess(res, file, fileList) {
+            fileList.forEach((element) => {
+                element.name = element.response.data;
+            });
             this.imageUrlList.push(res.data);
-            console.log(this.fileList);
             this.$emit("updateImgSrcList", this.imageUrlList);
         },
         beforeAvatarUpload(file) {
@@ -56,35 +62,13 @@ export default {
             }
             return isJPG && isLt2M;
         },
-        handlePreview(file){
-
+        handleRemove(file, fileList) {
+            this.$emit("delUploadImage", file.name);
         },
-        handleRemove(file, fileList){
-
-        }
     },
 };
 </script>
 
 <style>
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-}
-.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-
-    text-align: center;
-}
-.avatar {
-    display: block;
-}
 </style>
 
