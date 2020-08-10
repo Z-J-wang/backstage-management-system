@@ -123,7 +123,7 @@ export default {
                     oldPrice: [
                         // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
                         {
-                            required: true,
+                            required: false,
                             message: "请输入价格",
                             trigger: "blur",
                         },
