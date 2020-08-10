@@ -73,7 +73,7 @@
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
-                        maxlength="400"
+                        maxlength="30"
                         show-word-limit
                         placeholder="请输入商品介绍"
                     ></el-input>
