@@ -15,7 +15,7 @@ const rules = {
         trigger: "blur"
     }],
     oldPrice: [{
-        required: true,
+        required: false,
         message: "请输入昨天的价格",
         trigger: "blur"
     }],

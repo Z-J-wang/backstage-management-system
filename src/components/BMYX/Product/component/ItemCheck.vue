@@ -6,23 +6,23 @@
         :before-close="handleClose"
     >
         <el-row class="text-l">
-            <el-col :span="8">菜名：</el-col>
+            <el-col :span="8">商品名称：</el-col>
             <el-col :span="16">{{ item.name }}</el-col>
         </el-row>
         <el-row class="text-l">
-            <el-col :span="8">类别：</el-col>
+            <el-col :span="8">商品类别：</el-col>
             <el-col :span="16">{{ item.sort.name }}</el-col>
         </el-row>
         <el-row class="text-l">
-            <el-col :span="8">今天价格</el-col>
+            <el-col :span="8">平台价格:</el-col>
             <el-col :span="16">{{ item.nowPrice }}</el-col>
         </el-row>
         <el-row class="text-l">
-            <el-col :span="8">昨天价格</el-col>
+            <el-col :span="8">市面价格:</el-col>
             <el-col :span="16">{{ item.oldPrice }}</el-col>
         </el-row>
         <el-row class="text-l">
-            <el-col :span="8">图片:</el-col>
+            <el-col :span="8">商品图片:</el-col>
             <el-col :span="16">
                 <el-row :gutter="10" style="padding: 0;">
                     <el-col :span="12"
@@ -38,7 +38,7 @@
             </el-col>
         </el-row>
         <el-row class="text-l">
-            <el-col :span="8">介绍:</el-col>
+            <el-col :span="8">商品介绍:</el-col>
             <el-col
                 :span="16"
                 class="text-indent-en"

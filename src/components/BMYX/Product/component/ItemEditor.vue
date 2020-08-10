@@ -15,19 +15,10 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item
-                    label="菜名"
-                    prop="name"
-                >
-                    <el-input
-                        v-model="formItem.name"
-                        placeholder="请输入菜名"
-                    ></el-input>
+                <el-form-item label="商品名称" prop="name">
+                    <el-input v-model="formItem.name" placeholder="请输入商品名称"></el-input>
                 </el-form-item>
-                <el-form-item
-                    label="类别"
-                    prop="s_Id"
-                >
+                <el-form-item label="商品类别" prop="s_Id">
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
@@ -43,32 +34,32 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item
-                    label="今天价格"
-                    prop="nowPrice"
-                >
+                <el-form-item label="平台价格" prop="nowPrice">
                     <el-input
                         v-model="formItem.nowPrice"
-                        placeholder="请输入今天价格"
+                        placeholder="请输入平台价格"
                         @change="changeNowPrice()"
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item
-                    label="昨天价格"
-                    prop="oldPrice"
-                >
+                <el-form-item label="市面价格" prop="oldPrice">
                     <el-input
                         v-model="formItem.oldPrice"
                         @change="changeOldPrice()"
                         @input="inputOldPrice()"
-                        placeholder="请输入昨天价格"
+                        placeholder="请输入市面价格"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrcList">
+                <el-form-item label="商品图片" prop="imgSrcList">
                     <el-row>
                         <el-col :span="24">
-                            <div>注意：您对图片的所有操作将直接被记录。</div>
+                            <el-alert
+                                class="upload_warn"
+                                description="注意：您对图片的所有操作将直接被记录。"
+                                type="warning"
+                                show-icon
+                                :closable="false"
+                            ></el-alert>
                             <upload-image-list
                                 :action="action"
                                 :imageUrlList="formItem.imgSrcList"
@@ -78,29 +69,20 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item
-                    label="介绍"
-                    prop="detail"
-                >
+                <el-form-item label="商品介绍" prop="detail">
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
                         maxlength="400"
                         show-word-limit
-                        placeholder="请输入博客摘要"
+                        placeholder="请输入商品介绍"
                     ></el-input>
                 </el-form-item>
             </el-form>
         </div>
-        <span
-            slot="footer"
-            class="dialog-footer"
-        >
+        <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="onSubmit('form')"
-            >提 交</el-button>
+            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -209,7 +191,6 @@ export default {
          * close 事件
          */
         handleClose() {
-            let imgsrc = this.formItem.imgSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
                     this.$emit("close");
@@ -229,7 +210,6 @@ export default {
 
         async updatedProduct(data) {
             let ret = await this.$HttpApi.updatedProduct(data);
-            let newImgSrc = ret.data.data.rows[0].imgSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: "商品信息更新成功！",
@@ -279,28 +259,17 @@ export default {
 };
 </script>
 
-<style>
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-}
-.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-}
-.avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+<style lang="less">
+.upload_warn {
+    .el-alert__content {
+        p {
+            line-height: 20px;
+            margin: 0;
+        }
+    }
+    i {
+        font-size: 16px !important;
+        width: 16px !important;
+    }
 }
 </style>

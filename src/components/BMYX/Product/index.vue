@@ -22,12 +22,12 @@
             ></el-table-column>
             <el-table-column
                 prop="name"
-                label="菜品"
+                label="商品名称"
                 sortable
                 width="240"
             ></el-table-column>
             <el-table-column
-                label="类别"
+                label="商品类别"
                 sortable
             >
                 <template slot-scope="scope">
@@ -36,15 +36,15 @@
             </el-table-column>
             <el-table-column
                 prop="nowPrice"
-                label="今天价格"
+                label="平台价格"
             ></el-table-column>
             <el-table-column
                 prop="oldPrice"
-                label="昨天价格"
+                label="市面价格"
             ></el-table-column>
             <el-table-column
                 prop="imgSrcList"
-                label="图片"
+                label="商品图片"
             >
                 <template slot-scope="scope">
                     <el-image
@@ -55,7 +55,7 @@
             </el-table-column>
             <el-table-column
                 prop="detail"
-                label="介绍"
+                label="商品介绍"
             ></el-table-column>
             <el-table-column
                 fixed="right"
@@ -153,7 +153,6 @@ export default {
                 total: 0,
                 currentPage: 1,
                 size: 10,
-                currentPage: 1,
             },
         };
     },

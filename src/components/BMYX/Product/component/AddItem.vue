@@ -15,10 +15,10 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="菜名" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入菜名"></el-input>
+                <el-form-item label="商品名称" prop="name">
+                    <el-input v-model="formItem.name" placeholder="请输入商品名称"></el-input>
                 </el-form-item>
-                <el-form-item label="类别" prop="s_Id">
+                <el-form-item label="商品类别" prop="s_Id">
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
@@ -34,16 +34,16 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="今天价格" prop="nowPrice">
+                <el-form-item label="平台价格" prop="nowPrice">
                     <el-input
                         type="text"
                         v-model="formItem.nowPrice"
-                        placeholder="请输入今天价格"
+                        placeholder="请输入平台价格"
                         @change="changeNowPrice()"
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrcList">
+                <el-form-item label="商品图片" prop="imgSrcList">
                     <el-row>
                         <el-col :span="24">
                             <upload-image-list
@@ -56,13 +56,13 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="介绍" prop="detail">
+                <el-form-item label="商品介绍" prop="detail">
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
                         maxlength="400"
                         show-word-limit
-                        placeholder="请输入博客摘要"
+                        placeholder="请输入商品介绍"
                     ></el-input>
                 </el-form-item>
             </el-form>
