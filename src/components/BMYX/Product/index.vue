@@ -1,67 +1,35 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button
-                type="primary"
-                icon="el-icon-plus"
-                @click="addItemVisible = true"
-            >新增一笔</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
-            class="nowrap"
             stripe
             border
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column
-                prop="id"
-                label="id"
-                sortable
-            ></el-table-column>
-            <el-table-column
-                prop="name"
-                label="商品名称"
-                sortable
-                width="240"
-            ></el-table-column>
-            <el-table-column
-                label="商品类别"
-                sortable
-            >
+            <el-table-column prop="id" label="id" sortable></el-table-column>
+            <el-table-column prop="name" label="商品名称" sortable width="110"></el-table-column>
+            <el-table-column label="商品类别" sortable>
                 <template slot-scope="scope">
                     <span>{{ scope.row['sort.name'] }}</span>
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="nowPrice"
-                label="平台价格"
-            ></el-table-column>
-            <el-table-column
-                prop="oldPrice"
-                label="市面价格"
-            ></el-table-column>
-            <el-table-column
-                prop="imgSrcList"
-                label="商品图片"
-            >
+            <el-table-column prop="nowPrice" label="平台价格"></el-table-column>
+            <el-table-column prop="oldPrice" label="市面价格"></el-table-column>
+            <el-table-column prop="imgSrcList" label="商品图片">
                 <template slot-scope="scope">
                     <el-image
-                        style="width: 50px; height: 50px"
+                        style="width: 60px; height: 60px"
                         :src="`${$store.state.server_url}/upload/${scope.row.imgSrcList[0]}`"
                     ></el-image>
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="detail"
-                label="商品介绍"
-            ></el-table-column>
-            <el-table-column
-                fixed="right"
-                label="操作"
-                width="140"
-            >
+            <el-table-column prop="detail" label="商品介绍" width="240"></el-table-column>
+            <el-table-column prop="updatedAt" label="近期修改" width="101" sortable></el-table-column>
+            <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemCheck(scope.row)"
@@ -105,8 +73,7 @@
             :total="pagination.total"
             class="text-l"
             style="margin-top: 10px;"
-        >
-        </el-pagination>
+        ></el-pagination>
 
         <item-editor
             :dialog-visible="itemEditorVisible"
@@ -114,16 +81,9 @@
             @close="closeItemEditor"
         ></item-editor>
 
-        <item-check
-            :drawer-visible="itemCheckVisible"
-            :item="itemValue"
-            @close="closeItemCheck"
-        ></item-check>
+        <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
 
-        <add-item
-            :visible="addItemVisible"
-            @close="closeAddItem"
-        ></add-item>
+        <add-item :visible="addItemVisible" @close="closeAddItem"></add-item>
     </div>
 </template>
 
