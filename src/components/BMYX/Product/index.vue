@@ -1,20 +1,28 @@
 <template>
     <div class="tableContain">
-        <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
+        <div class="table_tool clearfix">
+            <div class="search float-l">
+                <el-input placeholder="请输入搜索关键字" v-model="search.text" class="input-with-select">
+                    <el-select v-model="search.type" slot="prepend" placeholder="请选择类别">
+                        <el-option label="商品名称" value="name" selected></el-option>
+                        <el-option label="商品类别" value="sort"></el-option>
+                    </el-select>
+                    <el-button slot="append" icon="el-icon-search" @click="handleSearch()"></el-button>
+                </el-input>
+            </div>
+            <el-button
+                class="float-r"
+                type="primary"
+                icon="el-icon-plus"
+                @click="addItemVisible = true"
+            >新增一笔</el-button>
         </div>
-        <el-table
-            :data="dataList"
-            stripe
-            border
-            style="width: 100%"
-            highlight-current-row
-        >
+        <el-table :data="dataList" stripe border style="width: 100%" highlight-current-row>
             <el-table-column prop="id" label="id" sortable></el-table-column>
             <el-table-column prop="name" label="商品名称" sortable width="110"></el-table-column>
             <el-table-column label="商品类别" sortable>
                 <template slot-scope="scope">
-                    <span>{{ scope.row['sort.name'] }}</span>
+                    <span>{{ scope.row.sort.name }}</span>
                 </template>
             </el-table-column>
             <el-table-column prop="nowPrice" label="平台价格"></el-table-column>
@@ -108,11 +116,16 @@ export default {
                 imgSrcList: "",
                 detail: "",
             },
+            search: {
+                // 查询信息
+                type: "name",
+                text: "",
+            },
             dataList: [{}],
             pagination: {
                 total: 0,
                 currentPage: 1,
-                size: 10,
+                size: 1,
             },
         };
     },
@@ -129,9 +142,14 @@ export default {
             this.delProduct(id);
         },
 
-        async setDataList(size, currentPage, selectCond) {
+        async setDataList(size, currentPage, selectCond, isfirst) {
+            let res_data = {};
             this.dataList.length = 0;
-            let res_data = await this.getData(size, currentPage, selectCond);
+            if (this.search.text) {
+                 res_data = await this.searchByNameOrSort(size, currentPage, this.search, isfirst);
+            } else {
+                res_data = await this.getData(size, currentPage, selectCond);
+            }
             this.dataList = [...res_data.rows];
             this.pagination.total = res_data.count;
         },
@@ -191,6 +209,20 @@ export default {
             this.itemCheckVisible = false;
         },
 
+        /**
+         * 搜索
+         */
+        async handleSearch() {
+            if (this.search.text) {
+                this.setDataList(this.pagination.size, 1, true)
+            } else {
+                this.$message({
+                    type: "warning",
+                    message: "请输入搜索关键字",
+                });
+            }
+        },
+
         // ajax 部分
         /**
          * 条件查询
@@ -211,6 +243,35 @@ export default {
             let data = [];
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
+                console.log(res.data.data.rows);
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
+        },
+
+        /**
+         * 根据 name 或者 sort 进行搜索
+         */
+        async searchByNameOrSort(size, currentPage, search, isfirst = false) {
+            let params = Object.assign(
+                {
+                    pageSize: size || this.pagination.size,
+                    start: isfirst
+                        ? 0
+                        : (currentPage - 1) * this.pagination.size +
+                              this.dataList.length || 0,
+                },
+                search
+            );
+            let res = await this.$HttpApi.searchByNameOrSort(params);
+            let data = [];
+            if (res.status === 200 && res.data.code === 1000) {
+                this.dataList = [...res.data.data.rows];
+                console.log(res.data.data.rows);
+                console.log(this.dataList);
+                this.pagination.total = res.data.data.count;
             } else {
                 this.$message.error(res.data.msg);
             }
@@ -247,6 +308,25 @@ export default {
         margin-bottom: 20px;
         padding-right: 25px;
         text-align: right;
+        .el-select .el-input {
+            width: 130px;
+        }
+        .input-with-select .el-input-group__prepend {
+            background-color: #fff;
+        }
+    }
+}
+</style>
+<style lang="less">
+.table_tool {
+    .search {
+        width: 600px;
+        .el-select .el-input {
+            width: 130px;
+        }
+        .input-with-select .el-input-group__prepend {
+            background-color: #fff;
+        }
     }
 }
 </style>

@@ -36,10 +36,31 @@ li {
     white-space: nowrap !important;
 }
 
+.float-l {
+    float: left !important;
+}
+
+.float-r {
+    float: right !important;
+}
+
+.clearfix {
+    *zoom: 1;
+    _height: 1px;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    clear: both;
+}
+
 .line-break,
 .line-break div,
-.line-break p
-.line-break li {
+.line-break p .line-break li {
     white-space: normal;
     word-break: break-all;
 }

@@ -31,6 +31,14 @@ export default class HttpApi {
     }
 
     /**
+     * 根据 name 或者 sort 模糊查询
+     * @param {*} params 
+     */
+    searchByNameOrSort(params) {
+        return instance.post('/api/bmyx/searchByNameOrSort', params)
+    }
+
+    /**
      * 新增一笔产品数据
      * @param {object} params 
      */
