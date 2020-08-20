@@ -76,8 +76,6 @@ export default {
                 } else {
                     this.$message.error(res.data.msg);
                 }
-            } catch (error) {
-                this.$message.error("出错了！请重试！！");
             } finally {
                 loading.close();
             }
