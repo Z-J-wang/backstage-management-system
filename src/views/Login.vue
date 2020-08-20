@@ -9,6 +9,7 @@
                 ref="loginForm"
                 label-width="50px"
                 class="demo-ruleForm"
+                @keyup.native.enter="submitForm('loginForm')"
             >
                 <el-form-item label="账号" prop="account">
                     <el-input v-model="loginForm.account"></el-input>
@@ -59,14 +60,26 @@ export default {
         },
 
         async login(data) {
-            let res = await this.$HttpApi.login(data);
-            if (res.data.code === 1000) {
-                this.$Cookie.setUserInfo(res.data.data.account);
-                this.$Cookie.setCookie('auth', res.data.data.auth);
-                this.$Cookie.setToken(res.data.data.token);
-                this.$router.push({ name: "Home" });
-            } else {
-                this.$message.error(res.data.msg);
+            const loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)",
+            });
+            try {
+                let res = await this.$HttpApi.login(data);
+                if (res.data.code === 1000) {
+                    this.$Cookie.setUserInfo(res.data.data.account);
+                    this.$Cookie.setCookie("auth", res.data.data.auth);
+                    this.$Cookie.setToken(res.data.data.token);
+                    this.$router.push({ name: "Home" });
+                } else {
+                    this.$message.error(res.data.msg);
+                }
+            } catch (error) {
+                this.$message.error("出错了！请重试！！");
+            } finally {
+                loading.close();
             }
         },
     },
