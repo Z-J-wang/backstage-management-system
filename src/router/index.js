@@ -118,6 +118,17 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+    },
+    {
+        path: '/404',
+        name: '404',
+        meta: {
+            auth: 3
+        },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import( /* webpackChunkName: "404" */ '../views/404.vue')
     }
 ]
 
@@ -126,26 +137,33 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    let token = cookie.getToken();
-    if (token) {
-        axios.getCurrentAccount().then((res) => {
-            auth = res.data.data.auth
-        }).catch((err) => {
-            console.log(err)
-        }).finally(()=>{
-            if (to.meta.auth >= auth) {
-                next();
-            } else {
-                next({ name: 'Login' })
-            }
-        })
-    } else {
-        if (to.name !== "Login") {
-            next({ name: 'Login' })
+    if (to.name == null){
+        next({ name: "404" })
+    } else if (to.name == '404'){
+        next()
+    } else{
+        let token = cookie.getToken();
+        if (token) {
+            axios.getCurrentAccount().then((res) => {
+                auth = res.data.data.auth
+            }).catch((err) => {
+                console.log(err)
+            }).finally(() => {
+                if (to.meta.auth >= auth) {
+                    next();
+                } else {
+                    next({ name: 'Login' })
+                }
+            })
         } else {
-            next()
+            if (to.name !== "Login") {
+                next({ name: 'Login' })
+            } else {
+                next()
+            }
         }
     }
+
 })
 
 export default router
