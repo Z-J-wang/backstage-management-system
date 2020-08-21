@@ -1,36 +1,39 @@
 <template>
-  <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view/>
-  </div>
+    <div id="app">
+        <el-container>
+            <el-main class="app_mian">
+                <router-view />
+            </el-main>
+            <el-footer class="app_footer">
+                <footBar></footBar>
+            </el-footer>
+        </el-container>
+    </div>
 </template>
 
 <style lang="less">
+@app-footer-height: 60px;
+@app-main-height: calc(~"100vh - @{app-footer-height}");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
 }
 
-body{
+body {
     margin: 0;
 }
 
-#nav {
-  padding: 30px;
+.app_mian {
+    min-height: @app-main-height;
+    box-sizing: border-box;
+    overflow: hidden;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.app_footer {
+    height: @app-footer-height !important;
+    box-sizing: border-box;
 }
 </style>
