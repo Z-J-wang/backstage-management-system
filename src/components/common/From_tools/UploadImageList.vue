@@ -10,7 +10,7 @@
         :on-change="change"
         :on-exceed="handleExceed"
         :on-remove="handleRemove"
-        :on-success="handleAvatarSuccess"
+        :on-success="handleSuccess"
     >
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">
@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             fileList: [],
-            limit: 2,
+            limit: 4,
         };
     },
     watch: {
@@ -82,7 +82,7 @@ export default {
                 type: "warning",
             });
         },
-        handleAvatarSuccess(res, file, fileList) {
+        handleSuccess(res, file, fileList) {
             console.log(fileList);
             console.log(res);
             fileList.forEach((element) => {

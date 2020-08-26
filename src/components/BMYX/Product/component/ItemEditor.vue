@@ -105,7 +105,7 @@ export default {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
-            title: "修改一条菜品",
+            title: "修改商品信息",
             options: [],
             rules: Object.assign(
                 validate_rules,
