@@ -45,7 +45,7 @@
                             active-color="#13ce66"
                             inactive-color="#ff4949"
                             title="点击切换状态"
-                            @change="banSwitchToFalse(scope.row.id, scope.$index)"
+                            @change="banSwitchToTrue(scope.row.id, scope.$index)"
                         ></el-switch>
                     </div>
                     <div v-else class="text-c ban">
@@ -55,7 +55,7 @@
                             active-color="#13ce66"
                             inactive-color="#ff4949"
                             title="点击切换状态"
-                            @change="banSwitchToTrue(scope.row.id, scope.$index)"
+                            @change="banSwitchToFalse(scope.row.id, scope.$index)"
                         ></el-switch>
                     </div>
                 </template>
