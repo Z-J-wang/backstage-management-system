@@ -28,6 +28,7 @@ body {
 
 .app_mian {
     min-height: @app-main-height;
+    padding: 0;
     box-sizing: border-box;
     overflow: hidden;
 }

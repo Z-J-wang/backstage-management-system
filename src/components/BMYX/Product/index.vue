@@ -36,6 +36,30 @@
                 </template>
             </el-table-column>
             <el-table-column prop="detail" label="商品介绍" width="240"></el-table-column>
+            <el-table-column prop="ban" label="状态" width="150">
+                <template slot-scope="scope">
+                    <div v-if="!scope.row.ban" class="text-c ban">
+                        <el-tag type="success" effect="dark" class="tag">上架成功</el-tag>
+                        <el-switch
+                            v-model="scope.row.ban"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            title="点击切换状态"
+                            @change="banSwitchToFalse(scope.row.id, scope.$index)"
+                        ></el-switch>
+                    </div>
+                    <div v-else class="text-c ban">
+                        <el-tag type="danger" effect="dark">已下架</el-tag>
+                        <el-switch
+                            v-model="scope.row.ban"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            title="点击切换状态"
+                            @change="banSwitchToTrue(scope.row.id, scope.$index)"
+                        ></el-switch>
+                    </div>
+                </template>
+            </el-table-column>
             <el-table-column prop="updatedAt" label="近期修改" width="101" sortable></el-table-column>
             <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
@@ -146,7 +170,12 @@ export default {
             let res_data = {};
             this.dataList.length = 0;
             if (this.search.text) {
-                 res_data = await this.searchByNameOrSort(size, currentPage, this.search, isfirst);
+                res_data = await this.searchByNameOrSort(
+                    size,
+                    currentPage,
+                    this.search,
+                    isfirst
+                );
             } else {
                 res_data = await this.getData(size, currentPage, selectCond);
             }
@@ -214,13 +243,35 @@ export default {
          */
         async handleSearch() {
             if (this.search.text) {
-                this.setDataList(this.pagination.size, 1, true)
+                this.setDataList(this.pagination.size, 1, true);
             } else {
                 this.$message({
                     type: "warning",
                     message: "请输入搜索关键字",
                 });
             }
+        },
+
+        /**
+         * 商品下架
+         */
+        banSwitchToFalse(id, index){
+            const params = {
+                id : id,
+                ban : false
+            }
+            this.changeProductBan(params, index)
+        },
+
+        /**
+         * 商品上架
+         */
+        banSwitchToTrue(id, index){
+            const params = {
+                id : id,
+                ban : true
+            }
+            this.changeProductBan(params, index)
         },
 
         // ajax 部分
@@ -280,6 +331,30 @@ export default {
         },
 
         /**
+         * 商品上下架
+         */
+        async changeProductBan(params, index){
+            let res = await this.$HttpApi.changeProductBan(params);
+            if(res.status === 200 && res.data.code === 1000){
+                if(res.data.data.rows[0].ban){
+                    this.$message({
+                        type: 'success',
+                        message: `${res.data.data.rows[0].name}上架成功！`
+                    });
+
+                }else{
+                     this.$message({
+                        type: 'warning',
+                        message: `${res.data.data.rows[0].name}下架成功！`
+                    });
+                }
+            } else {
+                this.$message.error("操作失败请重试");
+                this.dataList[index].ban = !params.ban;
+            }
+        },
+
+        /**
          * 删除指定的 product
          * @param {number} id
          */
@@ -328,5 +403,13 @@ export default {
             background-color: #fff;
         }
     }
+}
+.ban {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-around;
+    justify-content:space-around;
+    flex-wrap: wrap;
 }
 </style>

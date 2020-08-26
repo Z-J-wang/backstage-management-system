@@ -55,6 +55,14 @@ export default class HttpApi {
     }
 
     /**
+     * 商品上下架
+     * @param {object} params 
+     */
+    changeProductBan(params) {
+        return instance.post('/api/bmyx/changeProductBan', params)
+    }
+
+    /**
      * 根据id 删除产品数据
      * @param {*} params 
      */
