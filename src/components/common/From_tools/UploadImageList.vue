@@ -1,18 +1,20 @@
 <template>
     <el-upload
+        ref="uploadList"
         class="text-l"
         :action="action"
         :file-list="fileList"
+        :auto-upload="false"
         list-type="picture"
         :limit="limit"
+        :on-change="change"
         :on-exceed="handleExceed"
         :on-remove="handleRemove"
         :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload"
     >
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">
-            <p>1. 只能上传 jpg / png 文件，且不超过 500 kb；</p>
+            <p>1. 只能上传 jpg / jpeg / png 文件，且不超过 500 kb；</p>
             <p>2. 建议上传图片的长宽比为1.5 : 1；</p>
         </div>
     </el-upload>
@@ -32,7 +34,7 @@ export default {
     data() {
         return {
             fileList: [],
-            limit: 4,
+            limit: 2,
         };
     },
     watch: {
@@ -55,6 +57,25 @@ export default {
         });
     },
     methods: {
+        change(file, fileList){
+            const typeList = ["image/jpeg","image/png", "image/jpg"]
+            const isLt2M = file.raw.size / 1024 / 1024 < 0.5;
+            if (typeList.indexOf(file.raw.type) < 0) {
+                this.$message.error("上传图片只能是 jpg / png / jpeg 格式!");
+                fileList.pop();
+                this.fileList = fileList;
+
+                return false;
+            }
+            if (!isLt2M) {
+                this.$message.error("上传图片大小不能超过 500 kb!");
+                fileList.pop();
+                this.fileList = fileList;
+
+                return false;
+            }
+            this.$refs['uploadList'].submit();
+        },
         handleExceed() {
             this.$message({
                 message: `一个商品只能添加${this.limit}张图片。`,
@@ -71,18 +92,6 @@ export default {
                 }
             });
             this.$emit("updateImgSrcList", this.imageUrlList);
-        },
-        beforeAvatarUpload(file) {
-            const isJPG = file.type === "image/jpeg";
-            const isLt2M = file.size / 1024 / 1024 < 0.5;
-
-            if (!isJPG) {
-                this.$message.error("上传头像图片只能是 JPG 格式!");
-            }
-            if (!isLt2M) {
-                this.$message.error("上传图片大小不能超过 500 kb!");
-            }
-            return isJPG && isLt2M;
         },
         handleRemove(file) {
             this.$emit("delUploadImage", file.name);

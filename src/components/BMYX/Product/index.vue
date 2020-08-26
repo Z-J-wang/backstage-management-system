@@ -336,7 +336,7 @@ export default {
         async changeProductBan(params, index){
             let res = await this.$HttpApi.changeProductBan(params);
             if(res.status === 200 && res.data.code === 1000){
-                if(res.data.data.rows[0].ban){
+                if(!res.data.data.rows[0].ban){
                     this.$message({
                         type: 'success',
                         message: `${res.data.data.rows[0].name}上架成功！`
