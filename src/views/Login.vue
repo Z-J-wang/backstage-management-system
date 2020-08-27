@@ -7,7 +7,7 @@
                 status-icon
                 :rules="rules"
                 ref="loginForm"
-                label-width="50px"
+                label-width="80px"
                 class="demo-ruleForm"
                 @keyup.native.enter="submitForm('loginForm')"
             >
@@ -17,6 +17,14 @@
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
                 </el-form-item>
+                <el-row>
+                    <el-col :span="16">
+                        <el-form-item label="验证码" prop="verifiyCode">
+                               <el-input v-model="loginForm.verifiyCode" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8"> <img :src="VCode_imgSrc" @click="verifitCodeRefresh"/> </el-col>
+                </el-row>
                 <el-form-item>
                     <el-button type="primary" class="submit" @click="submitForm('loginForm')">登录</el-button>
                 </el-form-item>
@@ -30,9 +38,11 @@ export default {
     name: "",
     data() {
         return {
+            VCode_imgSrc: this.$store.state.server_url+`/api/verification-code/getCode`,
             loginForm: {
                 account: "",
                 password: "",
+                verifiyCode:''
             },
             rules: {
                 account: [
@@ -47,10 +57,17 @@ export default {
                 password: [
                     { required: true, message: "请输入密码", trigger: "blur" },
                 ],
+                verifiyCode: [
+                    { required: true, message: "请输入验证码", trigger: "blur" }
+                ]
             },
         };
     },
     methods: {
+
+        /**
+         * 表单提交
+         */
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -59,6 +76,16 @@ export default {
             });
         },
 
+        /**
+         * 验证码获取
+         */
+        verifitCodeRefresh(){
+            this.VCode_imgSrc =`${this.$store.state.server_url}/api/verification-code/getCode?${Math.random()}`
+        },
+
+        /**
+         * 登录
+         */
         async login(data) {
             const loading = this.$loading({
                 lock: true,

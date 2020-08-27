@@ -7,8 +7,9 @@ const token = cookie.getToken()
 const instance = axios.create({
     baseURL: process.env.VUE_APP_SERVER_URL,
     // timeout: 1000,
-    headers: { 'Authorization': `${token}` }
+    headers: { 'Authorization': `${token}` },
     // headers: { 'Authorization': `Bearer ${token}` }
+    withCredentials: true
 });
 
 // 添加请求拦截器
