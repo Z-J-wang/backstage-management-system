@@ -64,7 +64,7 @@
                          <el-col :span="24">
                             <div style="text-align: left;line-height: 20px;">
                                 提示：<br>
-                                视频不能大于50M。
+                                视频不能大于50M，且视频时长最长为1:30秒。
                             </div>
                         </el-col>
                     </el-row>
@@ -251,7 +251,7 @@ export default {
 
         async updatedProduct(data) {
             let ret = await this.$HttpApi.updatedProduct(data);
-            let newVideoSrc = ret.data.data.rows[0].videoSrc;
+            let newVideoSrc = ret.data.data.rows[data.id].videoSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: "商品信息更新成功！",

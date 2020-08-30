@@ -11,7 +11,6 @@
          v-if="mutablevideoUrl"
          :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
          width="380"
-         @click.native.stop
          controls="controls">
          你的浏览器不支持视频播放功能
         </video>
