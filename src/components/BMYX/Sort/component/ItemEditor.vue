@@ -62,7 +62,7 @@ export default {
     data() {
         return {
             action: this.$store.state.server_url+"/api/bmyx/uploadImage",
-            cur_imgSrc: '',
+            cur_imgSrc: '',  // 修改前的图片
             rules: {
                 name: [
                     {

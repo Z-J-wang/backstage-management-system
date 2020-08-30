@@ -1,31 +1,34 @@
 <template>
     <el-upload
-        class="avatar-uploader"
+        class="video-uploader"
         :action="action"
         :show-file-list="false"
         :data="oldSrc"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
     >
-        <img
-            v-if="mutableImageUrl"
-            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
-            class="avatar"
-            :style="{width:width+ 'px', height:height+ 'px'}"
-        />
-        <i
+        <video
+         v-if="mutablevideoUrl"
+         :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
+         width="380"
+         @click.native.stop
+         controls="controls">
+         你的浏览器不支持视频播放功能
+        </video>
+        <el-button size="small" type="primary">点击上传</el-button>
+        <!-- <i
             v-else
-            class="el-icon-plus avatar-uploader-icon"
+            class="el-icon-plus video-uploader-icon"
             :style="{width:width+ 'px', height:height+ 'px', lineHeight:height+ 'px'}"
-        ></i>
+        ></i> -->
     </el-upload>
 </template>
 
 <script>
 export default {
-    name: "uploadImage",
+    name: "uploadVideo",
     props: {
-        imageUrl: {
+        videoUrl: {
             type: String
         },
         action: {
@@ -42,29 +45,30 @@ export default {
     },
     data() {
         return {
-            mutableImageUrl: this.imageUrl,
+            mutablevideoUrl: this.videoUrl, // 上传成功的视频路径
             oldSrc:{
-                oldImgSrc: ''
+                oldvideoSrc: ''
             }
         };
     },
     updated(){
-        this.oldSrc.oldImgSrc = this.mutableImageUrl;
+        this.oldSrc.oldvideoSrc = this.mutablevideoUrl;
     },
     methods: {
         handleAvatarSuccess(res) {
-            this.mutableImageUrl =res.data;
-            this.$emit("updateImgSrc", this.mutableImageUrl);
+            this.mutablevideoUrl = res.data;
+            this.$emit("updatevideoSrc", this.mutablevideoUrl);
         },
         beforeAvatarUpload(file) {
-            const isJPG = file.type === "image/jpeg";
-            const isLt2M = file.size / 1024 / 1024 < 2;
+            console.log(file)
+            const isJPG = file.type === "video/mp4";
+            const isLt2M = file.size / 1024 / 1024 < 50;
 
             if (!isJPG) {
-                this.$message.error("上传图片只能是 JPG 格式!");
+                this.$message.error("上传视频只能是 mp4 格式!");
             }
             if (!isLt2M) {
-                this.$message.error("上传图片大小不能超过 2MB!");
+                this.$message.error("上传视频大小不能超过 50 MB!");
             }
             return isJPG && isLt2M;
         }
@@ -73,17 +77,18 @@ export default {
 </script>
 
 <style>
-.avatar-uploader .el-upload {
+.video-uploader .el-upload {
+    width: 380px;
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
 }
-.avatar-uploader .el-upload:hover {
+.video-uploader .el-upload:hover {
     border-color: #409eff;
 }
-.avatar-uploader-icon {
+.video-uploader-icon {
     font-size: 28px;
     color: #8c939d;
 

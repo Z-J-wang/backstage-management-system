@@ -11,12 +11,12 @@ const rules = {
     }],
     nowPrice: [{
         required: true,
-        message: "请输入今天的价格",
+        message: "请输入平台价格",
         trigger: "blur"
     }],
     oldPrice: [{
         required: false,
-        message: "请输入昨天的价格",
+        message: "请输入市面价格",
         trigger: "blur"
     }],
     digest: [

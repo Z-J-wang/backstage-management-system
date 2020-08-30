@@ -50,6 +50,25 @@
                         placeholder="请输入市面价格"
                     ></el-input>
                 </el-form-item>
+                <el-form-item label="视频链接" prop="videoSrc">
+                    <el-row>
+                        <el-col :span="24">
+                            <upload-video
+                                :videoUrl="formItem.videoSrc"
+                                :action="action"
+                                @updatevideoSrc="updatevideoSrc"
+                                width="120"
+                                height="120"
+                            ></upload-video>
+                        </el-col>
+                         <el-col :span="24">
+                            <div style="text-align: left;line-height: 20px;">
+                                提示：<br>
+                                视频不能大于50M。
+                            </div>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
                 <el-form-item label="商品图片" prop="imgSrcList">
                     <el-row>
                         <el-col :span="24">
@@ -87,6 +106,7 @@
     </el-dialog>
 </template>
 <script>
+import uploadVideo from '@c/common/From_tools/UploadVideo.vue'
 import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
 import validate_rules from "./validate-rule";
 
@@ -106,6 +126,7 @@ export default {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             title: "修改商品信息",
+            cur_video: '',   // 修改前的视频
             options: [],
             rules: Object.assign(
                 validate_rules,
@@ -138,6 +159,14 @@ export default {
     },
     components: {
         uploadImageList,
+        uploadVideo
+    },
+    watch:{
+        formItem(val){
+            this.cur_video = val.videoSrc;
+            console.log(this.formItem.videoSrc)
+            console.log(this.cur_video)
+        }
     },
     methods: {
         /**
@@ -147,6 +176,14 @@ export default {
             this.formItem.imgSrcList = imgSrcList;
             this.updatedProduct(this.formItem);
             console.log(`新增图片：${this.formItem.imgSrcList}`);
+        },
+
+        /**
+         * 更新视频 src
+         */
+        updatevideoSrc(videoSrc) {
+            this.formItem.videoSrc = videoSrc;
+            console.log(`新增视频：${this.formItem.videoSrc}`);
         },
 
         /**
@@ -191,8 +228,12 @@ export default {
          * close 事件
          */
         handleClose() {
+            let videoSrc = this.formItem.videoSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
+                    if(videoSrc !== this.cur_video){
+                        this.delUploadImage(videoSrc)
+                    }
                     this.$emit("close");
                     this.$refs["form"].resetFields();
                 })
@@ -210,11 +251,15 @@ export default {
 
         async updatedProduct(data) {
             let ret = await this.$HttpApi.updatedProduct(data);
+            let newVideoSrc = ret.data.data.rows[0].videoSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
                     message: "商品信息更新成功！",
                     type: "success",
                 });
+                if(newVideoSrc !== this.cur_video){
+                    this.delUploadImage(this.cur_video);
+                }
             } else {
                 this.$message.error("系统出错，请重试！");
             }
@@ -246,10 +291,10 @@ export default {
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
                 this.updatedProduct(this.formItem);
-                console.log(`删除图片：${this.formItem.imgSrc}`);
+                console.log(`删除文件：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
-                console.log(`删除图片失败`);
+                console.log(`删除文件失败`);
                 flat = false;
             }
 

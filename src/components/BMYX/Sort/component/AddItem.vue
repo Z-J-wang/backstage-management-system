@@ -89,7 +89,9 @@ export default {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.delUploadImage(this.formItem.imgSrc)
+                    if(this.formItem.imgSrc){
+                        this.delUploadImage(this.formItem.imgSrc);
+                    }
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
@@ -104,7 +106,7 @@ export default {
             console.log(`新增图片：${this.formItem.imgSrc}`);
         },
 
-                /**
+        /**
          * 删除图片
          */
         async delUploadImage(filename) {

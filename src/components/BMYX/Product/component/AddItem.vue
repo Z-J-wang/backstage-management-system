@@ -43,6 +43,25 @@
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
+                <el-form-item label="视频链接" prop="videoSrc">
+                    <el-row>
+                        <el-col :span="24">
+                            <upload-video
+                                :videoUrl="formItem.videoSrc"
+                                :action="action"
+                                @updatevideoSrc="updatevideoSrc"
+                                width="120"
+                                height="120"
+                            ></upload-video>
+                        </el-col>
+                        <el-col :span="24">
+                            <div style="text-align: left;line-height: 20px;">
+                                提示：<br>
+                                视频不能大于50M。
+                            </div>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
                 <el-form-item label="商品图片" prop="imgSrcList">
                     <el-row>
                         <el-col :span="24">
@@ -74,6 +93,7 @@
     </el-dialog>
 </template>
 <script>
+import uploadVideo from '@c/common/From_tools/UploadVideo.vue'
 import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
 import validate_rules from "./validate-rule.js";
 
@@ -119,7 +139,8 @@ export default {
         };
     },
     components: {
-        uploadImageList
+        uploadImageList,
+        uploadVideo
     },
     async mounted() {
         this.options = await this.getSort();
@@ -131,6 +152,14 @@ export default {
         updateImgSrcList(imgSrcList) {
             this.formItem.imgSrcList = imgSrcList;
             console.log(`新增图片：${this.formItem.imgSrcList}`);
+        },
+
+        /**
+         * 更新视频 src
+         */
+        updatevideoSrc(videoSrc) {
+            this.formItem.videoSrc = videoSrc;
+            console.log(`新增视频：${this.formItem.videoSrc}`);
         },
 
         /**
@@ -161,6 +190,9 @@ export default {
                     this.formItem.imgSrcList.forEach(element => {
                         this.delUploadImage(element)
                     });
+                    if(this.formItem.videoSrc){
+                        this.delUploadImage(this.formItem.videoSrc);
+                    }
                     this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
@@ -208,16 +240,16 @@ export default {
         },
 
         /**
-         * 删除图片
+         * 删除图片、视频
          */
         async delUploadImage(filename) {
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
-                console.log(`删除图片：${filename}`);
+                console.log(`删除文件：${filename}`);
                 flat = true;
             } else {
-                console.log("图片删除失败")
+                console.log("文件删除失败")
                 flat = false;
             }
 
