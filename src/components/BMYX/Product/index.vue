@@ -294,7 +294,6 @@ export default {
             let data = [];
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
-                console.log(res.data.data.rows);
             } else {
                 this.$message.error(res.data.msg);
             }

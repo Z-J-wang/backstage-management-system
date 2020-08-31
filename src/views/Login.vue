@@ -105,6 +105,7 @@ export default {
                 }
             } finally {
                 loading.close();
+                this.verifitCodeRefresh();
             }
         },
     },
