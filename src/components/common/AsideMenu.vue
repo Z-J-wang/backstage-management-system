@@ -15,7 +15,7 @@
                 <i class="el-icon-back"></i>
             </el-button>
         </el-menu>
-        <el-submenu index="1" v-if="auth == 3">
+        <el-submenu index="1" v-if="auth == 0 || auth == 2">
             <template slot="title">
                 <i class="el-icon-message"></i>
                 <span slot="title">个人信息</span>
@@ -27,7 +27,7 @@
                 <el-menu-item index="/messages">来访信件</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="2">
+        <el-submenu index="2" v-if="auth == 1 || auth == 0">
             <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span slot="title">便民优享</span>

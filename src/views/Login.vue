@@ -12,15 +12,15 @@
                 @keyup.native.enter="submitForm('loginForm')"
             >
                 <el-form-item label="账号" prop="account">
-                    <el-input v-model="loginForm.account"></el-input>
+                    <el-input v-model.trim="loginForm.account"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+                    <el-input type="password" v-model.trim="loginForm.password" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-row>
                     <el-col :span="16">
                         <el-form-item label="验证码" prop="verifiyCode">
-                               <el-input v-model="loginForm.verifiyCode" autocomplete="off"></el-input>
+                               <el-input v-model.trim="loginForm.verifiyCode" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8"> <img :src="VCode_imgSrc" @click="verifitCodeRefresh"/> </el-col>
@@ -71,6 +71,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.loginForm.verifiyCode = this.loginForm.verifiyCode.toLowerCase();
                     this.login(this.loginForm);
                 }
             });
@@ -96,10 +97,17 @@ export default {
             try {
                 let res = await this.$HttpApi.login(data);
                 if (res.data.code === 1000) {
+                    let auth = res.data.data.auth;
                     this.$Cookie.setUserInfo(res.data.data.account);
-                    this.$Cookie.setCookie("auth", res.data.data.auth);
+                    this.$Cookie.setCookie("auth", auth);
                     this.$Cookie.setToken(res.data.data.token);
-                    this.$router.push({ name: "Home" });
+                    if(auth === 2){
+                        this.$router.push({ path: "/personalInfo" });
+                    }else if(auth === 1){
+                        this.$router.push({ path: "/BMYX/product" });
+                    }else if(auth == 0){
+                        this.$router.push({ path: "/accountManagement" });
+                    }
                 } else {
                     this.$message.error(res.data.msg);
                 }

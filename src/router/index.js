@@ -33,12 +33,12 @@ const routes = [
         path: '/Home',
         name: 'Home',
         component: Home,
-        redirect: 'BMYX',
+        redirect: 'Home',
         children: [{
             path: '/personalInfo',
             name: '个人基础信息',
             meta: {
-                auth: 0
+                auth: 2
             },
             component: () => import( /* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
         },
@@ -46,7 +46,7 @@ const routes = [
             path: '/edu_experience',
             name: '教育经历',
             meta: {
-                auth: 0
+                auth: 2
             },
             component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience/index.vue')
         },
@@ -54,7 +54,7 @@ const routes = [
             path: '/blogs',
             name: '个人博客',
             meta: {
-                auth: 0
+                auth: 2
             },
             component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Blog/index.vue')
         },
@@ -62,7 +62,7 @@ const routes = [
             path: '/messages',
             name: '信息管理',
             meta: {
-                auth: 0
+                auth: 2
             },
             component: () => import( /* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
         },
