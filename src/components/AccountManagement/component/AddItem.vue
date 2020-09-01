@@ -71,6 +71,7 @@ export default {
             options: [
                 { code: 0, name: "超级管理员" },
                 { code: 1, name: "一般管理员" },
+                { code: 2, name: "个人信息管理员" }
             ],
             rules: Object.assign(valid_rules, {
                 pwdAgain: [
