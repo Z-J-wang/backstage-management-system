@@ -1,44 +1,72 @@
 <template>
     <el-upload
         class="avatar-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        :action="action"
         :show-file-list="false"
+        :data="oldSrc"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
     >
         <img
-            v-if="imageUrl"
-            :src="imageUrl"
+            v-if="mutableImageUrl"
+            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
             class="avatar"
-        >
+            :style="{width:width+ 'px', height:height+ 'px'}"
+        />
         <i
             v-else
             class="el-icon-plus avatar-uploader-icon"
+            :style="{width:width+ 'px', height:height+ 'px', lineHeight:height+ 'px'}"
         ></i>
     </el-upload>
 </template>
 
 <script>
 export default {
-    name: "head-portrait",
+    name: "avatar",
+    props: {
+        imageUrl: {
+            type: String
+        },
+        action: {
+            type: String
+        },
+        width: {
+            type: String,
+            default: "178"
+        },
+        height: {
+            type: String,
+            default: "178"
+        }
+    },
     data() {
         return {
-            imageUrl: require("@a//logo.png")
+            mutableImageUrl: this.imageUrl,
+            oldSrc:{
+                oldImgSrc: ''
+            }
         };
     },
+    watch:{
+        imageUrl(){
+            this.mutableImageUrl = this.imageUrl
+        }
+    },
     methods: {
-        handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
+        handleAvatarSuccess(res) {
+            this.mutableImageUrl =res.data;
+            this.$emit("updateImgSrc", this.mutableImageUrl);
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === "image/jpeg";
             const isLt2M = file.size / 1024 / 1024 < 2;
 
             if (!isJPG) {
-                this.$message.error("上传头像图片只能是 JPG 格式!");
+                this.$message.error("上传图片只能是 JPG 格式!");
             }
             if (!isLt2M) {
-                this.$message.error("上传头像图片大小不能超过 2MB!");
+                this.$message.error("上传图片大小不能超过 2MB!");
             }
             return isJPG && isLt2M;
         }

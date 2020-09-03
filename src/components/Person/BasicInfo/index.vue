@@ -64,7 +64,7 @@
                             <el-form-item label="籍贯" prop="placeOfBirth">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!placeOfBirth_editor">
-                                        {{personalInfo.placeOfBirth.join(' / ')}}
+                                        {{personalInfo.placeOfBirth ? personalInfo.placeOfBirth.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
@@ -146,7 +146,7 @@
                             <el-form-item label="现居地" prop="presentAddress">
                                 <div class="p-l-60">
                                     <div style="text-align:left;" v-show="!presentAddress_editor">
-                                        {{personalInfo.presentAddress.join(' / ')}}
+                                        {{ personalInfo.presentAddress ? personalInfo.presentAddress.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
@@ -205,7 +205,11 @@
                 </el-row>
             </el-col>
             <el-col :span="12" style="text-align: left">
-                <head-portrait></head-portrait>
+                <head-portrait
+                    :imageUrl="personalInfo.avatar"
+                    :action="action"
+                    @updateImgSrc="updateImgSrc"
+                ></head-portrait>
             </el-col>
         </el-row>
     </div>
@@ -220,6 +224,7 @@ export default {
     name: "peronal-info",
     data() {
         return {
+            action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             /* 编辑器控制器 */
             name_editor: false,
             gender_editor: false,
@@ -230,33 +235,25 @@ export default {
             introducts_editor: false,
 
             // 个人基础数据
-            personalInfo: {
-                name: "Jay",
-                gender: true,
-                birthday: "1996-10-04",
-                placeOfBirth: ["广东省", "深圳市"],
-                nationality: "中国",
-                presentAddress: ["广东省", "深圳市"],
-                introducts: "Web 开发"
-            },
+            personalInfo: {},
             rules: validate_rules,
-            btn_changeVisible: false
+            btn_changeVisible: false,
         };
     },
     components: {
         headPortrait,
-        districtSelect
+        districtSelect,
     },
     created() {
         this.getBasicinfo();
     },
     watch: {
         personalInfo: {
-            handler: function() {
+            handler: function () {
                 this.btn_changeVisible = true;
             },
-            deep: true
-        }
+            deep: true,
+        },
     },
     methods: {
         /**
@@ -278,7 +275,7 @@ export default {
          */
         editorGetFocus(id) {
             const elem = document.getElementById(id);
-            setTimeout(function() {
+            setTimeout(function () {
                 elem.focus();
             }, 0);
         },
@@ -303,6 +300,35 @@ export default {
          */
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            if (this.personalInfo.imgSrc) {
+                this.delUploadImage(this.personalInfo.imgSrc);
+            }
+        },
+
+        /**
+         * 更新图片 src
+         */
+        updateImgSrc(imgSrc) {
+            this.personalInfo.avatar = imgSrc;
+            this.btn_changeVisible = true;
+            console.log(`新增图片：${this.personalInfo.avatar}`);
+        },
+
+        /**
+         * 删除图片
+         */
+        async delUploadImage(filename) {
+            let res = await this.$HttpApi.delUploadImage(filename);
+            let flat = false;
+            if (res.status === 200 && res.data.code === 1000) {
+                console.log(`删除图片：${this.personalInfo.avatar}`);
+                flat = true;
+            } else {
+                console.log("图片删除失败");
+                flat = false;
+            }
+
+            return flat;
         },
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ajax 部分 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -313,8 +339,7 @@ export default {
             let res = await this.$HttpApi.getBasicinfo();
             if (res.status === 200) {
                 this.personalInfo = res.data;
-                console.log(res)
-                // 获取个人信息后，强制隐藏提价btn
+                // 获取个人信息后，强制隐藏 change_btn
                 setTimeout(() => {
                     this.btn_changeVisible = false;
                 }, 0);
@@ -332,13 +357,14 @@ export default {
             if (res.status === 200) {
                 this.$message({
                     message: "个人基础信息更新成功！",
-                    type:'success'
+                    type: "success",
                 });
+                this.btn_changeVisible = false;
             } else {
                 this.$message.error("糟糕！！系统出错！请重试！");
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
