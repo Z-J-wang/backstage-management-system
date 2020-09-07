@@ -48,43 +48,45 @@
 </template>
 <script>
 export default {
-    name: "itemEditor",
+    name: "addNewItem",
     props: {
         dialogVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
-        formItem: {
-            type: Object
-        }
     },
     data() {
         return {
+            formItem: {
+                theme: "",
+                dateTime: "",
+                detail: "",
+            },
             rules: {
                 theme: [
-                    { required: true, message: "请输入主题", trigger: "blur" }
+                    { required: true, message: "请输入主题", trigger: "blur" },
                 ],
                 dateTime: [
-                    { required: true, message: "请输入时间", trigger: "blur" }
+                    { required: true, message: "请输入时间", trigger: "blur" },
                 ],
                 detail: [
-                    { required: true, message: "请输入描述", trigger: "blur" }
-                ]
+                    { required: true, message: "请输入描述", trigger: "blur" },
+                ],
             },
-            title: "教育经历编辑"
+            title: "新增一条教育经历记录",
         };
     },
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.$refs['form'].resetFields();
+                    this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
                 .catch(() => {});
         },
         onSubmit(formName) {
-            this.$refs[formName].validate(valid => {
+            this.$refs[formName].validate((valid) => {
                 if (valid) {
                     console.log(this.formItem);
                     this.$emit("close");
@@ -92,7 +94,7 @@ export default {
                     return false;
                 }
             });
-        }
-    }
+        },
+    },
 };
 </script>

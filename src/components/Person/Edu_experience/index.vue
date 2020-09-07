@@ -1,45 +1,25 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button
-                type="primary"
-                icon="el-icon-plus"
-                @click="itemEditorVisible = true"
-            >新增一笔</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="itemEditorVisible = true">新增一笔</el-button>
         </div>
         <el-table
-            :data="tableData"
+            :data="dataList"
             class="nowrap"
             stripe
             border
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column
-                prop="theme"
-                label="经历"
-                width="180"
-            ></el-table-column>
-            <el-table-column
-                prop="dateTime"
-                label="时间"
-                sortable
-                width="240"
-            >
+            <el-table-column prop="theme" label="经历" width="180"></el-table-column>
+            <el-table-column prop="dateTime" label="时间" sortable width="240">
                 <template slot-scope="scope">
                     <i class="el-icon-time"></i>
                     <span style="margin-left: 10px">{{ scope.row.dateTime }}</span>
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="detail"
-                label="详情"
-            ></el-table-column>
-            <el-table-column
-                fixed="right"
-                label="操作"
-                width="140"
-            >
+            <el-table-column prop="detail" label="详情"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemCheck(scope.row)"
@@ -74,64 +54,50 @@
             </el-table-column>
         </el-table>
 
+        <add-item :drawer-visible="addItemVisible" @close="closeAddItemVisible"></add-item>
+        
         <item-editor
             :dialog-visible="itemEditorVisible"
             :form-item="itemValue"
             @close="closeItemEditor"
         ></item-editor>
 
-        <item-check
-            :drawer-visible="itemCheckVisible"
-            :item="itemValue"
-            @close="closeItemCheck"
-        ></item-check>
+        <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
     </div>
 </template>
 
 <script>
-import itemEditor from "./component/ItemEditor.vue"; // item 编辑器，新增修改操作
+import addItem from "./component/AddItem.vue"; // item 编辑器
+import itemEditor from "./component/ItemEditor.vue"; // item 编辑器
 import itemCheck from "./component/ItemCheck.vue"; // item 查看器
 
 export default {
     data() {
         return {
             itemEditorVisible: false,
+            addItemVisible: false,
             itemCheckVisible: false,
 
             itemValue: {
                 theme: "",
                 dateTime: "",
-                detail: ""
+                detail: "",
             },
-            tableData: [
-                {
-                    theme: "王小虎",
-                    dateTime: "2016-05-02 至 2020-08-15",
-                    detail:
-                        "上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄上海市普陀区金沙江路 1518 弄"
-                },
-                {
-                    theme: "王小虎",
-                    dateTime: "2017-05-02 至 2020-08-15",
-                    detail:
-                        "Periodically, as new functionality is being developed, lessc builds will be published to npm, tagged as beta. These builds will not be published as a @latest official release, and will typically have beta in the version (use lessc -v to get current version)."
-                },
-                {
-                    theme: "王小虎",
-                    dateTime: "2018-05-02 至 2020-08-15",
-                    detail: "上海市普陀区金沙江路 1518 弄"
-                },
-                {
-                    theme: "王小虎",
-                    dateTime: "2019-05-02 至 2020-08-15",
-                    detail: "上海市普陀区金沙江路 1518 弄"
-                }
-            ]
+            dataList: [],
+            pagination: {
+                total: 0,
+                currentPage: 1,
+                size: 10,
+            },
         };
     },
     components: {
+        addItem,
         itemEditor,
-        itemCheck
+        itemCheck,
+    },
+    mounted() {
+        this.getExperiences();
     },
     methods: {
         confirm() {
@@ -155,6 +121,13 @@ export default {
         },
 
         /**
+         * 关闭 addItem
+         */
+        closeAddItemVisible(){
+            this.addItemVisible = false;
+        },
+
+        /**
          * 查看一条记录
          * @param data
          */
@@ -168,8 +141,32 @@ export default {
          */
         closeItemCheck() {
             this.itemCheckVisible = false;
-        }
-    }
+        },
+
+        /***************************** ajax 操作部分 Start  *********************************/
+
+        async getExperiences(size, currentPage, selectCond) {
+            let params = {
+                cond: selectCond,
+                pageSize: size || this.pagination.size,
+                start:
+                    (currentPage - 1) * this.pagination.size +
+                        this.dataList.length || 0,
+            };
+
+            let res = await this.$HttpApi.getExperiences(params);
+            let data = [];
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
+        },
+
+        /***************************** ajax 操作部分 End  *********************************/
+    },
 };
 </script>
 

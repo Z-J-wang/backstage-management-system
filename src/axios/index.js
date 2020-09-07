@@ -11,7 +11,7 @@ export default class HttpApi {
      * @param {object} params 
      */
     getBasicinfo(params) {
-        return instance.get('/api/person/getBasicinfo', { params: params })
+        return instance.get('/api/person/getBasicinfo', { params: params });
     }
 
     /**
@@ -19,7 +19,39 @@ export default class HttpApi {
      * @param {*} params 
      */
     updateBasicinfo(params) {
-        return instance.post('/api/person/update', params)
+        return instance.post('/api/person/update', params);
+    }
+
+    /**
+     * 获取教育经历
+     * @param {*} params 
+     */
+    getExperiences(params){
+        return instance.get('/api/person/getExperiences', { params: params });
+    }
+
+    /**
+     * 新增一笔教育经历
+     * @param {*} params 
+     */
+    createExperience(params){
+        return instance.post('/api/person/createExperience', params);
+    }
+
+    /**
+     * 删除一笔教育经历
+     * @param {*} params 
+     */
+    deleteExperience(params){
+        return instance.post('/api/person/deleteExperience', params);
+    }
+
+    /**
+     * 修改一笔教育经历
+     * @param {*} params 
+     */
+    updateExperience(params){
+        return instance.post('/api/person/updateExperience', params);
     }
 
     /**
@@ -160,7 +192,7 @@ export default class HttpApi {
     /**
      * 创建账户
      * @param {object} params
-     */
+    */
     updatedAccount(params) {
         return instance.post('/api/account/updateAccount', params)
     }
