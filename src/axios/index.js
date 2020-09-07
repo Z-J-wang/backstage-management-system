@@ -39,6 +39,14 @@ export default class HttpApi {
     }
 
     /**
+     * 修改一笔教育经历
+     * @param {*} params 
+     */
+    updateExperience(params){
+        return instance.post('/api/person/updateExperience', params);
+    }
+    
+    /**
      * 删除一笔教育经历
      * @param {*} params 
      */
@@ -46,13 +54,6 @@ export default class HttpApi {
         return instance.post('/api/person/deleteExperience', params);
     }
 
-    /**
-     * 修改一笔教育经历
-     * @param {*} params 
-     */
-    updateExperience(params){
-        return instance.post('/api/person/updateExperience', params);
-    }
 
     /**
      * 条件查询产品列表

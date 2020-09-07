@@ -86,13 +86,35 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
-                    console.log(this.formItem);
-                    this.$emit("close");
+                    this.updateExperience(this.formItem).then(()=>{
+                        this.$message({
+                            type: "success",
+                            message: "更新成功"
+                        })
+                        this.$parent.getData();
+                        this.$emit("close");
+                    })
                 } else {
                     return false;
                 }
             });
+        },
+
+        /***************************** ajax 操作部分 Start  *********************************/
+        async updateExperience(form){
+            let res = await this.$HttpApi.updateExperience(form);
+            let data = {};
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
         }
+
+        /***************************** ajax 操作部分 End  *********************************/
+
     }
 };
 </script>

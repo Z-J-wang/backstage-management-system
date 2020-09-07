@@ -1,7 +1,7 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="itemEditorVisible = true">新增一笔</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -15,7 +15,7 @@
             <el-table-column prop="dateTime" label="时间" sortable width="240">
                 <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.dateTime }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.dateTime.join(" 至 ") }}</span>
                 </template>
             </el-table-column>
             <el-table-column prop="detail" label="详情"></el-table-column>
@@ -54,7 +54,7 @@
             </el-table-column>
         </el-table>
 
-        <add-item :drawer-visible="addItemVisible" @close="closeAddItemVisible"></add-item>
+        <add-item :dialog-visible="addItemVisible" @close="closeAddItemVisible"></add-item>
         
         <item-editor
             :dialog-visible="itemEditorVisible"
@@ -97,7 +97,7 @@ export default {
         itemCheck,
     },
     mounted() {
-        this.getExperiences();
+        this.getData();
     },
     methods: {
         confirm() {
@@ -143,6 +143,13 @@ export default {
             this.itemCheckVisible = false;
         },
 
+        async getData(){
+            let data = await this.getExperiences();
+            if(data) {
+                this.dataList = data.rows;
+            }
+        },
+
         /***************************** ajax 操作部分 Start  *********************************/
 
         async getExperiences(size, currentPage, selectCond) {
@@ -155,7 +162,7 @@ export default {
             };
 
             let res = await this.$HttpApi.getExperiences(params);
-            let data = [];
+            let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
             } else {
