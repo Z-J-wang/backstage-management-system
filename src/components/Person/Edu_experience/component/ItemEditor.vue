@@ -52,48 +52,50 @@ export default {
     props: {
         dialogVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         formItem: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     data() {
         return {
             rules: {
                 theme: [
-                    { required: true, message: "请输入主题", trigger: "blur" }
+                    { required: true, message: "请输入主题", trigger: "blur" },
                 ],
                 dateTime: [
-                    { required: true, message: "请输入时间", trigger: "blur" }
+                    { required: true, message: "请输入时间", trigger: "blur" },
                 ],
                 detail: [
-                    { required: true, message: "请输入描述", trigger: "blur" }
-                ]
+                    { required: true, message: "请输入描述", trigger: "blur" },
+                ],
             },
-            title: "教育经历编辑"
+            title: "教育经历编辑",
         };
     },
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    this.$refs['form'].resetFields();
+                    this.$refs["form"].resetFields();
                     this.$emit("close");
                 })
                 .catch(() => {});
         },
         onSubmit(formName) {
-            this.$refs[formName].validate(valid => {
+            this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    this.updateExperience(this.formItem).then(()=>{
+                    let data = await this.updateExperience(this.formItem);
+                    if (data) {
                         this.$message({
                             type: "success",
-                            message: "更新成功"
-                        })
+                            message: "更新成功",
+                        });
                         this.$parent.getData();
                         this.$emit("close");
-                    })
+                        this.$refs["form"].resetFields();
+                    }
                 } else {
                     return false;
                 }
@@ -101,20 +103,21 @@ export default {
         },
 
         /***************************** ajax 操作部分 Start  *********************************/
-        async updateExperience(form){
+        async updateExperience(form) {
             let res = await this.$HttpApi.updateExperience(form);
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
-                data = res.data.data;
+                data = res.data.msg;
             } else {
                 this.$message.error(res.data.msg);
+
+                return false;
             }
 
             return data;
-        }
+        },
 
         /***************************** ajax 操作部分 End  *********************************/
-
-    }
+    },
 };
 </script>

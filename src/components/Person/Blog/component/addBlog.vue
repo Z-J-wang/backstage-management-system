@@ -53,18 +53,22 @@
 </template>
 <script>
 export default {
-    name: "addNewItem",
+    name: "addBlog",
     props: {
         dialogVisible: {
             type: Boolean,
             default: false,
         },
-        formItem: {
-            type: Object,
-        },
     },
     data() {
         return {
+            formItem: {
+                title: "",
+                publishTime: "",
+                href: "",
+                imgSrc: "",
+                digest: "",
+            },
             rules: {
                 title: [
                     {
@@ -107,7 +111,7 @@ export default {
                     },
                 ],
             },
-            title: "修改博客信息",
+            title: "新增一条教育经历记录",
             pickerOptions: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
@@ -151,14 +155,14 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    let data = await this.updateBlog(this.formItem);
+                    let data = this.createBlog(this.formItem);
                     if (data) {
                         this.$message({
                             type: "success",
-                            message: "更新成功",
+                            message: "新增成功",
                         });
-                        this.$parent.getData();
                         this.$emit("close");
+                        this.$parent.getData();
                     }
                 } else {
                     return false;
@@ -167,8 +171,8 @@ export default {
         },
 
         /***************************** ajax 操作部分 Start  *********************************/
-        async updateBlog(form) {
-            let res = await this.$HttpApi.updateBlog(form);
+        async createBlog(form) {
+            let res = await this.$HttpApi.createBlog(form);
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;

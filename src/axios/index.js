@@ -26,7 +26,7 @@ export default class HttpApi {
      * 获取教育经历
      * @param {*} params 
      */
-    getExperiences(params){
+    getExperiences(params) {
         return instance.get('/api/person/getExperiences', { params: params });
     }
 
@@ -34,7 +34,7 @@ export default class HttpApi {
      * 新增一笔教育经历
      * @param {*} params 
      */
-    createExperience(params){
+    createExperience(params) {
         return instance.post('/api/person/createExperience', params);
     }
 
@@ -42,19 +42,49 @@ export default class HttpApi {
      * 修改一笔教育经历
      * @param {*} params 
      */
-    updateExperience(params){
+    updateExperience(params) {
         return instance.post('/api/person/updateExperience', params);
     }
-    
+
     /**
      * 删除一笔教育经历
      * @param {*} params 
      */
-    deleteExperience(params){
+    deleteExperience(params) {
         return instance.post('/api/person/deleteExperience', params);
     }
 
+    /**
+     * 获取博客
+     * @param {*} params 
+     */
+    getBlogs(params) {
+        return instance.get('/api/person/getBlogs', { params: params })
+    }
 
+    /**
+     * 新增博客记录
+     * @param {*} params 
+     */
+    createBlog(params) {
+        return instance.post('/api/person/createBlog', params);
+    }
+
+    /**
+     * 修改博客记录
+     * @param {*} params 
+     */
+    updateBlog(params) {
+        return instance.post('/api/person/updateBlog', params);
+    }
+
+    /**
+     * 删除博客记录
+     * @param {*} params 
+     */
+    deleteBlog(params) {
+        return instance.post('/api/person/deleteBlog', params);
+    }
     /**
      * 条件查询产品列表
      * @param {object} params 

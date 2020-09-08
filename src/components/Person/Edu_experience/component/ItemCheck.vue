@@ -11,7 +11,10 @@
         </el-row>
         <el-row>
             <el-col :span="8">时间：</el-col>
-            <el-col :span="16" class="text-l">{{ item.dateTime.join(" 至 ") }}</el-col>
+            <el-col
+                :span="16"
+                class="text-l"
+            >{{ item.dateTime.length > 1 ? item.dateTime.join(" 至 ") : ""}}</el-col>
         </el-row>
         <el-row>
             <el-col :span="8">详情：</el-col>
@@ -26,17 +29,17 @@ export default {
     props: {
         drawerVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         item: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     methods: {
         handleClose() {
             this.$emit("close");
-        }
-    }
+        },
+    },
 };
 </script>
 

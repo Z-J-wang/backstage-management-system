@@ -86,16 +86,18 @@ export default {
                 .catch(() => {});
         },
         onSubmit(formName) {
-            this.$refs[formName].validate((valid) => {
+            this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    this.createExperience(this.formItem).then(() => {
+                    let data = this.createExperience(this.formItem);
+                    if (data) {
                         this.$message({
                             type: "success",
-                            message: "新增成功"
-                        })
+                            message: "新增成功",
+                        });
+                        this.$refs["form"].resetFields();
                         this.$emit("close");
                         this.$parent.getData();
-                    })
+                    }
                 } else {
                     return false;
                 }
@@ -103,17 +105,19 @@ export default {
         },
 
         /***************************** ajax 操作部分 Start  *********************************/
-        async createExperience(form){
+        async createExperience(form) {
             let res = await this.$HttpApi.createExperience(form);
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;
             } else {
                 this.$message.error(res.data.msg);
+
+                return false;
             }
 
             return data;
-        }
+        },
 
         /***************************** ajax 操作部分 End  *********************************/
     },

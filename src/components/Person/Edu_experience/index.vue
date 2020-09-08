@@ -39,7 +39,7 @@
                     <el-popconfirm
                         title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
-                        @onConfirm="confirm()"
+                        @onConfirm="delItem(scope.row.id)"
                     >
                         <el-button
                             type="danger"
@@ -96,14 +96,10 @@ export default {
         itemEditor,
         itemCheck,
     },
-    mounted() {
+    created() {
         this.getData();
     },
     methods: {
-        confirm() {
-            alert("confirm");
-        },
-
         /**
          * 编辑一条记录
          * @param  data
@@ -143,10 +139,27 @@ export default {
             this.itemCheckVisible = false;
         },
 
+        /**
+         * 获取表格数据
+         */
         async getData(){
             let data = await this.getExperiences();
             if(data) {
                 this.dataList = data.rows;
+            }
+        },
+
+        /**
+         * 删除教育经历
+         */
+        async delItem(id){
+            let data = await this.deleteExperience(id);
+            if(data){
+                this.$message({
+                    type: "success",
+                    message: "删除成功"
+                })
+                this.getData();
             }
         },
 
@@ -172,6 +185,22 @@ export default {
             return data;
         },
 
+        /**
+         * 删除
+         */
+        async deleteExperience(id){
+            let res = await this.$HttpApi.deleteExperience({id: id});
+            let data = {};
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.msg;
+            } else {
+                this.$message.error(res.data.msg);
+
+                return false;
+            }
+
+            return data;
+        }
         /***************************** ajax 操作部分 End  *********************************/
     },
 };

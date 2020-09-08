@@ -1,10 +1,10 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="itemEditorVisible = true">新增一笔</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addBlogVisible = true">新增一笔</el-button>
         </div>
         <el-table
-            :data="blogs"
+            :data="dataList"
             class="nowrap"
             stripe
             border
@@ -36,7 +36,7 @@
                     <el-popconfirm
                         title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
-                        @onConfirm="confirm()"
+                        @onConfirm="delItem(scope.row.id)"
                     >
                         <el-button
                             type="danger"
@@ -51,6 +51,11 @@
             </el-table-column>
         </el-table>
 
+        <add-blog
+            :dialog-visible="addBlogVisible"
+            @close="closeAddBlog"
+        ></add-blog>
+
         <item-editor
             :dialog-visible="itemEditorVisible"
             :form-item="itemValue"
@@ -62,68 +67,34 @@
 </template>
 
 <script>
+import addBlog from "./component/addBlog.vue";
 import itemEditor from "./component/ItemEditor.vue";
 import itemCheck from "./component/ItemCheck.vue";
 export default {
     name: "",
     data() {
         return {
-            itemEditorVisible: false,
+            addBlogVisible: false,
             itemCheckVisible: false,
-            itemValue: {
-                id: 1,
-                title: "",
-                publishTime: "",
-                href: "",
-                imgSrc: "",
-                digest: ""
+            itemEditorVisible: false,
+            itemValue: {},      // 传递给子组件
+            dataList: [],
+            pagination: {
+                total: 0,
+                currentPage: 1,
+                size: 10,
             },
-            blogs: [
-                {
-                    id: 1,
-                    title:
-                        "Aum sociis natoque penatibus et magnis dis parturient montes",
-                    publishTime: "2020-07-16",
-                    href: "https://www.csdn.net/",
-                    imgSrc:
-                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
-                    digest:
-                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
-                },
-                {
-                    id: 1,
-                    title:
-                        "Bum sociis natoque penatibus et magnis dis parturient montes",
-                    publishTime: "2018-07-16",
-                    href: "https://www.csdn.net/",
-                    imgSrc:
-                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
-                    digest:
-                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
-                },
-                {
-                    id: 1,
-                    title:
-                        "Cum sociis natoque penatibus et magnis dis parturient montes",
-                    publishTime: "2019-07-16",
-                    href: "https://www.csdn.net/",
-                    imgSrc:
-                        "https://imagecdn.gaopinimages.com/133208523423.jpg?x-image-process=style/H650_WN_MC",
-                    digest:
-                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,"
-                }
-            ]
         };
     },
     components: {
         itemEditor,
-        itemCheck
+        itemCheck,
+        addBlog
+    },
+    mounted(){
+        this.getData()
     },
     methods: {
-        confirm() {
-            alert("confirm");
-        },
-
         /**
          * 编辑一条记录
          * @param  data
@@ -140,6 +111,10 @@ export default {
             this.itemEditorVisible = false;
         },
 
+        closeAddBlog(){
+            this.addBlogVisible = false;
+        },
+
         /**
          * 查看一条记录
          * @param data
@@ -154,7 +129,73 @@ export default {
          */
         closeItemCheck() {
             this.itemCheckVisible = false;
+        },
+
+        /**
+         * 获取表格数据
+         */
+        async getData(){
+            let data = await this.getBlogs();
+            if(data) {
+                this.dataList = data.rows;
+            }
+        },
+
+        /**
+         * 删除博客
+         */
+        async delItem(id){
+            let data = await this.deleteBlog(id);
+            if(data){
+                this.$message({
+                    type: "success",
+                    message: "删除成功"
+                })
+                this.getData();
+            }
+        },
+
+        /***************************** ajax 操作部分 Start  *********************************/
+        /**
+         * 获取博客列表
+         */
+        async getBlogs(size, currentPage, selectCond) {
+            let params = {
+                cond: selectCond,
+                pageSize: size || this.pagination.size,
+                start:
+                    (currentPage - 1) * this.pagination.size +
+                        this.dataList.length || 0,
+            };
+
+            let res = await this.$HttpApi.getBlogs(params);
+            let data = {};
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.data;
+            } else {
+                this.$message.error(res.data.msg);
+            }
+
+            return data;
+        },
+
+        /**
+         * 删除
+         */
+        async deleteBlog(id){
+            let res = await this.$HttpApi.deleteBlog({id: id});
+            let data = {};
+            if (res.status === 200 && res.data.code === 1000) {
+                data = res.data.msg;
+            } else {
+                this.$message.error(res.data.msg);
+
+                return false;
+            }
+
+            return data;
         }
+        /***************************** ajax 操作部分 End  *********************************/
     }
 };
 </script>
