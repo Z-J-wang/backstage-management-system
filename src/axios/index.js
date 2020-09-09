@@ -85,6 +85,31 @@ export default class HttpApi {
     deleteBlog(params) {
         return instance.post('/api/person/deleteBlog', params);
     }
+
+    /**
+     * 获取信息列表
+     * @param {*} params 
+     */
+    getMsgs(params) {
+        return instance.get('/api/person/getMsgs', { params: params })
+    }
+
+    /**
+     * 新增信息
+     * @param {*} params 
+     */
+    createMsg(params) {
+        return instance.post('/api/person/createMsg', params);
+    }
+
+    /**
+     * 删除信息记录
+     * @param {*} params 
+     */
+    deleteMsg(params) {
+        return instance.post('/api/person/deleteMsg', params);
+    }
+
     /**
      * 条件查询产品列表
      * @param {object} params 
