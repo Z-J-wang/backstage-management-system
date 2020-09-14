@@ -48,20 +48,18 @@
 </template>
 <script>
 export default {
-    name: "addNewItem",
+    name: "EditExperience",
     props: {
         dialogVisible: {
             type: Boolean,
             default: false,
         },
+        formItem: {
+            type: Object,
+        },
     },
     data() {
         return {
-            formItem: {
-                theme: "",
-                dateTime: "",
-                detail: "",
-            },
             rules: {
                 theme: [
                     { required: true, message: "请输入主题", trigger: "blur" },
@@ -73,7 +71,7 @@ export default {
                     { required: true, message: "请输入描述", trigger: "blur" },
                 ],
             },
-            title: "新增一条教育经历记录",
+            title: "教育经历编辑",
         };
     },
     methods: {
@@ -88,15 +86,15 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    let data = this.createExperience(this.formItem);
+                    let data = await this.updateExperience(this.formItem);
                     if (data) {
                         this.$message({
                             type: "success",
-                            message: "新增成功",
+                            message: "更新成功",
                         });
-                        this.$refs["form"].resetFields();
-                        this.$emit("close");
                         this.$parent.getData();
+                        this.$emit("close");
+                        this.$refs["form"].resetFields();
                     }
                 } else {
                     return false;
@@ -105,11 +103,11 @@ export default {
         },
 
         /***************************** ajax 操作部分 Start  *********************************/
-        async createExperience(form) {
-            let res = await this.$HttpApi.createExperience(form);
+        async updateExperience(form) {
+            let res = await this.$HttpApi.updateExperience(form);
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
-                data = res.data.data;
+                data = res.data.msg;
             } else {
                 this.$message.error(res.data.msg);
 

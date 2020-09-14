@@ -5,7 +5,7 @@
                 <router-view />
             </el-main>
             <el-footer class="app_footer">
-                <footBar></footBar>
+                <foot-bar />
             </el-footer>
         </el-container>
     </div>

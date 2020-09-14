@@ -8,9 +8,13 @@
         </div>
         <el-divider>
             <i class="el-icon-mobile-phone"></i>
-        </el-divider> -->
+        </el-divider>-->
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增账户</el-button>
+            <el-button
+                type="primary"
+                icon="el-icon-plus"
+                @click="addItemVisible = true"
+            >新增账户</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -20,15 +24,49 @@
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column type="index" width="50"></el-table-column>
-            <el-table-column prop="id" label="id" sortable></el-table-column>
-            <el-table-column prop="account" label="账户" sortable></el-table-column>
-            <el-table-column prop="password" label="密码"></el-table-column>
-            <el-table-column prop="auth" label="等级"></el-table-column>
-            <el-table-column prop="token" label="token"></el-table-column>
-            <el-table-column prop="createdAt" label="创建时间" sortable width="160"></el-table-column>
-            <el-table-column prop="updatedAt" label="最近修改时间" sortable width="160"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="140">
+            <el-table-column
+                type="index"
+                width="50"
+            ></el-table-column>
+            <el-table-column
+                prop="id"
+                label="id"
+                sortable
+            ></el-table-column>
+            <el-table-column
+                prop="account"
+                label="账户"
+                sortable
+            ></el-table-column>
+            <el-table-column
+                prop="password"
+                label="密码"
+            ></el-table-column>
+            <el-table-column
+                prop="auth"
+                label="等级"
+            ></el-table-column>
+            <el-table-column
+                prop="token"
+                label="token"
+            ></el-table-column>
+            <el-table-column
+                prop="createdAt"
+                label="创建时间"
+                sortable
+                width="160"
+            ></el-table-column>
+            <el-table-column
+                prop="updatedAt"
+                label="最近修改时间"
+                sortable
+                width="160"
+            ></el-table-column>
+            <el-table-column
+                fixed="right"
+                label="操作"
+                width="140"
+            >
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemChange(scope.row)"
@@ -51,27 +89,31 @@
                             title="移除"
                             slot="reference"
                         ></el-button>
-                    </el-popconfirm> -->
+                    </el-popconfirm>-->
                 </template>
             </el-table-column>
         </el-table>
 
-        <item-editor
-            :dialog-visible="itemEditorVisible"
+        <create-new-account
+            :visible="addItemVisible"
             :form-item="itemValue"
-            @close="closeItemEditor"
-        ></item-editor>
+            @close="closeAddItem"
+        />
 
-        <add-item :visible="addItemVisible" @close="closeAddItem"></add-item>
+        <edit-account
+            :dialog-visible="itemEditorVisible"
+            form-item="itemValue"
+            @close="closeItemEditor"
+        />
     </div>
 </template>
 
 <script>
-import itemEditor from "./component/ItemEditor.vue";
-import addItem from "./component/AddItem.vue";
+import CreateNewAccount from "./component/CreateNewAccount.vue";
+import EditAccount from "./component/EditAccount.vue";
 
 export default {
-    name: "",
+    name: "AccountMangement",
     data() {
         return {
             addItemVisible: false,
@@ -82,14 +124,14 @@ export default {
                 account: "",
                 password: "",
                 auth: "",
-                token:""
+                token: "",
             },
             dataList: [{}],
         };
     },
     components: {
-        itemEditor,
-        addItem,
+        EditAccount,
+        CreateNewAccount,
     },
     mounted() {
         this.setDataList();

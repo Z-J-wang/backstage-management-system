@@ -53,7 +53,7 @@
 </template>
 <script>
 export default {
-    name: "addNewItem",
+    name: "EditBlog",
     props: {
         dialogVisible: {
             type: Boolean,

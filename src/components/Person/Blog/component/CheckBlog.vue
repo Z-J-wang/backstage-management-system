@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: "item-check",
+    name: "CheckBlog",
     props: {
         drawerVisible: {
             type: Boolean,

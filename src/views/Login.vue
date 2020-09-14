@@ -35,7 +35,7 @@
 
 <script>
 export default {
-    name: "",
+    name: "Login",
     data() {
         return {
             VCode_imgSrc: this.$store.state.server_url+`/api/verification-code/getCode`,

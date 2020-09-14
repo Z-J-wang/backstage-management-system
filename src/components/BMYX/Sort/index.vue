@@ -10,7 +10,11 @@
             <i class="el-icon-mobile-phone"></i>
         </el-divider>
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
+            <el-button
+                type="primary"
+                icon="el-icon-plus"
+                @click="addItemVisible = true"
+            >新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -20,10 +24,25 @@
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column type="index" width="50"></el-table-column>
-            <el-table-column prop="id" label="id" width="240" sortable></el-table-column>
-            <el-table-column prop="name" label="分类名称" sortable></el-table-column>
-            <el-table-column prop="imgSrc" label="图片">
+            <el-table-column
+                type="index"
+                width="50"
+            ></el-table-column>
+            <el-table-column
+                prop="id"
+                label="id"
+                width="240"
+                sortable
+            ></el-table-column>
+            <el-table-column
+                prop="name"
+                label="分类名称"
+                sortable
+            ></el-table-column>
+            <el-table-column
+                prop="imgSrc"
+                label="图片"
+            >
                 <template slot-scope="scope">
                     <el-image
                         style="width: 50px; height: 50px"
@@ -31,7 +50,11 @@
                     ></el-image>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="140">
+            <el-table-column
+                fixed="right"
+                label="操作"
+                width="140"
+            >
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemChange(scope.row)"
@@ -59,22 +82,25 @@
             </el-table-column>
         </el-table>
 
-        <item-editor
+        <edit-sort
             :dialog-visible="itemEditorVisible"
             :form-item="itemValue"
             @close="closeItemEditor"
-        ></item-editor>
+        />
 
-        <add-item :visible="addItemVisible" @close="closeAddItem"></add-item>
+        <create-new-sort
+            :visible="addItemVisible"
+            @close="closeAddItem"
+        />
     </div>
 </template>
 
 <script>
-import itemEditor from "./component/ItemEditor.vue";
-import addItem from "./component/AddItem.vue";
+import CreateNewSort from "./component/CreateNewSort.vue";
+import EditSort from "./component/EditSort.vue";
 
 export default {
-    name: "",
+    name: "SortManagement",
     data() {
         return {
             addItemVisible: false,
@@ -89,8 +115,8 @@ export default {
         };
     },
     components: {
-        itemEditor,
-        addItem,
+        CreateNewSort,
+        EditSort,
     },
     mounted() {
         this.setDataList();

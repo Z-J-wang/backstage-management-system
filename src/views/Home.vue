@@ -33,6 +33,7 @@ import headerBar from "@c/common/HeaderBar.vue";
 import backtop from "@c/common/BackTop.vue";
 
 export default {
+    name:"Home",
     components: {
         "aside-menu": asideMenu,
         "header-bar": headerBar,

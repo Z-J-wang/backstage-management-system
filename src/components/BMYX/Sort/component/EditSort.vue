@@ -49,7 +49,7 @@
 <script>
 import uploadImage from "@c/common/From_tools/UploadImage.vue";
 export default {
-    name: "changeItem",
+    name: "EditSort",
     props: {
         dialogVisible: {
             type: Boolean,

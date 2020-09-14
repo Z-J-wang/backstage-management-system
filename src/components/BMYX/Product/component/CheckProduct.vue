@@ -49,7 +49,7 @@
 
 <script>
 export default {
-    name: "item-check",
+    name: "CheckProduct",
     props: {
         drawerVisible: {
             type: Boolean,

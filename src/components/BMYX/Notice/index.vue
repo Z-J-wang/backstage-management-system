@@ -67,7 +67,7 @@
 
 <script>
 export default {
-    name: "",
+    name: "NoticeManagement",
     data() {
         return {
             activeCollapse: "1",

@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    name: "item-check",
+    name: "CheckExperience",
     props: {
         drawerVisible: {
             type: Boolean,

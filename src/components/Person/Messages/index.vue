@@ -1,7 +1,11 @@
 <template>
     <div class="tableContain">
-         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addMessageVisible = true">新增一笔</el-button>
+        <div class="table_tool">
+            <el-button
+                type="primary"
+                icon="el-icon-plus"
+                @click="addMessageVisible = true"
+            >新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -70,21 +74,24 @@
             </el-table-column>
         </el-table>
 
-        <add-message :dialog-visible="addMessageVisible" @close="closeAddMessage"></add-message>
+        <create-new-message
+            :dialog-visible="addMessageVisible"
+            @close="closeAddMessage"
+        />
 
-        <item-check
+        <check-message
             :drawer-visible="itemCheckVisible"
             :item="itemValue"
             @close="closeItemCheck"
-        ></item-check>
+        />
     </div>
 </template>
 
 <script>
-import itemCheck from "./component/ItemCheck.vue";
-import addMessage from "./component/addMessage.vue";
+import CheckMessage from "./component/CheckMessage.vue";
+import CreateNewMessage from "./component/CreateNewMessage.vue";
 export default {
-    name: "messages",
+    name: "MessageManagement",
     data() {
         return {
             addMessageVisible: false,
@@ -103,14 +110,14 @@ export default {
                 total: 0,
                 currentPage: 1,
                 size: 10,
-            }
+            },
         };
     },
     components: {
-        itemCheck,
-        addMessage
+        CheckMessage,
+        CreateNewMessage,
     },
-    created(){
+    created() {
         this.getData();
     },
     methods: {
@@ -140,9 +147,9 @@ export default {
         /**
          * 获取表格数据
          */
-        async getData(){
+        async getData() {
             let data = await this.getMsgs();
-            if(data) {
+            if (data) {
                 this.dataList = data.rows;
             }
         },
@@ -150,13 +157,13 @@ export default {
         /**
          * 删除博客
          */
-        async delItem(id){
+        async delItem(id) {
             let data = await this.deleteMsg(id);
-            if(data){
+            if (data) {
                 this.$message({
                     type: "success",
-                    message: "删除成功"
-                })
+                    message: "删除成功",
+                });
                 this.getData();
             }
         },
@@ -188,8 +195,8 @@ export default {
         /**
          * 删除
          */
-        async deleteMsg(id){
-            let res = await this.$HttpApi.deleteMsg({id: id});
+        async deleteMsg(id) {
+            let res = await this.$HttpApi.deleteMsg({ id: id });
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.msg;
@@ -200,9 +207,9 @@ export default {
             }
 
             return data;
-        }
+        },
         /***************************** ajax 操作部分 End  *********************************/
-    }
+    },
 };
 </script>
 

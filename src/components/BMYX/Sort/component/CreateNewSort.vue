@@ -53,7 +53,7 @@
 import uploadImage from "@c/common/From_tools/UploadImage.vue";
 
 export default {
-    name: "addNewItem",
+    name: "CreateNewSort",
     props: {
         visible: {
             type: Boolean,

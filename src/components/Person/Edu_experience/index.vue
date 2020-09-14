@@ -1,7 +1,11 @@
 <template>
     <div class="tableContain">
         <div class="table_tool">
-            <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
+            <el-button
+                type="primary"
+                icon="el-icon-plus"
+                @click="addItemVisible = true"
+            >新增一笔</el-button>
         </div>
         <el-table
             :data="dataList"
@@ -11,15 +15,31 @@
             style="width: 100%"
             highlight-current-row
         >
-            <el-table-column prop="theme" label="经历" width="180"></el-table-column>
-            <el-table-column prop="dateTime" label="时间" sortable width="240">
+            <el-table-column
+                prop="theme"
+                label="经历"
+                width="180"
+            ></el-table-column>
+            <el-table-column
+                prop="dateTime"
+                label="时间"
+                sortable
+                width="240"
+            >
                 <template slot-scope="scope">
                     <i class="el-icon-time"></i>
                     <span style="margin-left: 10px">{{ scope.row.dateTime.join(" 至 ") }}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="detail" label="详情"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="140">
+            <el-table-column
+                prop="detail"
+                label="详情"
+            ></el-table-column>
+            <el-table-column
+                fixed="right"
+                label="操作"
+                width="140"
+            >
                 <template slot-scope="scope">
                     <el-button
                         @click.native.prevent="itemCheck(scope.row)"
@@ -54,24 +74,32 @@
             </el-table-column>
         </el-table>
 
-        <add-item :dialog-visible="addItemVisible" @close="closeAddItemVisible"></add-item>
+        <create-new-experience
+            :dialog-visible="addItemVisible"
+            @close="closeAddItemVisible"
+        />
         
-        <item-editor
+        <edit-experience
             :dialog-visible="itemEditorVisible"
             :form-item="itemValue"
             @close="closeItemEditor"
-        ></item-editor>
+        />
 
-        <item-check :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck"></item-check>
+        <check-experience
+            :drawer-visible="itemCheckVisible"
+            :item="itemValue"
+            @close="closeItemCheck"
+        />
     </div>
 </template>
 
 <script>
-import addItem from "./component/AddItem.vue"; // item 编辑器
-import itemEditor from "./component/ItemEditor.vue"; // item 编辑器
-import itemCheck from "./component/ItemCheck.vue"; // item 查看器
+import CreateNewExperience from "./component/CreateNewExperience.vue"; // item 编辑器
+import EditExperience from "./component/EditExperience.vue"; // item 编辑器
+import CheckExperience from "./component/CheckExperience.vue"; // item 查看器
 
 export default {
+    name: "Edu_Experience",
     data() {
         return {
             itemEditorVisible: false,
@@ -92,9 +120,9 @@ export default {
         };
     },
     components: {
-        addItem,
-        itemEditor,
-        itemCheck,
+        CreateNewExperience,
+        EditExperience,
+        CheckExperience,
     },
     created() {
         this.getData();
@@ -119,7 +147,7 @@ export default {
         /**
          * 关闭 addItem
          */
-        closeAddItemVisible(){
+        closeAddItemVisible() {
             this.addItemVisible = false;
         },
 
@@ -142,9 +170,9 @@ export default {
         /**
          * 获取表格数据
          */
-        async getData(){
+        async getData() {
             let data = await this.getExperiences();
-            if(data) {
+            if (data) {
                 this.dataList = data.rows;
             }
         },
@@ -152,13 +180,13 @@ export default {
         /**
          * 删除教育经历
          */
-        async delItem(id){
+        async delItem(id) {
             let data = await this.deleteExperience(id);
-            if(data){
+            if (data) {
                 this.$message({
                     type: "success",
-                    message: "删除成功"
-                })
+                    message: "删除成功",
+                });
                 this.getData();
             }
         },
@@ -188,8 +216,8 @@ export default {
         /**
          * 删除
          */
-        async deleteExperience(id){
-            let res = await this.$HttpApi.deleteExperience({id: id});
+        async deleteExperience(id) {
+            let res = await this.$HttpApi.deleteExperience({ id: id });
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.msg;
@@ -200,7 +228,7 @@ export default {
             }
 
             return data;
-        }
+        },
         /***************************** ajax 操作部分 End  *********************************/
     },
 };

@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="title"
-        :visible.sync="visible"
+        :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose"
         :close-on-click-modal="false"
@@ -36,11 +36,18 @@
                 </el-form-item>
                 <el-form-item label="平台价格" prop="nowPrice">
                     <el-input
-                        type="text"
                         v-model="formItem.nowPrice"
                         placeholder="请输入平台价格"
                         @change="changeNowPrice()"
                         @input="inputNowPrice()"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="市面价格" prop="oldPrice">
+                    <el-input
+                        v-model="formItem.oldPrice"
+                        @change="changeOldPrice()"
+                        @input="inputOldPrice()"
+                        placeholder="请输入市面价格"
                     ></el-input>
                 </el-form-item>
                 <el-form-item label="视频链接" prop="videoSrc">
@@ -54,7 +61,7 @@
                                 height="120"
                             ></upload-video>
                         </el-col>
-                        <el-col :span="24">
+                         <el-col :span="24">
                             <div style="text-align: left;line-height: 20px;">
                                 提示：<br>
                                 视频不能大于50M，且视频时长最长为1:30秒。
@@ -65,9 +72,15 @@
                 <el-form-item label="商品图片" prop="imgSrcList">
                     <el-row>
                         <el-col :span="24">
+                            <el-alert
+                                class="upload_warn"
+                                description="注意：您对图片的所有操作将直接被记录。"
+                                type="warning"
+                                show-icon
+                                :closable="false"
+                            ></el-alert>
                             <upload-image-list
                                 :action="action"
-                                :headers="headers"
                                 :imageUrlList="formItem.imgSrcList"
                                 @updateImgSrcList="updateImgSrcList"
                                 @delUploadImage="delUploadImage"
@@ -95,32 +108,26 @@
 <script>
 import uploadVideo from '@c/common/From_tools/UploadVideo.vue'
 import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
-import validate_rules from "./validate-rule.js";
+import validate_rules from "./validate-rule";
 
 export default {
-    name: "addNewItem",
+    name: "EditProduct",
     props: {
-        visible: {
+        dialogVisible: {
             type: Boolean,
             default: false,
+        },
+        formItem: {
+            type: Object,
         },
     },
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
-            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
+            action: this.$store.state.server_url + "/api/bmyx/uploadImage",
+            title: "修改商品信息",
+            cur_video: '',   // 修改前的视频
             options: [],
-            title: "新增一条菜品",
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            formItem: {
-                name: "",
-                s_Id: "",
-                nowPrice: "",
-                imgSrcList: [],
-                detail: "",
-            },
             rules: Object.assign(
                 validate_rules,
                 // 此部分为自定义表单验证规则
@@ -129,7 +136,16 @@ export default {
                         // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
                         {
                             required: true,
-                            message: "请输入今天的价格",
+                            message: "请输入价格",
+                            trigger: "blur",
+                        },
+                        { validator: validatePrice, trigger: "blur" },
+                    ],
+                    oldPrice: [
+                        // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
+                        {
+                            required: false,
+                            message: "请输入价格",
                             trigger: "blur",
                         },
                         { validator: validatePrice, trigger: "blur" },
@@ -138,12 +154,19 @@ export default {
             ),
         };
     },
+    async mounted() {
+        this.options = await this.getSort();
+    },
     components: {
         uploadImageList,
         uploadVideo
     },
-    async mounted() {
-        this.options = await this.getSort();
+    watch:{
+        formItem(val){
+            this.cur_video = val.videoSrc;
+            console.log(this.formItem.videoSrc)
+            console.log(this.cur_video)
+        }
     },
     methods: {
         /**
@@ -151,6 +174,7 @@ export default {
          */
         updateImgSrcList(imgSrcList) {
             this.formItem.imgSrcList = imgSrcList;
+            this.updatedProduct(this.formItem);
             console.log(`新增图片：${this.formItem.imgSrcList}`);
         },
 
@@ -182,43 +206,60 @@ export default {
         },
 
         /**
-         * close 事件
+         * 昨天价格的 change 事件
          */
-        handleClose() {
-            this.$confirm("确认关闭？")
-                .then(() => {
-                    this.formItem.imgSrcList.forEach(element => {
-                        this.delUploadImage(element)
-                    });
-                    if(this.formItem.videoSrc){
-                        this.delUploadImage(this.formItem.videoSrc);
-                    }
-                    this.$refs["form"].resetFields();
-                    this.$emit("close");
-                })
-                .catch(() => {});
-        },
-        
-        async onSubmit(formName) {
-            let valid = await this.$refs[formName].validate();
-            if (valid) {
-                await this.createNewProduct(this.formItem);
-                this.$refs["form"].resetFields();
-                this.$emit("close");
-            }
+        changeOldPrice() {
+            let price = Number(this.formItem.oldPrice);
+            this.formItem.oldPrice = price.toFixed(2);
         },
 
         /**
-         * 新增一笔商品信息
+         * 昨天价格的 input 事件
          */
-        async createNewProduct(data) {
-            let ret = await this.$HttpApi.createProduct(data);
+        inputOldPrice() {
+            this.formItem.oldPrice = this.formItem.oldPrice.match(
+                /\d+(\.\d{0,2})?/
+            )
+                ? this.formItem.oldPrice.match(/\d+(\.\d{0,2})?/)[0]
+                : "";
+        },
+
+        /**
+         * close 事件
+         */
+        handleClose() {
+            let videoSrc = this.formItem.videoSrc;
+            this.$confirm("确认关闭？")
+                .then(() => {
+                    if(videoSrc !== this.cur_video){
+                        this.delUploadImage(videoSrc)
+                    }
+                    this.$emit("close");
+                    this.$refs["form"].resetFields();
+                })
+                .catch(() => {});
+        },
+
+        async onSubmit(formName) {
+            let valid = await this.$refs[formName].validate();
+            if (valid) {
+                this.updatedProduct(this.formItem);
+                this.$emit("close");
+                this.$parent.setDataList();
+            }
+        },
+
+        async updatedProduct(data) {
+            let ret = await this.$HttpApi.updatedProduct(data);
+            let newVideoSrc = ret.data.data.rows[data.id].videoSrc;
             if (ret.status === 200 && ret.data.code == 1000) {
                 this.$message({
-                    message: `${ret.data.data.name} 添加成功！`,
+                    message: "商品信息更新成功！",
                     type: "success",
                 });
-                this.$parent.setDataList();
+                if(newVideoSrc !== this.cur_video){
+                    this.delUploadImage(this.cur_video);
+                }
             } else {
                 this.$message.error("系统出错，请重试！");
             }
@@ -240,47 +281,40 @@ export default {
         },
 
         /**
-         * 删除图片、视频
+         * 删除图片
          */
         async delUploadImage(filename) {
+            let index = this.formItem.imgSrcList.indexOf(filename);
+            this.formItem.imgSrcList.splice(index, 1);
+
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
-                console.log(`删除文件：${filename}`);
+                this.updatedProduct(this.formItem);
+                console.log(`删除文件：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
-                console.log("文件删除失败")
+                console.log(`删除文件失败`);
                 flat = false;
             }
 
             return flat;
-        }
+        },
     },
 };
 </script>
 
-<style>
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-}
-.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-}
-.avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+<style lang="less">
+.upload_warn {
+    .el-alert__content {
+        p {
+            line-height: 20px;
+            margin: 0;
+        }
+    }
+    i {
+        font-size: 16px !important;
+        width: 16px !important;
+    }
 }
 </style>

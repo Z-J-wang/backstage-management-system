@@ -17,39 +17,40 @@
 import city from "../../../../public/chinaProvince.js";
 
 export default {
+    name: "DistrictSelect",
     props: {
         size: {
             type: String,
-            default: "medium" // medium / small / mini
+            default: "medium", // medium / small / mini
         },
         width: {
-            type: Number
+            type: Number,
         },
         district: {
-            type: Array
+            type: Array,
         },
         id: {
-            type: String
+            type: String,
         },
         name: {
-            type: String
-        }
+            type: String,
+        },
     },
     // 自定义组件实现v-model
     model: {
         prop: "district",
-        event: "returnBack"
+        event: "returnBack",
     },
     data() {
         return {
             value: [],
-            options_area: city.provinces
+            options_area: city.provinces,
         };
     },
     methods: {
         handleChange(value) {
             this.$emit("returnBack", value);
-        }
-    }
+        },
+    },
 };
 </script>

@@ -31,7 +31,7 @@
 
 <script>
 export default {
-    name: "item-check",
+    name: "CheckMessage",
     props: {
         drawerVisible: {
             type: Boolean,

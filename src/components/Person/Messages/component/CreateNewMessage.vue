@@ -15,12 +15,12 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="博客标题" prop="title">
-                    <el-input v-model="formItem.title" placeholder="请输入博客标题"></el-input>
+                <el-form-item label="发信人" prop="name">
+                    <el-input v-model="formItem.name" placeholder="请输入发信人"></el-input>
                 </el-form-item>
-                <el-form-item label="发布时间" prop="publishTime">
+                <el-form-item label="发信时间" prop="datetime">
                     <el-date-picker
-                        v-model="formItem.publishTime"
+                        v-model="formItem.datetime"
                         type="date"
                         placeholder="选择日期"
                         value-format="yyyy-MM-dd"
@@ -28,19 +28,28 @@
                         style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="博客链接" prop="href">
-                    <el-input v-model="formItem.href" placeholder="请输入博客链接"></el-input>
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="formItem.email" placeholder="请输入邮箱"></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
-                    <el-input v-model="formItem.imgSrc" placeholder="请输入博客介绍图片链接"></el-input>
+                <el-form-item label="个人网站链接" prop="website">
+                    <el-input v-model="formItem.website" placeholder="请输入个人网站链接"></el-input>
                 </el-form-item>
-                <el-form-item label="博客摘要" prop="digest">
+                <el-form-item label="主题" prop="subject">
                     <el-input
-                        v-model="formItem.digest"
+                        v-model="formItem.subject"
                         type="textarea"
                         maxlength="400"
                         show-word-limit
-                        placeholder="请输入博客摘要"
+                        placeholder="请输入主题"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="内容" prop="content">
+                    <el-input
+                        v-model="formItem.content"
+                        type="textarea"
+                        maxlength="400"
+                        show-word-limit
+                        placeholder="请输入内容"
                     ></el-input>
                 </el-form-item>
             </el-form>
@@ -53,7 +62,7 @@
 </template>
 <script>
 export default {
-    name: "addBlog",
+    name: "CreateNewMessage",
     props: {
         dialogVisible: {
             type: Boolean,
@@ -63,50 +72,58 @@ export default {
     data() {
         return {
             formItem: {
-                title: "",
-                publishTime: "",
-                href: "",
-                imgSrc: "",
-                digest: "",
+                name: "",
+                datetime: "",
+                email: "",
+                website: "",
+                subject: "",
+                content: "",
             },
             rules: {
-                title: [
+                name: [
                     {
                         required: true,
-                        message: "请输入博客标题",
+                        message: "请输入发信人",
                         trigger: "blur",
                     },
                 ],
-                publishTime: [
+                datetime: [
                     {
                         required: true,
-                        message: "请输入博客发布时间",
+                        message: "请输入发信时间",
                         trigger: "blur",
                     },
                 ],
-                href: [
+                email: [
                     {
                         required: true,
-                        message: "请输入博客链接",
+                        message: "请输入邮箱",
                         trigger: "blur",
                     },
                 ],
-                imgSrc: [
+                website: [
                     // {
                     //     required: true,
                     //     message: "请输入博客介绍图片链接",
                     //     trigger: "blur"
                     // }
                 ],
-                digest: [
-                    // {
-                    //     required: true,
-                    //     message: "请输入博客摘要",
-                    //     trigger: "blur"
-                    // },
+                subject: [
+                    {
+                        required: true,
+                        message: "请输入主题",
+                        trigger: "blur",
+                    },
+                ],
+                content: [
+                    {
+                        required: true,
+                        message: "请输入内容",
+                        trigger: "blur"
+                    },
                     {
                         maxLength: 250,
-                        message: "请输入博客摘要",
+                        message: "限定长度为250个字符",
                         trigger: "blur",
                     },
                 ],
@@ -155,7 +172,7 @@ export default {
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {
-                    let data = this.createBlog(this.formItem);
+                    let data = this.createMsg(this.formItem);
                     if (data) {
                         this.$message({
                             type: "success",
@@ -171,8 +188,8 @@ export default {
         },
 
         /***************************** ajax 操作部分 Start  *********************************/
-        async createBlog(form) {
-            let res = await this.$HttpApi.createBlog(form);
+        async createMsg(form) {
+            let res = await this.$HttpApi.createMsg(form);
             let data = {};
             if (res.status === 200 && res.data.code === 1000) {
                 data = res.data.data;

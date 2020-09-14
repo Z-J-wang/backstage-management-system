@@ -1,7 +1,13 @@
 <template>
-    <div class="personalInfo" @click="AlleditorClose">
+    <div
+        class="personalInfo"
+        @click="AlleditorClose"
+    >
         <el-row>
-            <el-col :span="12" style="padding-left:60px;">
+            <el-col
+                :span="12"
+                style="padding-left:60px;"
+            >
                 <el-row>
                     <el-col :span="18">
                         <el-form
@@ -10,9 +16,15 @@
                             :rules="rules"
                             label-width="100px"
                         >
-                            <el-form-item label="姓名" prop="name">
+                            <el-form-item
+                                label="姓名"
+                                prop="name"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!name_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!name_editor"
+                                    >
                                         {{personalInfo.name}}
                                         <el-tooltip
                                             class="item"
@@ -34,9 +46,15 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="性别" prop="gender">
+                            <el-form-item
+                                label="性别"
+                                prop="gender"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!gender_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!gender_editor"
+                                    >
                                         {{personalInfo.gender ? '男' : '女'}}
                                         <el-tooltip
                                             class="item"
@@ -61,9 +79,15 @@
                                     </el-radio-group>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="籍贯" prop="placeOfBirth">
+                            <el-form-item
+                                label="籍贯"
+                                prop="placeOfBirth"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!placeOfBirth_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!placeOfBirth_editor"
+                                    >
                                         {{personalInfo.placeOfBirth ? personalInfo.placeOfBirth.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
@@ -91,9 +115,15 @@
                                     ></district-select>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="出生日期" prop="birthday">
+                            <el-form-item
+                                label="出生日期"
+                                prop="birthday"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!birthday_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!birthday_editor"
+                                    >
                                         {{personalInfo.birthday}}
                                         <el-tooltip
                                             class="item"
@@ -119,9 +149,15 @@
                                     ></el-date-picker>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="国籍" prop="nationality">
+                            <el-form-item
+                                label="国籍"
+                                prop="nationality"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!nationality_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!nationality_editor"
+                                    >
                                         {{personalInfo.nationality}}
                                         <el-tooltip
                                             class="item"
@@ -143,9 +179,15 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="现居地" prop="presentAddress">
+                            <el-form-item
+                                label="现居地"
+                                prop="presentAddress"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!presentAddress_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!presentAddress_editor"
+                                    >
                                         {{ personalInfo.presentAddress ? personalInfo.presentAddress.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
@@ -164,12 +206,18 @@
                                         v-model="personalInfo.presentAddress"
                                         v-show="presentAddress_editor"
                                         @click.stop.native
-                                    ></district-select>
+                                    />
                                 </div>
                             </el-form-item>
-                            <el-form-item label="个人简介" prop="introducts">
+                            <el-form-item
+                                label="个人简介"
+                                prop="introducts"
+                            >
                                 <div class="p-l-60">
-                                    <div style="text-align:left;" v-show="!introducts_editor">
+                                    <div
+                                        style="text-align:left;"
+                                        v-show="!introducts_editor"
+                                    >
                                         {{personalInfo.introducts}}
                                         <el-tooltip
                                             class="item"
@@ -196,32 +244,41 @@
                                     ></el-input>
                                 </div>
                             </el-form-item>
-                            <el-form-item style="margin-top: 100px;" v-show="btn_changeVisible">
-                                <el-button type="primary" @click="onSubmit('personalInfo')">确定修改</el-button>
+                            <el-form-item
+                                style="margin-top: 100px;"
+                                v-show="btn_changeVisible"
+                            >
+                                <el-button
+                                    type="primary"
+                                    @click="onSubmit('personalInfo')"
+                                >确定修改</el-button>
                                 <el-button @click="resetForm('personalInfo')">取消</el-button>
                             </el-form-item>
                         </el-form>
                     </el-col>
                 </el-row>
             </el-col>
-            <el-col :span="12" style="text-align: left">
+            <el-col
+                :span="12"
+                style="text-align: left"
+            >
                 <head-portrait
                     :imageUrl="personalInfo.avatar"
                     :action="action"
                     @updateImgSrc="updateImgSrc"
-                ></head-portrait>
+                />
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script>
-import headPortrait from "./component/HeadPortrait.vue";
-import districtSelect from "@c/common/From_tools/DIstrictSelect.vue";
+import HeadPortrait from "./component/HeadPortrait.vue";
+import DistrictSelect from "@c/common/From_tools/DistrictSelect.vue";
 import validate_rules from "./validate_rules.js"; // 引入 validate rules
 
 export default {
-    name: "peronal-info",
+    name: "BasicInfo",
     data() {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
@@ -241,8 +298,8 @@ export default {
         };
     },
     components: {
-        headPortrait,
-        districtSelect,
+        HeadPortrait,
+        DistrictSelect,
     },
     created() {
         this.getBasicinfo();
