@@ -13,7 +13,12 @@
 
 <script>
 export default {
-    // name:"带快捷选项的日期选择器",
+    name:"DatePickerHasShortcuts",
+    // 自定义组件实现v-model
+    model: {
+        prop: "dateTime",
+        event: "returnBack",
+    },
     props: {
         size: {
             type: String,
@@ -25,11 +30,6 @@ export default {
         dateTime: {
             type: String,
         },
-    },
-    // 自定义组件实现v-model
-    model: {
-        prop: "dateTime",
-        event: "returnBack",
     },
     data() {
         return {

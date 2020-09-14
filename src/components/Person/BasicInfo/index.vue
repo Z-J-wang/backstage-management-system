@@ -279,6 +279,10 @@ import validate_rules from "./validate_rules.js"; // 引入 validate rules
 
 export default {
     name: "BasicInfo",
+    components: {
+        HeadPortrait,
+        DistrictSelect,
+    },
     data() {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
@@ -297,13 +301,6 @@ export default {
             btn_changeVisible: false,
         };
     },
-    components: {
-        HeadPortrait,
-        DistrictSelect,
-    },
-    created() {
-        this.getBasicinfo();
-    },
     watch: {
         personalInfo: {
             handler: function () {
@@ -311,6 +308,9 @@ export default {
             },
             deep: true,
         },
+    },
+    created() {
+        this.getBasicinfo();
     },
     methods: {
         /**

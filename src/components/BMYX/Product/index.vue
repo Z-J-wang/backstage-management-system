@@ -209,6 +209,11 @@ import CreatNewProduct from "./component/CreatNewProduct.vue";
 
 export default {
     name: "ProductManagement",
+    components: {
+        CreatNewProduct,
+        EditProduct,
+        CheckProduct,
+    },
     data() {
         return {
             addItemVisible: false,
@@ -235,11 +240,6 @@ export default {
                 size: 10,
             },
         };
-    },
-    components: {
-        CreatNewProduct,
-        EditProduct,
-        CheckProduct,
     },
     mounted() {
         this.setDataList();

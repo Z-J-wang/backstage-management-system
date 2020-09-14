@@ -65,6 +65,9 @@
 import uploadImage from "@c/common/From_tools/UploadImage.vue";
 export default {
     name: "EditSort",
+    components: {
+        uploadImage,
+    },
     props: {
         dialogVisible: {
             type: Boolean,
@@ -89,9 +92,6 @@ export default {
             },
             title: "修改分类",
         };
-    },
-    components: {
-        uploadImage,
     },
     watch: {
         formItem(val) {

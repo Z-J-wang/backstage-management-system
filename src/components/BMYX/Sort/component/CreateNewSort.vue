@@ -66,6 +66,9 @@ import uploadImage from "@c/common/From_tools/UploadImage.vue";
 
 export default {
     name: "CreateNewSort",
+    components: {
+        uploadImage,
+    },
     props: {
         visible: {
             type: Boolean,
@@ -90,9 +93,6 @@ export default {
                 imgSrc: "",
             },
         };
-    },
-    components: {
-        uploadImage,
     },
     methods: {
         /**

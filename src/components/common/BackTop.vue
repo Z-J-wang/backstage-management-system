@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "backtop",
+    name: "backTop",
 };
 </script>
 

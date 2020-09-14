@@ -104,6 +104,11 @@ import CheckBlog from "./component/CheckBlog.vue";
 
 export default {
     name: "BlogManagement",
+    components: {
+        EditBlog,
+        CheckBlog,
+        CreateNewBlog,
+    },
     data() {
         return {
             addBlogVisible: false,
@@ -117,11 +122,6 @@ export default {
                 size: 10,
             },
         };
-    },
-    components: {
-        EditBlog,
-        CheckBlog,
-        CreateNewBlog,
     },
     mounted() {
         this.getData();

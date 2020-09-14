@@ -142,6 +142,10 @@ import validate_rules from "./validate-rule";
 
 export default {
     name: "EditProduct",
+    components: {
+        uploadImageList,
+        uploadVideo,
+    },
     props: {
         dialogVisible: {
             type: Boolean,
@@ -186,10 +190,6 @@ export default {
     },
     async mounted() {
         this.options = await this.getSort();
-    },
-    components: {
-        uploadImageList,
-        uploadVideo,
     },
     watch: {
         formItem(val) {

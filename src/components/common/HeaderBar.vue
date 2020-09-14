@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: "headerBar",
+    name: "HeaderBar",
     data() {
         return {
             userInfo: {},

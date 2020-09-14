@@ -92,6 +92,10 @@ import CheckMessage from "./component/CheckMessage.vue";
 import CreateNewMessage from "./component/CreateNewMessage.vue";
 export default {
     name: "MessageManagement",
+    components: {
+        CheckMessage,
+        CreateNewMessage,
+    },
     data() {
         return {
             addMessageVisible: false,
@@ -112,10 +116,6 @@ export default {
                 size: 10,
             },
         };
-    },
-    components: {
-        CheckMessage,
-        CreateNewMessage,
     },
     created() {
         this.getData();

@@ -18,6 +18,11 @@ import city from "../../../../public/chinaProvince.js";
 
 export default {
     name: "DistrictSelect",
+    // 自定义组件实现v-model
+    model: {
+        prop: "district",
+        event: "returnBack",
+    },
     props: {
         size: {
             type: String,
@@ -35,11 +40,6 @@ export default {
         name: {
             type: String,
         },
-    },
-    // 自定义组件实现v-model
-    model: {
-        prop: "district",
-        event: "returnBack",
     },
     data() {
         return {

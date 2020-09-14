@@ -126,6 +126,10 @@ import validate_rules from "./validate-rule.js";
 
 export default {
     name: "CreatNewProduct",
+    components: {
+        uploadImageList,
+        uploadVideo,
+    },
     props: {
         visible: {
             type: Boolean,
@@ -164,10 +168,6 @@ export default {
                 }
             ),
         };
-    },
-    components: {
-        uploadImageList,
-        uploadVideo,
     },
     async mounted() {
         this.options = await this.getSort();

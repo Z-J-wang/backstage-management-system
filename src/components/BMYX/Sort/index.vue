@@ -101,6 +101,10 @@ import EditSort from "./component/EditSort.vue";
 
 export default {
     name: "SortManagement",
+    components: {
+        CreateNewSort,
+        EditSort,
+    },
     data() {
         return {
             addItemVisible: false,
@@ -113,10 +117,6 @@ export default {
             },
             dataList: [{}],
         };
-    },
-    components: {
-        CreateNewSort,
-        EditSort,
     },
     mounted() {
         this.setDataList();
