@@ -1,14 +1,14 @@
 <template>
     <el-cascader
         :id="id"
+        clearable
+        filterable
+        style="width:100%"
         :name="name"
+        :size="size"
         :value="district"
         :options="options_area"
         :props="{ label:'name',children:'cities',value:'name' }"
-        :size="size"
-        filterable
-        clearable
-        style="width:100%"
         @change="handleChange"
     ></el-cascader>
 </template>

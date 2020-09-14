@@ -3,9 +3,9 @@
         <div class="table_tool clearfix">
             <div class="search float-l">
                 <el-input
-                    placeholder="请输入搜索关键字"
                     v-model="search.text"
                     class="input-with-select"
+                    placeholder="请输入搜索关键字"
                 >
                     <el-select
                         v-model="search.type"
@@ -13,13 +13,13 @@
                         placeholder="请选择类别"
                     >
                         <el-option
-                            label="商品名称"
-                            value="name"
                             selected
+                            value="name"
+                            label="商品名称"
                         ></el-option>
                         <el-option
-                            label="商品类别"
                             value="sort"
+                            label="商品类别"
                         ></el-option>
                     </el-select>
                     <el-button
@@ -30,33 +30,33 @@
                 </el-input>
             </div>
             <el-button
-                class="float-r"
                 type="primary"
+                class="float-r"
                 icon="el-icon-plus"
                 @click="addItemVisible = true"
             >新增一笔</el-button>
         </div>
         <el-table
-            :data="dataList"
-            stripe
             border
+            stripe
             style="width: 100%"
+            :data="dataList"
             highlight-current-row
         >
             <el-table-column
+                sortable
                 prop="id"
                 label="id"
-                sortable
             ></el-table-column>
             <el-table-column
+                sortable
                 prop="name"
-                label="商品名称"
-                sortable
                 width="110"
+                label="商品名称"
             ></el-table-column>
             <el-table-column
-                label="商品类别"
                 sortable
+                label="商品类别"
             >
                 <template slot-scope="scope">
                     <span>{{ scope.row.sort.name }}</span>
@@ -71,8 +71,8 @@
                 label="市面价格"
             ></el-table-column>
             <el-table-column
-                prop="imgSrcList"
                 label="商品图片"
+                prop="imgSrcList"
             >
                 <template slot-scope="scope">
                     <el-image
@@ -82,14 +82,14 @@
                 </template>
             </el-table-column>
             <el-table-column
+                width="240"
                 prop="detail"
                 label="商品介绍"
-                width="240"
             ></el-table-column>
             <el-table-column
                 prop="ban"
-                label="状态"
                 width="150"
+                label="状态"
             >
                 <template slot-scope="scope">
                     <div
@@ -97,15 +97,15 @@
                         class="text-c ban"
                     >
                         <el-tag
-                            type="success"
-                            effect="dark"
                             class="tag"
+                            effect="dark"
+                            type="success"
                         >上架成功</el-tag>
                         <el-switch
                             v-model="scope.row.ban"
+                            title="点击切换状态"
                             active-color="#13ce66"
                             inactive-color="#ff4949"
-                            title="点击切换状态"
                             @change="banSwitchToTrue(scope.row.id, scope.$index)"
                         ></el-switch>
                     </div>
@@ -119,68 +119,68 @@
                         >已下架</el-tag>
                         <el-switch
                             v-model="scope.row.ban"
+                            title="点击切换状态"
                             active-color="#13ce66"
                             inactive-color="#ff4949"
-                            title="点击切换状态"
                             @change="banSwitchToFalse(scope.row.id, scope.$index)"
                         ></el-switch>
                     </div>
                 </template>
             </el-table-column>
             <el-table-column
-                prop="updatedAt"
-                label="近期修改"
-                width="101"
                 sortable
+                width="101"
+                label="近期修改"
+                prop="updatedAt"
             ></el-table-column>
             <el-table-column
-                fixed="right"
-                label="操作"
                 width="140"
+                label="操作"
+                fixed="right"
             >
                 <template slot-scope="scope">
                     <el-button
-                        @click.native.prevent="itemCheck(scope.row)"
-                        icon="el-icon-view"
                         circle
-                        size="small"
                         title="查看"
+                        size="small"
+                        icon="el-icon-view"
+                        @click.native.prevent="itemCheck(scope.row)"
                     ></el-button>
                     <el-button
-                        @click.native.prevent="itemChange(scope.row)"
+                        circle
+                        title="编辑"
+                        size="small"
                         type="primary"
                         icon="el-icon-edit"
-                        circle
-                        size="small"
-                        title="编辑"
+                        @click.native.prevent="itemChange(scope.row)"
                     ></el-button>
                     <el-popconfirm
-                        title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
+                        title="这是一段内容确定删除吗？"
                         @onConfirm="delConfirm(scope.row.id)"
                     >
                         <el-button
-                            type="danger"
-                            icon="el-icon-delete"
                             circle
-                            size="small"
                             title="移除"
+                            size="small"
+                            type="danger"
                             slot="reference"
+                            icon="el-icon-delete"
                         ></el-button>
                     </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
-            @size-change="paginationSizeChange"
-            @current-change="paginationCurrentChange"
-            :current-page="pagination.currentPage"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="10"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="pagination.total"
             class="text-l"
             style="margin-top: 10px;"
+            layout="total, sizes, prev, pager, next, jumper"
+            :page-size="10"
+            :page-sizes="[10, 20, 30, 40]"
+            :total="pagination.total"
+            :current-page="pagination.currentPage"
+            @size-change="paginationSizeChange"
+            @current-change="paginationCurrentChange"
         ></el-pagination>
 
         <check-product

@@ -1,16 +1,16 @@
 <template>
     <el-upload
         class="avatar-uploader"
+        :data="oldSrc"
         :action="action"
         :show-file-list="false"
-        :data="oldSrc"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
     >
         <img
             v-if="mutableImageUrl"
-            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
             class="avatar"
+            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
             :style="{width:width+ 'px', height:height+ 'px'}"
         />
         <i

@@ -1,19 +1,19 @@
 <template>
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose"
-        :close-on-click-modal="false"
+        :title="title"
         :destroy-on-close="true"
+        :before-close="handleClose"
+        :visible.sync="dialogVisible"
+        :close-on-click-modal="false"
     >
         <div>
             <el-form
-                :model="formItem"
-                :rules="rules"
                 ref="form"
                 label-width="80px"
                 label-position="left"
+                :rules="rules"
+                :model="formItem"
             >
                 <el-form-item
                     label="主题"
@@ -31,11 +31,11 @@
                     <el-date-picker
                         v-model="formItem.dateTime"
                         type="daterange"
+                        style="width: 100%;"
                         range-separator="至"
                         start-placeholder="开始时间"
                         end-placeholder="结束时间"
                         value-format="yyyy-MM-dd"
-                        style="width: 100%;"
                     ></el-date-picker>
                 </el-form-item>
                 <el-form-item

@@ -8,66 +8,66 @@
             >新增一笔</el-button>
         </div>
         <el-table
-            :data="dataList"
-            class="nowrap"
             stripe
             border
+            class="nowrap"
             style="width: 100%"
             highlight-current-row
+            :data="dataList"
         >
             <el-table-column
+                sortable
                 prop="name"
                 label="发信人"
-                sortable
             ></el-table-column>
             <el-table-column
+                sortable
+                width="240"
                 prop="datetime"
                 label="发信时间"
-                sortable
-                width="240"
             ></el-table-column>
             <el-table-column
-                prop="email"
+                width="240"
                 label="邮箱"
-                width="240"
+                prop="email"
             ></el-table-column>
             <el-table-column
-                prop="website"
                 label="网站"
+                prop="website"
             ></el-table-column>
             <el-table-column
-                prop="subject"
                 label="主题"
+                prop="subject"
             ></el-table-column>
             <el-table-column
-                prop="content"
                 label="内容"
+                prop="content"
             ></el-table-column>
             <el-table-column
-                fixed="right"
-                label="操作"
                 width="100"
+                label="操作"
+                fixed="right"
             >
                 <template slot-scope="scope">
                     <el-button
-                        @click.native.prevent="itemCheck(scope.row)"
-                        icon="el-icon-view"
                         circle
                         size="small"
                         title="查看"
+                        icon="el-icon-view"
+                        @click.native.prevent="itemCheck(scope.row)"
                     ></el-button>
                     <el-popconfirm
-                        title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
+                        title="这是一段内容确定删除吗？"
                         @onConfirm="delItem(scope.row.id)"
                     >
                         <el-button
-                            type="danger"
-                            icon="el-icon-delete"
                             circle
                             size="small"
                             title="移除"
+                            type="danger"
                             slot="reference"
+                            icon="el-icon-delete"
                         ></el-button>
                     </el-popconfirm>
                 </template>

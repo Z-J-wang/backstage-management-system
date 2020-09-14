@@ -1,11 +1,11 @@
 <template>
     <el-date-picker
         v-model="dateTime"
-        align="right"
         type="date"
+        align="right"
+        style="width:100%"
         placeholder="选择日期"
         :picker-options="pickerOptions"
-        style="width:100%"
         @onClick="setTime()"
         @change="handleChange"
     ></el-date-picker>

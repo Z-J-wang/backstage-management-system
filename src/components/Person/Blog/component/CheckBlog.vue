@@ -1,7 +1,7 @@
 <template>
     <el-drawer
-        title="博客详情"
         direction="ltr"
+        title="博客详情"
         :visible.sync="drawerVisible"
         :before-close="handleClose"
     >
@@ -18,8 +18,8 @@
             <el-col :span="16">
                 <el-link
                     type="primary"
-                    :href="item.href"
                     target="_blank"
+                    :href="item.href"
                 >{{item.href}}</el-link>
             </el-col>
         </el-row>
@@ -36,8 +36,8 @@
         <el-row class="text-l">
             <el-col :span="8">博客摘要:</el-col>
             <el-col
-                :span="16"
                 class="text-indent-en"
+                :span="16"
             >{{ item.digest }}</el-col>
         </el-row>
     </el-drawer>

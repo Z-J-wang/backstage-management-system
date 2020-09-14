@@ -2,8 +2,8 @@
     <el-drawer
         title="详情"
         direction="ltr"
-        :visible.sync="drawerVisible"
         :before-close="handleClose"
+        :visible.sync="drawerVisible"
     >
         <el-row class="text-l">
             <el-col :span="8">商品名称：</el-col>
@@ -25,13 +25,13 @@
             <el-col :span="8">商品图片:</el-col>
             <el-col :span="16">
                 <el-row
-                    :gutter="10"
                     style="padding: 0;"
+                    :gutter="10"
                 >
                     <el-col
-                        :span="12"
                         v-for="imgSrc in imageList"
                         :key="imgSrc"
+                        :span="12"
                     >
                         <el-image
                             :src="imgSrc"
@@ -44,8 +44,8 @@
         <el-row class="text-l">
             <el-col :span="8">商品介绍:</el-col>
             <el-col
-                :span="16"
                 class="text-indent-en"
+                :span="16"
             >{{ item.detail }}</el-col>
         </el-row>
     </el-drawer>

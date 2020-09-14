@@ -3,12 +3,12 @@
         <div class="login">
             <h2 class="text-l">后台管理系统</h2>
             <el-form
-                :model="loginForm"
-                status-icon
-                :rules="rules"
                 ref="loginForm"
+                status-icon
                 label-width="80px"
                 class="demo-ruleForm"
+                :model="loginForm"
+                :rules="rules"
                 @keyup.native.enter="submitForm('loginForm')"
             >
                 <el-form-item
@@ -22,8 +22,8 @@
                     prop="password"
                 >
                     <el-input
-                        type="password"
                         v-model.trim="loginForm.password"
+                        type="password"
                         autocomplete="off"
                     ></el-input>
                 </el-form-item>

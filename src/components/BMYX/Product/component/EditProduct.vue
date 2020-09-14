@@ -1,23 +1,23 @@
 <template>
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose"
-        :close-on-click-modal="false"
+        :title="title"
         :destroy-on-close="true"
+        :close-on-click-modal="false"
+        :visible.sync="dialogVisible"
+        :before-close="handleClose"
     >
         <div>
             <el-form
-                :model="formItem"
-                :rules="rules"
                 ref="form"
+                :model="formItem"
                 label-width="80px"
                 label-position="left"
+                :rules="rules"
             >
                 <el-form-item
-                    label="商品名称"
                     prop="name"
+                    label="商品名称"
                 >
                     <el-input
                         v-model="formItem.name"
@@ -25,27 +25,27 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="商品类别"
                     prop="s_Id"
+                    label="商品类别"
                 >
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
-                        placeholder="请选择"
                         style="width:100%;"
+                        placeholder="请选择"
                     >
                         <el-option
                             v-for="item in options"
                             :key="item.id"
-                            :label="item.name"
                             :value="item.id"
+                            :label="item.name"
                             :disabled="item.name == '全部'"
                         ></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item
-                    label="平台价格"
                     prop="nowPrice"
+                    label="平台价格"
                 >
                     <el-input
                         v-model="formItem.nowPrice"
@@ -55,28 +55,28 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="市面价格"
                     prop="oldPrice"
+                    label="市面价格"
                 >
                     <el-input
                         v-model="formItem.oldPrice"
-                        @change="changeOldPrice()"
-                        @input="inputOldPrice()"
                         placeholder="请输入市面价格"
+                        @input="inputOldPrice()"
+                        @change="changeOldPrice()"
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="视频链接"
                     prop="videoSrc"
+                    label="视频链接"
                 >
                     <el-row>
                         <el-col :span="24">
                             <upload-video
-                                :videoUrl="formItem.videoSrc"
-                                :action="action"
-                                @updatevideoSrc="updatevideoSrc"
                                 width="120"
                                 height="120"
+                                :action="action"
+                                :videoUrl="formItem.videoSrc"
+                                @updatevideoSrc="updatevideoSrc"
                             ></upload-video>
                         </el-col>
                         <el-col :span="24">
@@ -94,29 +94,29 @@
                     <el-row>
                         <el-col :span="24">
                             <el-alert
+                                show-icon
+                                type="warning"
                                 class="upload_warn"
                                 description="注意：您对图片的所有操作将直接被记录。"
-                                type="warning"
-                                show-icon
                                 :closable="false"
                             ></el-alert>
                             <upload-image-list
                                 :action="action"
                                 :imageUrlList="formItem.imgSrcList"
-                                @updateImgSrcList="updateImgSrcList"
                                 @delUploadImage="delUploadImage"
+                                @updateImgSrcList="updateImgSrcList"
                             ></upload-image-list>
                         </el-col>
                     </el-row>
                 </el-form-item>
                 <el-form-item
-                    label="商品介绍"
                     prop="detail"
+                    label="商品介绍"
                 >
                     <el-input
                         v-model="formItem.detail"
-                        type="textarea"
                         maxlength="30"
+                        type="textarea"
                         show-word-limit
                         placeholder="请输入商品介绍"
                     ></el-input>

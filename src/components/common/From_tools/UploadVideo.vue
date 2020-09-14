@@ -2,16 +2,16 @@
     <el-upload
         class="video-uploader"
         :action="action"
-        :show-file-list="false"
         :data="oldSrc"
-        :on-success="handleAvatarSuccess"
+        :show-file-list="false"
         :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"
     >
         <video
             v-if="mutablevideoUrl"
-            :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
             width="380"
             controls="controls"
+            :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
         >
             你的浏览器不支持视频播放功能
         </video>

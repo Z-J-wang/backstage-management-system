@@ -1,31 +1,31 @@
 <template>
     <el-menu
-        :default-openeds="['2']"
         router
-        default-active="/BMYX/product"
         class="el-menu-vertical"
+        default-active="/BMYX/product"
+        :default-openeds="['2']"
         :collapse="isCollapse"
     >
         <el-menu>
             <!-- <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button> -->
             <el-button
                 v-if="isCollapse"
-                @click="isCollapse = false"
                 style="width:80%;"
+                @click="isCollapse = false"
             >
                 <i class="el-icon-right"></i>
             </el-button>
             <el-button
                 v-else
-                @click="isCollapse = true"
                 style="width:90%;"
+                @click="isCollapse = true"
             >
                 <i class="el-icon-back"></i>
             </el-button>
         </el-menu>
         <el-submenu
-            index="1"
             v-if="auth == 0 || auth == 2"
+            index="1"
         >
             <template slot="title">
                 <i class="el-icon-message"></i>
@@ -39,8 +39,8 @@
             </el-menu-item-group>
         </el-submenu>
         <el-submenu
-            index="2"
             v-if="auth == 1 || auth == 0"
+            index="2"
         >
             <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -54,8 +54,8 @@
             </el-menu-item-group>
         </el-submenu>
         <el-submenu
-            index="3"
             v-if="auth == 0"
+            index="3"
         >
             <template slot="title">
                 <i class="el-icon-setting"></i>

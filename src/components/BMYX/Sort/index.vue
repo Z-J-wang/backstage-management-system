@@ -17,31 +17,31 @@
             >新增一笔</el-button>
         </div>
         <el-table
-            :data="dataList"
-            class="nowrap"
-            stripe
             border
+            stripe
+            class="nowrap"
             style="width: 100%"
             highlight-current-row
+            :data="dataList"
         >
             <el-table-column
-                type="index"
                 width="50"
+                type="index"
             ></el-table-column>
             <el-table-column
+                sortable
                 prop="id"
                 label="id"
                 width="240"
-                sortable
             ></el-table-column>
             <el-table-column
+                sortable
                 prop="name"
                 label="分类名称"
-                sortable
             ></el-table-column>
             <el-table-column
-                prop="imgSrc"
                 label="图片"
+                prop="imgSrc"
             >
                 <template slot-scope="scope">
                     <el-image
@@ -51,31 +51,31 @@
                 </template>
             </el-table-column>
             <el-table-column
-                fixed="right"
-                label="操作"
                 width="140"
+                label="操作"
+                fixed="right"
             >
                 <template slot-scope="scope">
                     <el-button
-                        @click.native.prevent="itemChange(scope.row)"
+                        circle
+                        title="编辑"
+                        size="small"
                         type="primary"
                         icon="el-icon-edit"
-                        circle
-                        size="small"
-                        title="编辑"
+                        @click.native.prevent="itemChange(scope.row)"
                     ></el-button>
                     <el-popconfirm
-                        title="这是一段内容确定删除吗？"
                         style="padding-left: 9px"
+                        title="这是一段内容确定删除吗？"
                         @onConfirm="delConfirm(scope.row.id)"
                     >
                         <el-button
-                            type="danger"
-                            icon="el-icon-delete"
                             circle
-                            size="small"
                             title="移除"
+                            size="small"
+                            type="danger"
                             slot="reference"
+                            icon="el-icon-delete"
                         ></el-button>
                     </el-popconfirm>
                 </template>
@@ -83,8 +83,8 @@
         </el-table>
 
         <edit-sort
-            :dialog-visible="itemEditorVisible"
             :form-item="itemValue"
+            :dialog-visible="itemEditorVisible"
             @close="closeItemEditor"
         />
 

@@ -1,23 +1,23 @@
 <template>
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose"
-        :close-on-click-modal="false"
+        :title="title"
         :destroy-on-close="true"
+        :close-on-click-modal="false"
+        :visible.sync="dialogVisible"
+        :before-close="handleClose"
     >
         <div>
             <el-form
-                :model="formItem"
-                :rules="rules"
                 ref="form"
                 label-width="80px"
                 label-position="left"
+                :rules="rules"
+                :model="formItem"
             >
                 <el-form-item
-                    label="分类"
                     prop="name"
+                    label="分类"
                 >
                     <el-input
                         v-model="formItem.name"
@@ -25,17 +25,17 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="图片链接"
                     prop="imgSrc"
+                    label="图片链接"
                 >
                     <el-row>
                         <el-col :span="12">
                             <upload-image
-                                :imageUrl="formItem.imgSrc"
-                                :action="action"
-                                @updateImgSrc="updateImgSrc"
                                 width="120"
                                 height="120"
+                                :action="action"
+                                :imageUrl="formItem.imgSrc"
+                                @updateImgSrc="updateImgSrc"
                             ></upload-image>
                         </el-col>
                         <el-col :span="12">

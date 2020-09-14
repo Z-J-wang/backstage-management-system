@@ -5,32 +5,32 @@
     >
         <el-row>
             <el-col
-                :span="12"
                 style="padding-left:60px;"
+                :span="12"
             >
                 <el-row>
                     <el-col :span="18">
                         <el-form
                             ref="personalInfo"
                             :model="personalInfo"
-                            :rules="rules"
                             label-width="100px"
+                            :rules="rules"
                         >
                             <el-form-item
-                                label="姓名"
                                 prop="name"
+                                label="姓名"
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!name_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.name}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -39,9 +39,9 @@
                                         </el-tooltip>
                                     </div>
                                     <el-input
+                                        v-show="name_editor"
                                         id="name"
                                         v-model="personalInfo.name"
-                                        v-show="name_editor"
                                         @click.stop.native
                                     ></el-input>
                                 </div>
@@ -52,15 +52,15 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!gender_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.gender ? '男' : '女'}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -69,9 +69,9 @@
                                         </el-tooltip>
                                     </div>
                                     <el-radio-group
+                                        v-show="gender_editor"
                                         id="gender"
                                         v-model="personalInfo.gender"
-                                        v-show="gender_editor"
                                         @click.stop.native
                                     >
                                         <el-radio :label="true">男</el-radio>
@@ -85,15 +85,15 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!placeOfBirth_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.placeOfBirth ? personalInfo.placeOfBirth.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -108,9 +108,9 @@
                                         @click.stop.native
                                     ></el-input>-->
                                     <district-select
+                                        v-show="placeOfBirth_editor"
                                         id="placeOfBirth"
                                         v-model="personalInfo.placeOfBirth"
-                                        v-show="placeOfBirth_editor"
                                         @click.stop.native
                                     ></district-select>
                                 </div>
@@ -121,15 +121,15 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!birthday_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.birthday}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -138,13 +138,13 @@
                                         </el-tooltip>
                                     </div>
                                     <el-date-picker
-                                        id="birthday"
                                         v-show="birthday_editor"
+                                        id="birthday"
                                         v-model="personalInfo.birthday"
                                         type="date"
-                                        placeholder="请选择出生日期"
-                                        value-format="yyyy-MM-dd"
                                         style="width: 100%"
+                                        value-format="yyyy-MM-dd"
+                                        placeholder="请选择出生日期"
                                         @click.stop.native
                                     ></el-date-picker>
                                 </div>
@@ -155,15 +155,15 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!nationality_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.nationality}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -172,9 +172,9 @@
                                         </el-tooltip>
                                     </div>
                                     <el-input
+                                        v-show="nationality_editor"
                                         id="nationality"
                                         v-model="personalInfo.nationality"
-                                        v-show="nationality_editor"
                                         @click.stop.native
                                     ></el-input>
                                 </div>
@@ -185,15 +185,15 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!presentAddress_editor"
+                                        style="text-align:left;"
                                     >
                                         {{ personalInfo.presentAddress ? personalInfo.presentAddress.join(' / ') : ''}}
                                         <el-tooltip
                                             class="item"
                                             effect="light"
-                                            content="双击进行编辑"
                                             placement="right"
+                                            content="双击进行编辑"
                                         >
                                             <i
                                                 class="el-icon-edit pointer"
@@ -202,9 +202,9 @@
                                         </el-tooltip>
                                     </div>
                                     <district-select
+                                        v-show="presentAddress_editor"
                                         id="presentAddress"
                                         v-model="personalInfo.presentAddress"
-                                        v-show="presentAddress_editor"
                                         @click.stop.native
                                     />
                                 </div>
@@ -215,14 +215,14 @@
                             >
                                 <div class="p-l-60">
                                     <div
-                                        style="text-align:left;"
                                         v-show="!introducts_editor"
+                                        style="text-align:left;"
                                     >
                                         {{personalInfo.introducts}}
                                         <el-tooltip
                                             class="item"
-                                            effect="light"
                                             content="双击进行编辑"
+                                            effect="light"
                                             placement="right"
                                         >
                                             <i
@@ -233,20 +233,20 @@
                                         </el-tooltip>
                                     </div>
                                     <el-input
+                                        v-show="introducts_editor"
                                         id="introducts"
-                                        type="textarea"
-                                        placeholder="请输入内容"
                                         v-model="personalInfo.introducts"
                                         maxlength="150"
                                         show-word-limit
-                                        v-show="introducts_editor"
+                                        type="textarea"
+                                        placeholder="请输入内容"
                                         @click.stop.native
                                     ></el-input>
                                 </div>
                             </el-form-item>
                             <el-form-item
-                                style="margin-top: 100px;"
                                 v-show="btn_changeVisible"
+                                style="margin-top: 100px;"
                             >
                                 <el-button
                                     type="primary"
@@ -259,12 +259,12 @@
                 </el-row>
             </el-col>
             <el-col
-                :span="12"
                 style="text-align: left"
+                :span="12"
             >
                 <head-portrait
-                    :imageUrl="personalInfo.avatar"
                     :action="action"
+                    :imageUrl="personalInfo.avatar"
                     @updateImgSrc="updateImgSrc"
                 />
             </el-col>

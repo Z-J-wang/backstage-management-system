@@ -1,23 +1,23 @@
 <template>
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose"
-        :close-on-click-modal="false"
+        :title="title"
         :destroy-on-close="true"
+        :before-close="handleClose"
+        :visible.sync="dialogVisible"
+        :close-on-click-modal="false"
     >
         <div>
             <el-form
-                :model="formItem"
-                :rules="rules"
                 ref="form"
                 label-width="80px"
                 label-position="left"
+                :rules="rules"
+                :model="formItem"
             >
                 <el-form-item
-                    label="发信人"
                     prop="name"
+                    label="发信人"
                 >
                     <el-input
                         v-model="formItem.name"
@@ -25,16 +25,16 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="发信时间"
                     prop="datetime"
+                    label="发信时间"
                 >
                     <el-date-picker
                         v-model="formItem.datetime"
                         type="date"
+                        style="width:100%"
                         placeholder="选择日期"
                         value-format="yyyy-MM-dd"
                         :picker-options="pickerOptions"
-                        style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
                 <el-form-item
@@ -47,8 +47,8 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="个人网站链接"
                     prop="website"
+                    label="个人网站链接"
                 >
                     <el-input
                         v-model="formItem.website"

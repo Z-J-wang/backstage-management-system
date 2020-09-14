@@ -1,23 +1,23 @@
 <template>
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose"
-        :close-on-click-modal="false"
+        :title="title"
         :destroy-on-close="true"
+        :close-on-click-modal="false"
+        :visible.sync="dialogVisible"
+        :before-close="handleClose"
     >
         <div>
             <el-form
-                :model="formItem"
-                :rules="rules"
                 ref="form"
                 label-width="80px"
                 label-position="left"
+                :rules="rules"
+                :model="formItem"
             >
                 <el-form-item
-                    label="博客标题"
                     prop="title"
+                    label="博客标题"
                 >
                     <el-input
                         v-model="formItem.title"
@@ -31,10 +31,10 @@
                     <el-date-picker
                         v-model="formItem.publishTime"
                         type="date"
+                        style="width:100%"
                         placeholder="选择日期"
                         value-format="yyyy-MM-dd"
                         :picker-options="pickerOptions"
-                        style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
                 <el-form-item
@@ -47,8 +47,8 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="图片链接"
                     prop="imgSrc"
+                    label="图片链接"
                 >
                     <el-input
                         v-model="formItem.imgSrc"
@@ -56,13 +56,13 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item
-                    label="博客摘要"
                     prop="digest"
+                    label="博客摘要"
                 >
                     <el-input
                         v-model="formItem.digest"
-                        type="textarea"
                         maxlength="400"
+                        type="textarea"
                         show-word-limit
                         placeholder="请输入博客摘要"
                     ></el-input>

@@ -15,36 +15,36 @@
             accordion
         >
             <el-collapse-item
-                title="通告展示"
                 name="1"
+                title="通告展示"
             >
                 <div class="noticeShow">
                     <el-row :gutter="20">
                         <el-col
-                            :span="4"
                             class="text-r"
+                            :span="4"
                         >通告内容：</el-col>
                         <el-col
-                            :span="18"
                             class="text-l"
+                            :span="18"
                         >
                             <el-input
-                                type="textarea"
-                                :rows="5"
-                                placeholder="请输入内容"
                                 v-model="notice.content"
                                 disabled
+                                type="textarea"
+                                placeholder="请输入内容"
+                                :rows="5"
                             ></el-input>
                         </el-col>
                     </el-row>
                     <el-row :gutter="20">
                         <el-col
-                            :span="4"
                             class="text-r"
+                            :span="4"
                         >是否开启滚动播放：</el-col>
                         <el-col
-                            :span="18"
                             class="text-l"
+                            :span="18"
                         >
                             <el-switch
                                 v-model="notice.scrollable"
@@ -57,29 +57,29 @@
                 </div>
             </el-collapse-item>
             <el-collapse-item
-                title="通告编辑"
                 name="2"
+                title="通告编辑"
             >
                 <div class="noticeEditor">
                     <div>
                         <el-form
                             ref="form"
                             :model="newNoticeFrom"
-                            label-width="200px"
                             class="text-l"
+                            label-width="200px"
                         >
                             <el-form-item
-                                label="通告内容："
                                 prop="content"
+                                label="通告内容："
                             >
                                 <el-input
-                                    type="textarea"
                                     v-model="newNoticeFrom.content"
+                                    type="textarea"
                                 ></el-input>
                             </el-form-item>
                             <el-form-item
-                                label="是否开启滚动播放："
                                 prop="scrollable"
+                                label="是否开启滚动播放："
                             >
                                 <el-switch v-model="newNoticeFrom.scrollable"></el-switch>
                             </el-form-item>

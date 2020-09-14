@@ -2,23 +2,23 @@
     <el-upload
         ref="uploadList"
         class="text-l"
-        :action="action"
-        :file-list="fileList"
-        :auto-upload="false"
         list-type="picture"
         :limit="limit"
+        :action="action"
+        :auto-upload="false"
+        :file-list="fileList"
         :on-change="change"
         :on-exceed="handleExceed"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
     >
         <el-button
-            size="small"
             type="primary"
+            size="small"
         >点击上传</el-button>
         <div
-            slot="tip"
             class="el-upload__tip"
+            slot="tip"
         >
             <p>1. 只能上传 jpg / jpeg / png 文件，且不超过 500 kb；</p>
             <p>2. 建议上传图片的长宽比为1.5 : 1；</p>
