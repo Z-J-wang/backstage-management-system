@@ -78,7 +78,7 @@
             :dialog-visible="addItemVisible"
             @close="closeAddItemVisible"
         />
-        
+
         <edit-experience
             :dialog-visible="itemEditorVisible"
             :form-item="itemValue"

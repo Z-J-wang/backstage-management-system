@@ -137,11 +137,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.name == null){
+    if (to.name == null) {
         next({ name: "404" })
-    } else if (to.name == '404'){
+    } else if (to.name == '404') {
         next()
-    } else{
+    } else {
         let token = cookie.getToken();
         if (token) {
             axios.getCurrentAccount().then((res) => {

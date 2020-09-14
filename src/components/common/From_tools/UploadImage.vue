@@ -26,34 +26,34 @@ export default {
     name: "uploadImage",
     props: {
         imageUrl: {
-            type: String
+            type: String,
         },
         action: {
-            type: String
+            type: String,
         },
         width: {
             type: String,
-            default: "178"
+            default: "178",
         },
         height: {
             type: String,
-            default: "178"
-        }
+            default: "178",
+        },
     },
     data() {
         return {
             mutableImageUrl: this.imageUrl,
-            oldSrc:{
-                oldImgSrc: ''
-            }
+            oldSrc: {
+                oldImgSrc: "",
+            },
         };
     },
-    updated(){
+    updated() {
         this.oldSrc.oldImgSrc = this.mutableImageUrl;
     },
     methods: {
         handleAvatarSuccess(res) {
-            this.mutableImageUrl =res.data;
+            this.mutableImageUrl = res.data;
             this.$emit("updateImgSrc", this.mutableImageUrl);
         },
         beforeAvatarUpload(file) {
@@ -67,8 +67,8 @@ export default {
                 this.$message.error("上传图片大小不能超过 2MB!");
             }
             return isJPG && isLt2M;
-        }
-    }
+        },
+    },
 };
 </script>
 

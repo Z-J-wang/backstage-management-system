@@ -15,13 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="分类" prop="name">
+                <el-form-item
+                    label="分类"
+                    prop="name"
+                >
                     <el-input
                         v-model="formItem.name"
                         placeholder="请输入分类"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item
+                    label="图片链接"
+                    prop="imgSrc"
+                >
                     <el-row>
                         <el-col :span="12">
                             <upload-image
@@ -43,9 +49,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click.enter="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click.enter="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -62,7 +74,7 @@ export default {
     },
     data() {
         return {
-            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
+            action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             rules: {
                 name: [
                     {
@@ -75,7 +87,7 @@ export default {
             title: "新增一笔分类",
             formItem: {
                 name: "",
-                imgSrc:""
+                imgSrc: "",
             },
         };
     },
@@ -89,7 +101,7 @@ export default {
         handleClose() {
             this.$confirm("确认关闭？")
                 .then(() => {
-                    if(this.formItem.imgSrc){
+                    if (this.formItem.imgSrc) {
                         this.delUploadImage(this.formItem.imgSrc);
                     }
                     this.$refs["form"].resetFields();
@@ -116,7 +128,7 @@ export default {
                 console.log(`删除图片：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
-                console.log("图片删除失败")
+                console.log("图片删除失败");
                 flat = false;
             }
 

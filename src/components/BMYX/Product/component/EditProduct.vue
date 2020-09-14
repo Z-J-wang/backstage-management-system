@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="商品名称" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入商品名称"></el-input>
+                <el-form-item
+                    label="商品名称"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入商品名称"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="商品类别" prop="s_Id">
+                <el-form-item
+                    label="商品类别"
+                    prop="s_Id"
+                >
                     <el-select
                         v-model="formItem.s_Id"
                         clearable
@@ -34,7 +43,10 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="平台价格" prop="nowPrice">
+                <el-form-item
+                    label="平台价格"
+                    prop="nowPrice"
+                >
                     <el-input
                         v-model="formItem.nowPrice"
                         placeholder="请输入平台价格"
@@ -42,7 +54,10 @@
                         @input="inputNowPrice()"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="市面价格" prop="oldPrice">
+                <el-form-item
+                    label="市面价格"
+                    prop="oldPrice"
+                >
                     <el-input
                         v-model="formItem.oldPrice"
                         @change="changeOldPrice()"
@@ -50,7 +65,10 @@
                         placeholder="请输入市面价格"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="视频链接" prop="videoSrc">
+                <el-form-item
+                    label="视频链接"
+                    prop="videoSrc"
+                >
                     <el-row>
                         <el-col :span="24">
                             <upload-video
@@ -61,7 +79,7 @@
                                 height="120"
                             ></upload-video>
                         </el-col>
-                         <el-col :span="24">
+                        <el-col :span="24">
                             <div style="text-align: left;line-height: 20px;">
                                 提示：<br>
                                 视频不能大于50M，且视频时长最长为1:30秒。
@@ -69,7 +87,10 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="商品图片" prop="imgSrcList">
+                <el-form-item
+                    label="商品图片"
+                    prop="imgSrcList"
+                >
                     <el-row>
                         <el-col :span="24">
                             <el-alert
@@ -88,7 +109,10 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item label="商品介绍" prop="detail">
+                <el-form-item
+                    label="商品介绍"
+                    prop="detail"
+                >
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -99,14 +123,20 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
 <script>
-import uploadVideo from '@c/common/From_tools/UploadVideo.vue'
+import uploadVideo from "@c/common/From_tools/UploadVideo.vue";
 import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
 import validate_rules from "./validate-rule";
 
@@ -126,7 +156,7 @@ export default {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             title: "修改商品信息",
-            cur_video: '',   // 修改前的视频
+            cur_video: "", // 修改前的视频
             options: [],
             rules: Object.assign(
                 validate_rules,
@@ -159,14 +189,14 @@ export default {
     },
     components: {
         uploadImageList,
-        uploadVideo
+        uploadVideo,
     },
-    watch:{
-        formItem(val){
+    watch: {
+        formItem(val) {
             this.cur_video = val.videoSrc;
-            console.log(this.formItem.videoSrc)
-            console.log(this.cur_video)
-        }
+            console.log(this.formItem.videoSrc);
+            console.log(this.cur_video);
+        },
     },
     methods: {
         /**
@@ -231,8 +261,8 @@ export default {
             let videoSrc = this.formItem.videoSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
-                    if(videoSrc !== this.cur_video){
-                        this.delUploadImage(videoSrc)
+                    if (videoSrc !== this.cur_video) {
+                        this.delUploadImage(videoSrc);
                     }
                     this.$emit("close");
                     this.$refs["form"].resetFields();
@@ -257,7 +287,7 @@ export default {
                     message: "商品信息更新成功！",
                     type: "success",
                 });
-                if(newVideoSrc !== this.cur_video){
+                if (newVideoSrc !== this.cur_video) {
                     this.delUploadImage(this.cur_video);
                 }
             } else {

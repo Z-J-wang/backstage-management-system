@@ -17,32 +17,32 @@
 <script>
 export default {
     name: "headerBar",
-    data(){
+    data() {
         return {
-            userInfo:{}
-        }
+            userInfo: {},
+        };
     },
-    mounted(){
+    mounted() {
         this.userInfo = this.$Cookie.getUserInfo();
     },
-    methods:{
-        logout(){
+    methods: {
+        logout() {
             let res = this.$HttpApi.logout();
-            if(res.status === 200 && res.data.data.code !== 1000){
+            if (res.status === 200 && res.data.data.code !== 1000) {
                 this.$message.error(res.data.msg);
-            }else{
+            } else {
                 this.$Cookie.removeToken();
                 this.$Cookie.removeUserInfo();
-                this.$Cookie.removeCookie('auth');
-                this.$router.push({ name: 'login' })
+                this.$Cookie.removeCookie("auth");
+                this.$router.push({ name: "login" });
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped>
-h3{
+h3 {
     display: block;
     float: left;
     margin: 0;

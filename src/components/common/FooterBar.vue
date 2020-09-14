@@ -6,8 +6,8 @@
 
 <script>
 export default {
-    name: 'footer-bar'
-}
+    name: "footer-bar",
+};
 </script>
 
 <style lang="less">

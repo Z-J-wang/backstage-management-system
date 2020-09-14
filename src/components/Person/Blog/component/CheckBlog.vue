@@ -1,5 +1,10 @@
 <template>
-    <el-drawer title="博客详情" direction="ltr" :visible.sync="drawerVisible" :before-close="handleClose">
+    <el-drawer
+        title="博客详情"
+        direction="ltr"
+        :visible.sync="drawerVisible"
+        :before-close="handleClose"
+    >
         <el-row class="text-l">
             <el-col :span="8">博客标题：</el-col>
             <el-col :span="16">{{ item.title }}</el-col>
@@ -11,19 +16,29 @@
         <el-row class="text-l">
             <el-col :span="8">博客链接：</el-col>
             <el-col :span="16">
-                <el-link type="primary" :href="item.href" target="_blank">{{item.href}}</el-link>
+                <el-link
+                    type="primary"
+                    :href="item.href"
+                    target="_blank"
+                >{{item.href}}</el-link>
             </el-col>
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">博客介绍图片:</el-col>
             <el-col :span="16">
                 <p class="line-break">{{ item.imgSrc }}</p>
-                <el-image :src="item.imgSrc" :preview-src-list="[item.imgSrc]"></el-image>
+                <el-image
+                    :src="item.imgSrc"
+                    :preview-src-list="[item.imgSrc]"
+                ></el-image>
             </el-col>
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">博客摘要:</el-col>
-            <el-col :span="16" class="text-indent-en">{{ item.digest }}</el-col>
+            <el-col
+                :span="16"
+                class="text-indent-en"
+            >{{ item.digest }}</el-col>
         </el-row>
     </el-drawer>
 </template>
@@ -34,17 +49,17 @@ export default {
     props: {
         drawerVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         item: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     methods: {
         handleClose() {
             this.$emit("close");
-        }
-    }
+        },
+    },
 };
 </script>
 

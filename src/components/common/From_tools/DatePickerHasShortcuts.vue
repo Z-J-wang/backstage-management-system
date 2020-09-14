@@ -17,19 +17,19 @@ export default {
     props: {
         size: {
             type: String,
-            default: "medium" // medium / small / mini
+            default: "medium", // medium / small / mini
         },
         width: {
-            type: Number
+            type: Number,
         },
         dateTime: {
-            type: String
-        }
+            type: String,
+        },
     },
     // 自定义组件实现v-model
     model: {
         prop: "dateTime",
-        event: "returnBack"
+        event: "returnBack",
     },
     data() {
         return {
@@ -42,7 +42,7 @@ export default {
                         text: "今天",
                         onClick(picker) {
                             picker.$emit("pick", new Date());
-                        }
+                        },
                     },
                     {
                         text: "昨天",
@@ -50,7 +50,7 @@ export default {
                             const date = new Date();
                             date.setTime(date.getTime() - 3600 * 1000 * 24);
                             picker.$emit("pick", date);
-                        }
+                        },
                     },
                     {
                         text: "一周前",
@@ -58,17 +58,17 @@ export default {
                             const date = new Date();
                             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
                             picker.$emit("pick", date);
-                        }
-                    }
-                ]
-            }
+                        },
+                    },
+                ],
+            },
         };
     },
     methods: {
         handleChange(value) {
-            console.log(value)
+            console.log(value);
             this.$emit("returnBack", value);
-        }
-    }
+        },
+    },
 };
 </script>

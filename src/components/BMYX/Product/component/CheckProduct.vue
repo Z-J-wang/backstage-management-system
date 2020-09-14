@@ -24,8 +24,12 @@
         <el-row class="text-l">
             <el-col :span="8">商品图片:</el-col>
             <el-col :span="16">
-                <el-row :gutter="10" style="padding: 0;">
-                    <el-col :span="12"
+                <el-row
+                    :gutter="10"
+                    style="padding: 0;"
+                >
+                    <el-col
+                        :span="12"
                         v-for="imgSrc in imageList"
                         :key="imgSrc"
                     >

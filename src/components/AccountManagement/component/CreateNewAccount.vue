@@ -15,17 +15,44 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="账户" prop="account">
-                    <el-input v-model="formItem.account" placeholder="请输入账户"></el-input>
+                <el-form-item
+                    label="账户"
+                    prop="account"
+                >
+                    <el-input
+                        v-model="formItem.account"
+                        placeholder="请输入账户"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input v-model="formItem.password" type="password" placeholder="请输入密码"></el-input>
+                <el-form-item
+                    label="密码"
+                    prop="password"
+                >
+                    <el-input
+                        v-model="formItem.password"
+                        type="password"
+                        placeholder="请输入密码"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" prop="pwdAgain">
-                    <el-input v-model="formItem.pwdAgain" type="password" placeholder="再次输入密码"></el-input>
+                <el-form-item
+                    label="确认密码"
+                    prop="pwdAgain"
+                >
+                    <el-input
+                        v-model="formItem.pwdAgain"
+                        type="password"
+                        placeholder="再次输入密码"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="权限等级" prop="auth">
-                    <el-select v-model="formItem.auth" placeholder="请选择账户权限等级" style="width: 100%">
+                <el-form-item
+                    label="权限等级"
+                    prop="auth"
+                >
+                    <el-select
+                        v-model="formItem.auth"
+                        placeholder="请选择账户权限等级"
+                        style="width: 100%"
+                    >
                         <el-option
                             v-for="item in options"
                             :key="item.code"
@@ -36,9 +63,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click.enter="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click.enter="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -71,7 +104,7 @@ export default {
             options: [
                 { code: 0, name: "超级管理员" },
                 { code: 1, name: "一般管理员" },
-                { code: 2, name: "个人信息管理员" }
+                { code: 2, name: "个人信息管理员" },
             ],
             rules: Object.assign(valid_rules, {
                 pwdAgain: [
@@ -128,7 +161,7 @@ export default {
                 if (ret.data.code == 1000) {
                     this.$message({
                         message: ret.data.msg,
-                        type: "success"
+                        type: "success",
                     });
                     this.$parent.setDataList();
                     this.$refs["form"].resetFields();

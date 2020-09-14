@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="分类" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入分类"></el-input>
+                <el-form-item
+                    label="分类"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入分类"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
+                <el-form-item
+                    label="图片链接"
+                    prop="imgSrc"
+                >
                     <el-row>
                         <el-col :span="12">
                             <upload-image
@@ -40,9 +49,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -61,8 +76,8 @@ export default {
     },
     data() {
         return {
-            action: this.$store.state.server_url+"/api/bmyx/uploadImage",
-            cur_imgSrc: '',  // 修改前的图片
+            action: this.$store.state.server_url + "/api/bmyx/uploadImage",
+            cur_imgSrc: "", // 修改前的图片
             rules: {
                 name: [
                     {
@@ -78,12 +93,12 @@ export default {
     components: {
         uploadImage,
     },
-    watch:{
-        formItem(val){
+    watch: {
+        formItem(val) {
             this.cur_imgSrc = val.imgSrc;
-            console.log(this.formItem.imgSrc)
-            console.log(this.cur_imgSrc)
-        }
+            console.log(this.formItem.imgSrc);
+            console.log(this.cur_imgSrc);
+        },
     },
     methods: {
         /**
@@ -93,10 +108,10 @@ export default {
             let imgsrc = this.formItem.imgSrc;
             this.$confirm("确认关闭？")
                 .then(() => {
-                    console.log(imgsrc)
-                    console.log(this.cur_imgSrc)
-                    if(imgsrc !== this.cur_imgSrc){
-                        this.delUploadImage(imgsrc)
+                    console.log(imgsrc);
+                    console.log(this.cur_imgSrc);
+                    if (imgsrc !== this.cur_imgSrc) {
+                        this.delUploadImage(imgsrc);
                     }
                     this.$refs["form"].resetFields();
                     this.$emit("close");
@@ -119,7 +134,7 @@ export default {
             let res = await this.$HttpApi.delUploadImage(filename);
             let flat = false;
             if (res.status === 200 && res.data.code === 1000) {
-            console.log(`删除图片：${this.formItem.imgSrc}`);
+                console.log(`删除图片：${this.formItem.imgSrc}`);
                 flat = true;
             } else {
                 console.log(`删除图片失败`);
@@ -146,14 +161,14 @@ export default {
                     message: "分类信息更新成功！",
                     type: "success",
                 });
-                if(newImgSrc !== this.cur_imgSrc){
+                if (newImgSrc !== this.cur_imgSrc) {
                     this.delUploadImage(this.cur_imgSrc);
                 }
             } else {
                 this.$message.error("系统出错，请重试！");
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

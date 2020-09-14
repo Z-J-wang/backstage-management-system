@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="主题" prop="theme">
-                    <el-input v-model="formItem.theme" placeholder="请输入主题"></el-input>
+                <el-form-item
+                    label="主题"
+                    prop="theme"
+                >
+                    <el-input
+                        v-model="formItem.theme"
+                        placeholder="请输入主题"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="时间" prop="dateTime">
+                <el-form-item
+                    label="时间"
+                    prop="dateTime"
+                >
                     <el-date-picker
                         v-model="formItem.dateTime"
                         type="daterange"
@@ -29,7 +38,10 @@
                         style="width: 100%;"
                     ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="描述" prop="detail">
+                <el-form-item
+                    label="描述"
+                    prop="detail"
+                >
                     <el-input
                         v-model="formItem.detail"
                         type="textarea"
@@ -40,9 +52,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>

@@ -8,14 +8,25 @@
     >
         <el-menu>
             <!-- <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button> -->
-            <el-button v-if="isCollapse" @click="isCollapse = false" style="width:80%;">
+            <el-button
+                v-if="isCollapse"
+                @click="isCollapse = false"
+                style="width:80%;"
+            >
                 <i class="el-icon-right"></i>
             </el-button>
-            <el-button v-else @click="isCollapse = true" style="width:90%;">
+            <el-button
+                v-else
+                @click="isCollapse = true"
+                style="width:90%;"
+            >
                 <i class="el-icon-back"></i>
             </el-button>
         </el-menu>
-        <el-submenu index="1" v-if="auth == 0 || auth == 2">
+        <el-submenu
+            index="1"
+            v-if="auth == 0 || auth == 2"
+        >
             <template slot="title">
                 <i class="el-icon-message"></i>
                 <span slot="title">个人信息</span>
@@ -27,7 +38,10 @@
                 <el-menu-item index="/messages">来访信件</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="2" v-if="auth == 1 || auth == 0">
+        <el-submenu
+            index="2"
+            v-if="auth == 1 || auth == 0"
+        >
             <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span slot="title">便民优享</span>
@@ -39,7 +53,10 @@
                 <el-menu-item index="/BMYX/notice">通告栏</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="3" v-if="auth == 0">
+        <el-submenu
+            index="3"
+            v-if="auth == 0"
+        >
             <template slot="title">
                 <i class="el-icon-setting"></i>
                 <span slot="title">账户管理</span>
@@ -119,12 +136,12 @@ export default {
                     ],
                 },
             ],
-            auth: 1
+            auth: 1,
         };
     },
-    mounted(){
-         this.auth = this.$Cookie.getCookie('auth')
-    }
+    mounted() {
+        this.auth = this.$Cookie.getCookie("auth");
+    },
 };
 </script>
 

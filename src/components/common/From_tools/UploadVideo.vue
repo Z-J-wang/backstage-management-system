@@ -8,13 +8,17 @@
         :before-upload="beforeAvatarUpload"
     >
         <video
-         v-if="mutablevideoUrl"
-         :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
-         width="380"
-         controls="controls">
-         你的浏览器不支持视频播放功能
+            v-if="mutablevideoUrl"
+            :src="`${$store.state.server_url}/upload/${mutablevideoUrl}`"
+            width="380"
+            controls="controls"
+        >
+            你的浏览器不支持视频播放功能
         </video>
-        <el-button size="small" type="primary">点击上传</el-button>
+        <el-button
+            size="small"
+            type="primary"
+        >点击上传</el-button>
         <!-- <i
             v-else
             class="el-icon-plus video-uploader-icon"
@@ -28,29 +32,29 @@ export default {
     name: "uploadVideo",
     props: {
         videoUrl: {
-            type: String
+            type: String,
         },
         action: {
-            type: String
+            type: String,
         },
         width: {
             type: String,
-            default: "178"
+            default: "178",
         },
         height: {
             type: String,
-            default: "178"
-        }
+            default: "178",
+        },
     },
     data() {
         return {
             mutablevideoUrl: this.videoUrl, // 上传成功的视频路径
-            oldSrc:{
-                oldvideoSrc: ''
-            }
+            oldSrc: {
+                oldvideoSrc: "",
+            },
         };
     },
-    updated(){
+    updated() {
         this.oldSrc.oldvideoSrc = this.mutablevideoUrl;
     },
     methods: {
@@ -59,7 +63,7 @@ export default {
             this.$emit("updatevideoSrc", this.mutablevideoUrl);
         },
         beforeAvatarUpload(file) {
-            console.log(file)
+            console.log(file);
             const isJPG = file.type === "video/mp4";
             const isLt2M = file.size / 1024 / 1024 < 50;
 
@@ -70,8 +74,8 @@ export default {
                 this.$message.error("上传视频大小不能超过 50 MB!");
             }
             return isJPG && isLt2M;
-        }
-    }
+        },
+    },
 };
 </script>
 

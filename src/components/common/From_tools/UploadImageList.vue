@@ -12,8 +12,14 @@
         :on-remove="handleRemove"
         :on-success="handleSuccess"
     >
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">
+        <el-button
+            size="small"
+            type="primary"
+        >点击上传</el-button>
+        <div
+            slot="tip"
+            class="el-upload__tip"
+        >
             <p>1. 只能上传 jpg / jpeg / png 文件，且不超过 500 kb；</p>
             <p>2. 建议上传图片的长宽比为1.5 : 1；</p>
         </div>
@@ -57,8 +63,8 @@ export default {
         });
     },
     methods: {
-        change(file, fileList){
-            const typeList = ["image/jpeg","image/png", "image/jpg"]
+        change(file, fileList) {
+            const typeList = ["image/jpeg", "image/png", "image/jpg"];
             const isLt2M = file.raw.size / 1024 / 1024 < 0.5;
             if (typeList.indexOf(file.raw.type) < 0) {
                 this.$message.error("上传图片只能是 jpg / png / jpeg 格式!");
@@ -74,7 +80,7 @@ export default {
 
                 return false;
             }
-            this.$refs['uploadList'].submit();
+            this.$refs["uploadList"].submit();
         },
         handleExceed() {
             this.$message({

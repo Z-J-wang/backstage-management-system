@@ -7,7 +7,10 @@
     >
         <el-row>
             <el-col :span="8">经历：</el-col>
-            <el-col :span="16" class="text-l">{{ item.theme }}</el-col>
+            <el-col
+                :span="16"
+                class="text-l"
+            >{{ item.theme }}</el-col>
         </el-row>
         <el-row>
             <el-col :span="8">时间：</el-col>
@@ -18,7 +21,10 @@
         </el-row>
         <el-row>
             <el-col :span="8">详情：</el-col>
-            <el-col :span="16" class="text-l text-indent-cn">{{ item.detail }}</el-col>
+            <el-col
+                :span="16"
+                class="text-l text-indent-cn"
+            >{{ item.detail }}</el-col>
         </el-row>
     </el-drawer>
 </template>

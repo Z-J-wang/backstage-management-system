@@ -22,7 +22,7 @@ Vue.use(ElementUI);
 Vue.component("footBar", footBar)
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

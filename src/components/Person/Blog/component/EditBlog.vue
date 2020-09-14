@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="博客标题" prop="title">
-                    <el-input v-model="formItem.title" placeholder="请输入博客标题"></el-input>
+                <el-form-item
+                    label="博客标题"
+                    prop="title"
+                >
+                    <el-input
+                        v-model="formItem.title"
+                        placeholder="请输入博客标题"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="发布时间" prop="publishTime">
+                <el-form-item
+                    label="发布时间"
+                    prop="publishTime"
+                >
                     <el-date-picker
                         v-model="formItem.publishTime"
                         type="date"
@@ -28,13 +37,28 @@
                         style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="博客链接" prop="href">
-                    <el-input v-model="formItem.href" placeholder="请输入博客链接"></el-input>
+                <el-form-item
+                    label="博客链接"
+                    prop="href"
+                >
+                    <el-input
+                        v-model="formItem.href"
+                        placeholder="请输入博客链接"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" prop="imgSrc">
-                    <el-input v-model="formItem.imgSrc" placeholder="请输入博客介绍图片链接"></el-input>
+                <el-form-item
+                    label="图片链接"
+                    prop="imgSrc"
+                >
+                    <el-input
+                        v-model="formItem.imgSrc"
+                        placeholder="请输入博客介绍图片链接"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="博客摘要" prop="digest">
+                <el-form-item
+                    label="博客摘要"
+                    prop="digest"
+                >
                     <el-input
                         v-model="formItem.digest"
                         type="textarea"
@@ -45,9 +69,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>

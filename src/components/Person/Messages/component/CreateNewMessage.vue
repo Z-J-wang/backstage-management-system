@@ -15,10 +15,19 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="发信人" prop="name">
-                    <el-input v-model="formItem.name" placeholder="请输入发信人"></el-input>
+                <el-form-item
+                    label="发信人"
+                    prop="name"
+                >
+                    <el-input
+                        v-model="formItem.name"
+                        placeholder="请输入发信人"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="发信时间" prop="datetime">
+                <el-form-item
+                    label="发信时间"
+                    prop="datetime"
+                >
                     <el-date-picker
                         v-model="formItem.datetime"
                         type="date"
@@ -28,13 +37,28 @@
                         style="width:100%"
                     ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="formItem.email" placeholder="请输入邮箱"></el-input>
+                <el-form-item
+                    label="邮箱"
+                    prop="email"
+                >
+                    <el-input
+                        v-model="formItem.email"
+                        placeholder="请输入邮箱"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="个人网站链接" prop="website">
-                    <el-input v-model="formItem.website" placeholder="请输入个人网站链接"></el-input>
+                <el-form-item
+                    label="个人网站链接"
+                    prop="website"
+                >
+                    <el-input
+                        v-model="formItem.website"
+                        placeholder="请输入个人网站链接"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="主题" prop="subject">
+                <el-form-item
+                    label="主题"
+                    prop="subject"
+                >
                     <el-input
                         v-model="formItem.subject"
                         type="textarea"
@@ -43,7 +67,10 @@
                         placeholder="请输入主题"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="内容" prop="content">
+                <el-form-item
+                    label="内容"
+                    prop="content"
+                >
                     <el-input
                         v-model="formItem.content"
                         type="textarea"
@@ -54,9 +81,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -119,7 +152,7 @@ export default {
                     {
                         required: true,
                         message: "请输入内容",
-                        trigger: "blur"
+                        trigger: "blur",
                     },
                     {
                         maxLength: 250,

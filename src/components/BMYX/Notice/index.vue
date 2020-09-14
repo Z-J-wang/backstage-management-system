@@ -10,12 +10,24 @@
         <el-divider>
             <i class="el-icon-mobile-phone"></i>
         </el-divider>
-        <el-collapse v-model="activeCollapse" accordion>
-            <el-collapse-item title="通告展示" name="1">
+        <el-collapse
+            v-model="activeCollapse"
+            accordion
+        >
+            <el-collapse-item
+                title="通告展示"
+                name="1"
+            >
                 <div class="noticeShow">
                     <el-row :gutter="20">
-                        <el-col :span="4" class="text-r">通告内容：</el-col>
-                        <el-col :span="18" class="text-l">
+                        <el-col
+                            :span="4"
+                            class="text-r"
+                        >通告内容：</el-col>
+                        <el-col
+                            :span="18"
+                            class="text-l"
+                        >
                             <el-input
                                 type="textarea"
                                 :rows="5"
@@ -26,8 +38,14 @@
                         </el-col>
                     </el-row>
                     <el-row :gutter="20">
-                        <el-col :span="4" class="text-r">是否开启滚动播放：</el-col>
-                        <el-col :span="18" class="text-l">
+                        <el-col
+                            :span="4"
+                            class="text-r"
+                        >是否开启滚动播放：</el-col>
+                        <el-col
+                            :span="18"
+                            class="text-l"
+                        >
                             <el-switch
                                 v-model="notice.scrollable"
                                 disabled
@@ -38,7 +56,10 @@
                     </el-row>
                 </div>
             </el-collapse-item>
-            <el-collapse-item title="通告编辑" name="2">
+            <el-collapse-item
+                title="通告编辑"
+                name="2"
+            >
                 <div class="noticeEditor">
                     <div>
                         <el-form
@@ -47,14 +68,26 @@
                             label-width="200px"
                             class="text-l"
                         >
-                            <el-form-item label="通告内容：" prop="content">
-                                <el-input type="textarea" v-model="newNoticeFrom.content"></el-input>
+                            <el-form-item
+                                label="通告内容："
+                                prop="content"
+                            >
+                                <el-input
+                                    type="textarea"
+                                    v-model="newNoticeFrom.content"
+                                ></el-input>
                             </el-form-item>
-                            <el-form-item label="是否开启滚动播放：" prop="scrollable">
+                            <el-form-item
+                                label="是否开启滚动播放："
+                                prop="scrollable"
+                            >
                                 <el-switch v-model="newNoticeFrom.scrollable"></el-switch>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" @click="onSubmit">更新通告</el-button>
+                                <el-button
+                                    type="primary"
+                                    @click="onSubmit"
+                                >更新通告</el-button>
                                 <el-button @click="onCancel">取消</el-button>
                             </el-form-item>
                         </el-form>
@@ -116,7 +149,7 @@ export default {
         onCancel() {
             this.$confirm("确认取消编辑通告吗？若取消，您当前的编辑将被清空！")
                 .then(() => {
-                     Object.assign(this.newNoticeFrom, this.notice);
+                    Object.assign(this.newNoticeFrom, this.notice);
                     this.activeCollapse = "1";
                 })
                 .catch(() => {});

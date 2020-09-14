@@ -11,22 +11,45 @@
                 class="demo-ruleForm"
                 @keyup.native.enter="submitForm('loginForm')"
             >
-                <el-form-item label="账号" prop="account">
+                <el-form-item
+                    label="账号"
+                    prop="account"
+                >
                     <el-input v-model.trim="loginForm.account"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input type="password" v-model.trim="loginForm.password" autocomplete="off"></el-input>
+                <el-form-item
+                    label="密码"
+                    prop="password"
+                >
+                    <el-input
+                        type="password"
+                        v-model.trim="loginForm.password"
+                        autocomplete="off"
+                    ></el-input>
                 </el-form-item>
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="验证码" prop="verifiyCode">
-                               <el-input v-model.trim="loginForm.verifiyCode" autocomplete="off"></el-input>
+                        <el-form-item
+                            label="验证码"
+                            prop="verifiyCode"
+                        >
+                            <el-input
+                                v-model.trim="loginForm.verifiyCode"
+                                autocomplete="off"
+                            ></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8"> <img :src="VCode_imgSrc" @click="verifitCodeRefresh"/> </el-col>
+                    <el-col :span="8"> <img
+                            :src="VCode_imgSrc"
+                            @click="verifitCodeRefresh"
+                        /> </el-col>
                 </el-row>
                 <el-form-item>
-                    <el-button type="primary" class="submit" @click="submitForm('loginForm')">登录</el-button>
+                    <el-button
+                        type="primary"
+                        class="submit"
+                        @click="submitForm('loginForm')"
+                    >登录</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -38,11 +61,12 @@ export default {
     name: "Login",
     data() {
         return {
-            VCode_imgSrc: this.$store.state.server_url+`/api/verification-code/getCode`,
+            VCode_imgSrc:
+                this.$store.state.server_url + `/api/verification-code/getCode`,
             loginForm: {
                 account: "",
                 password: "",
-                verifiyCode:''
+                verifiyCode: "",
             },
             rules: {
                 account: [
@@ -58,13 +82,16 @@ export default {
                     { required: true, message: "请输入密码", trigger: "blur" },
                 ],
                 verifiyCode: [
-                    { required: true, message: "请输入验证码", trigger: "blur" }
-                ]
+                    {
+                        required: true,
+                        message: "请输入验证码",
+                        trigger: "blur",
+                    },
+                ],
             },
         };
     },
     methods: {
-
         /**
          * 表单提交
          */
@@ -80,8 +107,10 @@ export default {
         /**
          * 验证码获取
          */
-        verifitCodeRefresh(){
-            this.VCode_imgSrc =`${this.$store.state.server_url}/api/verification-code/getCode?${Math.random()}`
+        verifitCodeRefresh() {
+            this.VCode_imgSrc = `${
+                this.$store.state.server_url
+            }/api/verification-code/getCode?${Math.random()}`;
         },
 
         /**
@@ -101,11 +130,11 @@ export default {
                     this.$Cookie.setUserInfo(res.data.data.account);
                     this.$Cookie.setCookie("auth", auth);
                     this.$Cookie.setToken(res.data.data.token);
-                    if(auth === 2){
+                    if (auth === 2) {
                         this.$router.push({ path: "/personalInfo" });
-                    }else if(auth === 1){
+                    } else if (auth === 1) {
                         this.$router.push({ path: "/BMYX/product" });
-                    }else if(auth == 0){
+                    } else if (auth == 0) {
                         this.$router.push({ path: "/accountManagement" });
                     }
                 } else {

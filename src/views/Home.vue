@@ -33,16 +33,16 @@ import headerBar from "@c/common/HeaderBar.vue";
 import backtop from "@c/common/BackTop.vue";
 
 export default {
-    name:"Home",
+    name: "Home",
     components: {
         "aside-menu": asideMenu,
         "header-bar": headerBar,
         // "footer-bar": footerbar,
-        "back-top": backtop
+        "back-top": backtop,
     },
-    methods:{
-        goBack(){}
-    }
+    methods: {
+        goBack() {},
+    },
 };
 </script>
 
@@ -70,12 +70,12 @@ export default {
     color: #333;
     background-color: #fff;
 }
-.el-page-header{
+.el-page-header {
     margin-bottom: 50px;
 }
 </style>
 <style>
-.el-image-viewer__close{
+.el-image-viewer__close {
     color: white;
 }
 </style>

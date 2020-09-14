@@ -15,11 +15,24 @@
                 label-width="80px"
                 label-position="left"
             >
-                <el-form-item label="账户" prop="account">
-                    <el-input v-model="formItem.account" placeholder="请输入账户"></el-input>
+                <el-form-item
+                    label="账户"
+                    prop="account"
+                >
+                    <el-input
+                        v-model="formItem.account"
+                        placeholder="请输入账户"
+                    ></el-input>
                 </el-form-item>
-                <el-form-item label="权限等级" prop="auth">
-                    <el-select v-model="formItem.auth" placeholder="请选择账户权限等级" style="width: 100%">
+                <el-form-item
+                    label="权限等级"
+                    prop="auth"
+                >
+                    <el-select
+                        v-model="formItem.auth"
+                        placeholder="请选择账户权限等级"
+                        style="width: 100%"
+                    >
                         <el-option
                             v-for="item in options"
                             :key="item.code"
@@ -30,9 +43,15 @@
                 </el-form-item>
             </el-form>
         </div>
-        <span slot="footer" class="dialog-footer">
+        <span
+            slot="footer"
+            class="dialog-footer"
+        >
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click.enter="onSubmit('form')">提 交</el-button>
+            <el-button
+                type="primary"
+                @click.enter="onSubmit('form')"
+            >提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -55,7 +74,7 @@ export default {
             options: [
                 { code: 0, name: "超级管理员" },
                 { code: 1, name: "bmyx管理员" },
-                { code: 2, name: "个人信息管理员" }
+                { code: 2, name: "个人信息管理员" },
             ],
             rules: valid_rules,
         };

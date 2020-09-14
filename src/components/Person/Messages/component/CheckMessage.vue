@@ -1,5 +1,10 @@
 <template>
-    <el-drawer title="信息详情展示" direction="ltr" :visible.sync="drawerVisible" :before-close="handleClose">
+    <el-drawer
+        title="信息详情展示"
+        direction="ltr"
+        :visible.sync="drawerVisible"
+        :before-close="handleClose"
+    >
         <el-row class="text-l">
             <el-col :span="8">发信人：</el-col>
             <el-col :span="16">{{ item.name }}</el-col>
@@ -15,7 +20,11 @@
         <el-row class="text-l">
             <el-col :span="8">个人网站：</el-col>
             <el-col :span="16">
-                <el-link type="primary" :href="item.website" target="_blank">{{item.website}}</el-link>
+                <el-link
+                    type="primary"
+                    :href="item.website"
+                    target="_blank"
+                >{{item.website}}</el-link>
             </el-col>
         </el-row>
         <el-row class="text-l">
@@ -24,7 +33,10 @@
         </el-row>
         <el-row class="text-l">
             <el-col :span="8">内容:</el-col>
-            <el-col :span="16" class="text-indent-cn">{{ item.content }}</el-col>
+            <el-col
+                :span="16"
+                class="text-indent-cn"
+            >{{ item.content }}</el-col>
         </el-row>
     </el-drawer>
 </template>
@@ -35,17 +47,17 @@ export default {
     props: {
         drawerVisible: {
             type: Boolean,
-            default: false
+            default: false,
         },
         item: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     methods: {
         handleClose() {
             this.$emit("close");
-        }
-    }
+        },
+    },
 };
 </script>
 
