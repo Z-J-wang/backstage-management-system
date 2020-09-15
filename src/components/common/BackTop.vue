@@ -1,15 +1,15 @@
 <template>
-    <el-backtop target=".el-main"></el-backtop>
+  <el-backtop target=".el-main"></el-backtop>
 </template>
 
 <script>
 export default {
-    name: "backTop",
+  name: "backTop",
 };
 </script>
 
 <style lang="less" scoped>
 .el-backtop {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 }
 </style>

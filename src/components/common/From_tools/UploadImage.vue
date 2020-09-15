@@ -1,101 +1,101 @@
 <template>
-    <el-upload
-        class="avatar-uploader"
-        :data="oldSrc"
-        :action="action"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload"
-    >
-        <img
-            v-if="mutableImageUrl"
-            class="avatar"
-            :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
-            :style="{width:width+ 'px', height:height+ 'px'}"
-        />
-        <i
-            v-else
-            class="el-icon-plus avatar-uploader-icon"
-            :style="{width:width+ 'px', height:height+ 'px', lineHeight:height+ 'px'}"
-        ></i>
-    </el-upload>
+  <el-upload
+    class="avatar-uploader"
+    :data="oldSrc"
+    :action="action"
+    :show-file-list="false"
+    :on-success="handleAvatarSuccess"
+    :before-upload="beforeAvatarUpload"
+  >
+    <img
+      v-if="mutableImageUrl"
+      class="avatar"
+      :src="`${$store.state.server_url}/upload/${mutableImageUrl}`"
+      :style="{width:width+ 'px', height:height+ 'px'}"
+    />
+    <i
+      v-else
+      class="el-icon-plus avatar-uploader-icon"
+      :style="{width:width+ 'px', height:height+ 'px', lineHeight:height+ 'px'}"
+    ></i>
+  </el-upload>
 </template>
 
 <script>
 export default {
-    name: "uploadImage",
-    props: {
-        imageUrl: {
-            type: String,
-        },
-
-        action: {
-            type: String,
-        },
-
-        width: {
-            type: String,
-            default: "178",
-        },
-
-        height: {
-            type: String,
-            default: "178",
-        },
+  name: "uploadImage",
+  props: {
+    imageUrl: {
+      type: String,
     },
 
-    data() {
-        return {
-            mutableImageUrl: this.imageUrl,
-            oldSrc: {
-                oldImgSrc: "",
-            },
-        };
+    action: {
+      type: String,
     },
-    updated() {
-        this.oldSrc.oldImgSrc = this.mutableImageUrl;
-    },
-    methods: {
-        handleAvatarSuccess(res) {
-            this.mutableImageUrl = res.data;
-            this.$emit("updateImgSrc", this.mutableImageUrl);
-        },
-        
-        beforeAvatarUpload(file) {
-            const isJPG = file.type === "image/jpeg";
-            const isLt2M = file.size / 1024 / 1024 < 2;
 
-            if (!isJPG) {
-                this.$message.error("上传图片只能是 JPG 格式!");
-            }
-            if (!isLt2M) {
-                this.$message.error("上传图片大小不能超过 2MB!");
-            }
-            return isJPG && isLt2M;
-        },
+    width: {
+      type: String,
+      default: "178",
     },
+
+    height: {
+      type: String,
+      default: "178",
+    },
+  },
+
+  data() {
+    return {
+      mutableImageUrl: this.imageUrl,
+      oldSrc: {
+        oldImgSrc: "",
+      },
+    };
+  },
+  updated() {
+    this.oldSrc.oldImgSrc = this.mutableImageUrl;
+  },
+  methods: {
+    handleAvatarSuccess(res) {
+      this.mutableImageUrl = res.data;
+      this.$emit("updateImgSrc", this.mutableImageUrl);
+    },
+
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
+  },
 };
 </script>
 
 <style>
 .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
+  border-color: #409eff;
 }
 .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
+  font-size: 28px;
+  color: #8c939d;
 
-    text-align: center;
+  text-align: center;
 }
 .avatar {
-    display: block;
+  display: block;
 }
 </style>
 
