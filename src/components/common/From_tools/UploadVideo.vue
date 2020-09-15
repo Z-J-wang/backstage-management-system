@@ -34,18 +34,22 @@ export default {
         videoUrl: {
             type: String,
         },
+
         action: {
             type: String,
         },
+
         width: {
             type: String,
             default: "178",
         },
+
         height: {
             type: String,
             default: "178",
         },
     },
+
     data() {
         return {
             mutablevideoUrl: this.videoUrl, // 上传成功的视频路径
@@ -54,14 +58,17 @@ export default {
             },
         };
     },
+
     updated() {
         this.oldSrc.oldvideoSrc = this.mutablevideoUrl;
     },
+
     methods: {
         handleAvatarSuccess(res) {
             this.mutablevideoUrl = res.data;
             this.$emit("updatevideoSrc", this.mutablevideoUrl);
         },
+
         beforeAvatarUpload(file) {
             console.log(file);
             const isJPG = file.type === "video/mp4";
@@ -73,6 +80,7 @@ export default {
             if (!isLt2M) {
                 this.$message.error("上传视频大小不能超过 50 MB!");
             }
+
             return isJPG && isLt2M;
         },
     },

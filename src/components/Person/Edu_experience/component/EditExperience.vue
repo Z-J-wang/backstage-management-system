@@ -72,19 +72,23 @@ export default {
             type: Boolean,
             default: false,
         },
+
         formItem: {
             type: Object,
         },
     },
+
     data() {
         return {
             rules: {
                 theme: [
                     { required: true, message: "请输入主题", trigger: "blur" },
                 ],
+
                 dateTime: [
                     { required: true, message: "请输入时间", trigger: "blur" },
                 ],
+
                 detail: [
                     { required: true, message: "请输入描述", trigger: "blur" },
                 ],
@@ -92,6 +96,7 @@ export default {
             title: "教育经历编辑",
         };
     },
+
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
@@ -101,6 +106,7 @@ export default {
                 })
                 .catch(() => {});
         },
+
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {

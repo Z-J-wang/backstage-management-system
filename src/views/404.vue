@@ -48,6 +48,7 @@ export default {
             url: require("../assets/404.png"),
         };
     },
+
     methods: {
         back() {
             this.$router.back(-1);

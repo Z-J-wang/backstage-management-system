@@ -68,11 +68,13 @@ export default {
     components: {
         uploadImage,
     },
+
     props: {
         dialogVisible: {
             type: Boolean,
             default: false,
         },
+
         formItem: {
             type: Object,
         },
@@ -90,6 +92,7 @@ export default {
                     },
                 ],
             },
+
             title: "修改分类",
         };
     },

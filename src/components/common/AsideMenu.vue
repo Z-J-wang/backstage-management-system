@@ -96,8 +96,9 @@ export default {
                                 },
                             ],
                         },
-                    ],
+                    ]
                 },
+
                 {
                     title: "导航二",
                     path: "",
@@ -139,6 +140,7 @@ export default {
             auth: 1,
         };
     },
+
     mounted() {
         this.auth = this.$Cookie.getCookie("auth");
     },

@@ -102,6 +102,7 @@ export default {
             default: false,
         },
     },
+
     data() {
         return {
             formItem: {
@@ -112,6 +113,7 @@ export default {
                 subject: "",
                 content: "",
             },
+
             rules: {
                 name: [
                     {
@@ -120,6 +122,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 datetime: [
                     {
                         required: true,
@@ -127,6 +130,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 email: [
                     {
                         required: true,
@@ -134,6 +138,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 website: [
                     // {
                     //     required: true,
@@ -141,6 +146,7 @@ export default {
                     //     trigger: "blur"
                     // }
                 ],
+
                 subject: [
                     {
                         required: true,
@@ -148,6 +154,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 content: [
                     {
                         required: true,
@@ -161,11 +168,13 @@ export default {
                     },
                 ],
             },
+
             title: "新增一条教育经历记录",
             pickerOptions: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
+
                 shortcuts: [
                     {
                         text: "今天",
@@ -193,6 +202,7 @@ export default {
             },
         };
     },
+
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
@@ -202,6 +212,7 @@ export default {
                 })
                 .catch(() => {});
         },
+
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {

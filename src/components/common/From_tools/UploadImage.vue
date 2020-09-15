@@ -28,18 +28,22 @@ export default {
         imageUrl: {
             type: String,
         },
+
         action: {
             type: String,
         },
+
         width: {
             type: String,
             default: "178",
         },
+
         height: {
             type: String,
             default: "178",
         },
     },
+
     data() {
         return {
             mutableImageUrl: this.imageUrl,
@@ -56,6 +60,7 @@ export default {
             this.mutableImageUrl = res.data;
             this.$emit("updateImgSrc", this.mutableImageUrl);
         },
+        
         beforeAvatarUpload(file) {
             const isJPG = file.type === "image/jpeg";
             const isLt2M = file.size / 1024 / 1024 < 2;

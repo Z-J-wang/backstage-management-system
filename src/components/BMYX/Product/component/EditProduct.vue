@@ -146,15 +146,18 @@ export default {
         uploadImageList,
         uploadVideo,
     },
+
     props: {
         dialogVisible: {
             type: Boolean,
             default: false,
         },
+
         formItem: {
             type: Object,
         },
     },
+    
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
         return {
@@ -175,6 +178,7 @@ export default {
                         },
                         { validator: validatePrice, trigger: "blur" },
                     ],
+
                     oldPrice: [
                         // 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
                         {
@@ -191,6 +195,7 @@ export default {
     async mounted() {
         this.options = await this.getSort();
     },
+
     watch: {
         formItem(val) {
             this.cur_video = val.videoSrc;
@@ -198,6 +203,7 @@ export default {
             console.log(this.cur_video);
         },
     },
+    
     methods: {
         /**
          * 更新图片 src

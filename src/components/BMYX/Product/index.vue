@@ -214,6 +214,7 @@ export default {
         EditProduct,
         CheckProduct,
     },
+
     data() {
         return {
             addItemVisible: false,
@@ -228,11 +229,13 @@ export default {
                 imgSrcList: "",
                 detail: "",
             },
+
             search: {
                 // 查询信息
                 type: "name",
                 text: "",
             },
+
             dataList: [{}],
             pagination: {
                 total: 0,
@@ -241,9 +244,11 @@ export default {
             },
         };
     },
+
     mounted() {
         this.setDataList();
     },
+    
     methods: {
         delConfirm(id) {
             this.delProduct(id);

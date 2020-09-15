@@ -105,6 +105,7 @@ export default {
         CreateNewSort,
         EditSort,
     },
+
     data() {
         return {
             addItemVisible: false,
@@ -115,12 +116,15 @@ export default {
                 name: "",
                 imgSrc: "",
             },
+
             dataList: [{}],
         };
     },
+
     mounted() {
         this.setDataList();
     },
+
     methods: {
         delConfirm(id) {
             this.delSort(id);

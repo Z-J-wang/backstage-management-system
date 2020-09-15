@@ -130,21 +130,26 @@ export default {
         uploadImageList,
         uploadVideo,
     },
+
     props: {
         visible: {
             type: Boolean,
             default: false,
         },
     },
+
     data() {
         let validatePrice = this.$CustomValidator.validatePrice;
+
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
             options: [],
             title: "新增一条菜品",
+
             headers: {
                 "Content-Type": "multipart/form-data",
             },
+
             formItem: {
                 name: "",
                 s_Id: "",
@@ -152,6 +157,7 @@ export default {
                 imgSrcList: [],
                 detail: "",
             },
+
             rules: Object.assign(
                 validate_rules,
                 // 此部分为自定义表单验证规则
@@ -169,9 +175,11 @@ export default {
             ),
         };
     },
+
     async mounted() {
         this.options = await this.getSort();
     },
+    
     methods: {
         /**
          * 更新图片 src

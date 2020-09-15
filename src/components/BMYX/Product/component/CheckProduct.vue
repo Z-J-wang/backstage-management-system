@@ -59,6 +59,7 @@ export default {
             type: Boolean,
             default: false,
         },
+
         item: {
             type: Object,
         },
@@ -68,6 +69,7 @@ export default {
             imageList: [],
         };
     },
+
     watch: {
         item() {
             this.imageList = [];
@@ -78,6 +80,7 @@ export default {
             });
         },
     },
+    
     methods: {
         handleClose() {
             this.$emit("close");

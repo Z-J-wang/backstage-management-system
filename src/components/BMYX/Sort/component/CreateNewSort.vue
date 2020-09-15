@@ -69,12 +69,14 @@ export default {
     components: {
         uploadImage,
     },
+
     props: {
         visible: {
             type: Boolean,
             default: false,
         },
     },
+
     data() {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
@@ -87,6 +89,7 @@ export default {
                     },
                 ],
             },
+
             title: "新增一笔分类",
             formItem: {
                 name: "",
@@ -94,6 +97,7 @@ export default {
             },
         };
     },
+    
     methods: {
         /**
          * close 事件

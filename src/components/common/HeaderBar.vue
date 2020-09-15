@@ -22,9 +22,11 @@ export default {
             userInfo: {},
         };
     },
+
     mounted() {
         this.userInfo = this.$Cookie.getUserInfo();
     },
+
     methods: {
         logout() {
             let res = this.$HttpApi.logout();

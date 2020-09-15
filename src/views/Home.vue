@@ -40,6 +40,7 @@ export default {
         // "footer-bar": footerbar,
         "back-top": backtop,
     },
+
     methods: {
         goBack() {},
     },

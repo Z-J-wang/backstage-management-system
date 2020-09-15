@@ -89,10 +89,12 @@ export default {
             type: Boolean,
             default: false,
         },
+
         formItem: {
             type: Object,
         },
     },
+
     data() {
         return {
             rules: {
@@ -103,6 +105,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 publishTime: [
                     {
                         required: true,
@@ -110,6 +113,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 href: [
                     {
                         required: true,
@@ -117,6 +121,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 imgSrc: [
                     // {
                     //     required: true,
@@ -124,6 +129,7 @@ export default {
                     //     trigger: "blur"
                     // }
                 ],
+
                 digest: [
                     // {
                     //     required: true,
@@ -137,11 +143,13 @@ export default {
                     },
                 ],
             },
+
             title: "修改博客信息",
             pickerOptions: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
+
                 shortcuts: [
                     {
                         text: "今天",
@@ -169,6 +177,7 @@ export default {
             },
         };
     },
+
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
@@ -178,6 +187,7 @@ export default {
                 })
                 .catch(() => {});
         },
+
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {

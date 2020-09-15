@@ -13,30 +13,36 @@
 
 <script>
 export default {
-    name:"DatePickerHasShortcuts",
+    name: "DatePickerHasShortcuts",
+
     // 自定义组件实现v-model
     model: {
         prop: "dateTime",
         event: "returnBack",
     },
+
     props: {
         size: {
             type: String,
             default: "medium", // medium / small / mini
         },
+
         width: {
             type: Number,
         },
+
         dateTime: {
             type: String,
         },
     },
+
     data() {
         return {
             pickerOptions: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
+
                 shortcuts: [
                     {
                         text: "今天",
@@ -44,6 +50,7 @@ export default {
                             picker.$emit("pick", new Date());
                         },
                     },
+
                     {
                         text: "昨天",
                         onClick(picker) {
@@ -52,6 +59,7 @@ export default {
                             picker.$emit("pick", date);
                         },
                     },
+
                     {
                         text: "一周前",
                         onClick(picker) {

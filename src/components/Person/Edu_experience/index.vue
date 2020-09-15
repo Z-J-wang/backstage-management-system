@@ -111,6 +111,7 @@ export default {
                 dateTime: "",
                 detail: "",
             },
+
             dataList: [],
             pagination: {
                 total: 0,
@@ -119,14 +120,17 @@ export default {
             },
         };
     },
+
     components: {
         CreateNewExperience,
         EditExperience,
         CheckExperience,
     },
+
     created() {
         this.getData();
     },
+
     methods: {
         /**
          * 编辑一条记录

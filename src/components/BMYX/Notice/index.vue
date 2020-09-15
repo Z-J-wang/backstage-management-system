@@ -108,6 +108,7 @@ export default {
                 content: "",
                 scrollable: true,
             },
+
             newNoticeFrom: {
                 content: "",
                 scrollable: true,
@@ -122,6 +123,7 @@ export default {
             } else {
                 message = "您将关闭通告滚动播放功能";
             }
+            
             this.$message({
                 message: message,
                 type: "warning",

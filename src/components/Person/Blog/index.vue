@@ -109,6 +109,7 @@ export default {
         CheckBlog,
         CreateNewBlog,
     },
+
     data() {
         return {
             addBlogVisible: false,
@@ -123,9 +124,11 @@ export default {
             },
         };
     },
+
     mounted() {
         this.getData();
     },
+
     methods: {
         /**
          * 编辑一条记录

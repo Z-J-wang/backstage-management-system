@@ -96,6 +96,7 @@ export default {
         CheckMessage,
         CreateNewMessage,
     },
+
     data() {
         return {
             addMessageVisible: false,
@@ -109,6 +110,7 @@ export default {
                 subject: "",
                 content: "",
             },
+
             dataList: [],
             pagination: {
                 total: 0,
@@ -117,9 +119,11 @@ export default {
             },
         };
     },
+
     created() {
         this.getData();
     },
+
     methods: {
         /**
          * 关闭 itemEditor

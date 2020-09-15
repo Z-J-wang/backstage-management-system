@@ -31,7 +31,7 @@
                     <el-date-picker
                         v-model="formItem.publishTime"
                         type="date"
-                        style="width:100%"
+                        style="width: 100%"
                         placeholder="选择日期"
                         value-format="yyyy-MM-dd"
                         :picker-options="pickerOptions"
@@ -90,6 +90,7 @@ export default {
             default: false,
         },
     },
+
     data() {
         return {
             formItem: {
@@ -99,6 +100,7 @@ export default {
                 imgSrc: "",
                 digest: "",
             },
+
             rules: {
                 title: [
                     {
@@ -107,6 +109,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 publishTime: [
                     {
                         required: true,
@@ -114,6 +117,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 href: [
                     {
                         required: true,
@@ -121,6 +125,7 @@ export default {
                         trigger: "blur",
                     },
                 ],
+
                 imgSrc: [
                     // {
                     //     required: true,
@@ -128,6 +133,7 @@ export default {
                     //     trigger: "blur"
                     // }
                 ],
+
                 digest: [
                     // {
                     //     required: true,
@@ -141,11 +147,13 @@ export default {
                     },
                 ],
             },
+
             title: "新增一条教育经历记录",
             pickerOptions: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
+
                 shortcuts: [
                     {
                         text: "今天",
@@ -173,6 +181,7 @@ export default {
             },
         };
     },
+
     methods: {
         handleClose() {
             this.$confirm("确认关闭？")
@@ -182,6 +191,7 @@ export default {
                 })
                 .catch(() => {});
         },
+
         onSubmit(formName) {
             this.$refs[formName].validate(async (valid) => {
                 if (valid) {

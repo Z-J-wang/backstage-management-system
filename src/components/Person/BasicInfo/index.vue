@@ -283,6 +283,7 @@ export default {
         HeadPortrait,
         DistrictSelect,
     },
+
     data() {
         return {
             action: this.$store.state.server_url + "/api/bmyx/uploadImage",
@@ -301,6 +302,7 @@ export default {
             btn_changeVisible: false,
         };
     },
+
     watch: {
         personalInfo: {
             handler: function () {
@@ -309,9 +311,11 @@ export default {
             deep: true,
         },
     },
+
     created() {
         this.getBasicinfo();
     },
+
     methods: {
         /**
          * 隐藏表单控件
