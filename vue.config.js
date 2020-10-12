@@ -15,27 +15,27 @@ module.exports = {
   chainWebpack: config => {
     // 开启图片压缩
     config.module.rule('images')
-    .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-    .use('url-loader')
-        .loader('url-loader')
-        .options({
-           limit: 10240    // 图片小于10k转为base64,默认4k
+      .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+      .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: 10240 // 图片小于10k转为base64,默认4k
     	})
-        .end()
-    .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-    .use('image-webpack-loader')
-        .loader('image-webpack-loader')
-        .options({ bypassOnDebug: true })
-        .end()
-      
-     // 配置Jquery
+      .end()
+      .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+      .use('image-webpack-loader')
+      .loader('image-webpack-loader')
+      .options({ bypassOnDebug: true })
+      .end()
+
+    // 配置Jquery
     config.plugin('provide').use(webpack.ProvidePlugin, [{
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
-    }]);
-      
+    }])
+
     // 开启js、css 文件的 gzip 压缩。
     // 注意，gzip 压缩需要后端配合使用。如果后端没有开发 gzip 。请关闭功能。
     // if (process.env.NODE_ENV === 'production') {
@@ -47,7 +47,7 @@ module.exports = {
     //   }))
     // }
   },
-    
+
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
@@ -72,7 +72,7 @@ module.exports = {
               }
             }
           }
-        },
+        }
 
         // 移除console
         // minimizer: [new UglifyPlugin({
@@ -101,7 +101,7 @@ module.exports = {
           '@a': path.resolve(__dirname, './src/assets'),
           '@c': path.resolve(__dirname, './src/components'),
           '@p': path.resolve(__dirname, './src/pages'),
-          '@v': path.resolve(__dirname, './src/views'),
+          '@v': path.resolve(__dirname, './src/views')
         } // 别名配置
       }
     })
@@ -131,7 +131,7 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true
-    }, // 错误、警告在页面弹出
+    } // 错误、警告在页面弹出
     // proxy: {
     //   '/api': {
     //     target: '',
@@ -146,4 +146,3 @@ module.exports = {
   // 第三方插件配置
   pluginOptions: {}
 }
-

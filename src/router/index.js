@@ -5,15 +5,14 @@ import Home from '../views/Home.vue'
 import Cookie from '../util/cookie'
 import Axios from '../axios/index'
 
-const axios = new Axios();
-const cookie = new Cookie();
-let auth = 3;
+const axios = new Axios()
+const cookie = new Cookie()
+let auth = 3
 
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
+VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
 }
-
 
 Vue.use(VueRouter)
 
@@ -27,7 +26,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "login" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
     path: '/Home',
@@ -40,7 +39,7 @@ const routes = [
       meta: {
         auth: 2
       },
-      component: () => import( /* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
+      component: () => import(/* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
     },
     {
       path: '/edu_experience',
@@ -48,7 +47,7 @@ const routes = [
       meta: {
         auth: 2
       },
-      component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience/index.vue')
+      component: () => import(/* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience/index.vue')
     },
     {
       path: '/blogs',
@@ -56,7 +55,7 @@ const routes = [
       meta: {
         auth: 2
       },
-      component: () => import( /* webpackChunkName: "edu_experience" */ '../components/Person/Blog/index.vue')
+      component: () => import(/* webpackChunkName: "edu_experience" */ '../components/Person/Blog/index.vue')
     },
     {
       path: '/messages',
@@ -64,7 +63,7 @@ const routes = [
       meta: {
         auth: 2
       },
-      component: () => import( /* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
+      component: () => import(/* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
     },
     {
       path: '/accountManagement',
@@ -75,20 +74,20 @@ const routes = [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import( /* webpackChunkName: "accountManagement" */ '../components/AccountManagement/index.vue')
+      component: () => import(/* webpackChunkName: "accountManagement" */ '../components/AccountManagement/index.vue')
     },
     {
       path: '/BMYX',
       name: 'BMYX',
       redirect: '/BMYX/product',
-      component: { render: (e) => e("router-view") },
+      component: { render: (e) => e('router-view') },
       children: [{
         path: 'product',
         name: '产品列表',
         meta: {
           auth: 1
         },
-        component: () => import( /* webpackChunkName: "BMYX_Product" */ '../components/BMYX/Product/index.vue')
+        component: () => import(/* webpackChunkName: "BMYX_Product" */ '../components/BMYX/Product/index.vue')
       },
       {
         path: 'sort',
@@ -96,7 +95,7 @@ const routes = [
         meta: {
           auth: 1
         },
-        component: () => import( /* webpackChunkName: "BMYX_Sort" */ '../components/BMYX/Sort/index.vue')
+        component: () => import(/* webpackChunkName: "BMYX_Sort" */ '../components/BMYX/Sort/index.vue')
       },
       {
         path: 'notice',
@@ -104,7 +103,7 @@ const routes = [
         meta: {
           auth: 1
         },
-        component: () => import( /* webpackChunkName: "BMYX_Notice" */ '../components/BMYX/Notice/index.vue')
+        component: () => import(/* webpackChunkName: "BMYX_Notice" */ '../components/BMYX/Notice/index.vue')
       }]
     }]
   },
@@ -117,7 +116,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/404',
@@ -128,7 +127,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "404" */ '../views/404.vue')
+    component: () => import(/* webpackChunkName: "404" */ '../views/404.vue')
   }
 ]
 
@@ -138,11 +137,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name == null) {
-    next({ name: "404" })
+    next({ name: '404' })
   } else if (to.name == '404') {
     next()
   } else {
-    let token = cookie.getToken();
+    const token = cookie.getToken()
     if (token) {
       axios.getCurrentAccount().then((res) => {
         auth = res.data.data.auth
@@ -150,20 +149,19 @@ router.beforeEach((to, from, next) => {
         console.log(err)
       }).finally(() => {
         if (to.meta.auth >= auth) {
-          next();
+          next()
         } else {
           next({ name: 'Login' })
         }
       })
     } else {
-      if (to.name !== "Login") {
+      if (to.name !== 'Login') {
         next({ name: 'Login' })
       } else {
         next()
       }
     }
   }
-
 })
 
 export default router

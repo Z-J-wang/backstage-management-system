@@ -11,8 +11,8 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setAccount(state, account) {
-      state.account = account;
+    setAccount (state, account) {
+      state.account = account
     }
   },
   actions: {
