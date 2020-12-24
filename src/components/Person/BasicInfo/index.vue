@@ -274,7 +274,7 @@
 
 <script>
 import HeadPortrait from "./component/HeadPortrait.vue";
-import DistrictSelect from "@c/common/From_tools/DistrictSelect.vue";
+import DistrictSelect from "@c/common/From_tools/DIstrictSelect.vue";
 import validate_rules from "./validate_rules.js"; // 引入 validate rules
 
 export default {
