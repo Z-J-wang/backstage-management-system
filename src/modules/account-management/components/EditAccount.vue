@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		:title="title"
-		:visible.sync="visible"
+		:visible.sync="dialogVisible"
 		width="30%"
 		:before-close="handleClose"
 		:close-on-click-modal="false"
@@ -19,20 +19,6 @@
 					<el-input
 						v-model="formItem.account"
 						placeholder="请输入账户"
-					></el-input>
-				</el-form-item>
-				<el-form-item label="密码" prop="password">
-					<el-input
-						v-model="formItem.password"
-						type="password"
-						placeholder="请输入密码"
-					></el-input>
-				</el-form-item>
-				<el-form-item label="确认密码" prop="pwdAgain">
-					<el-input
-						v-model="formItem.pwdAgain"
-						type="password"
-						placeholder="再次输入密码"
 					></el-input>
 				</el-form-item>
 				<el-form-item label="权限等级" prop="auth">
@@ -60,62 +46,29 @@
 	</el-dialog>
 </template>
 <script>
-import valid_rules from "./validate-rule";
+import valid_rules from "@/modules/account-management/assets/validate-rule";
 export default {
-	name: "CreateNewAccount",
+	name: "EditAccount",
 	props: {
-		visible: {
+		dialogVisible: {
 			type: Boolean,
 			default: false
+		},
+		formItem: {
+			type: Object
 		}
 	},
 	data() {
-		let checkpwd = (rule, value, callback) => {
-			if (this.formItem.password !== value) {
-				callback(new Error("两次密码不一致"));
-			} else {
-				callback();
-			}
-		};
 		return {
-			title: "新增一个账户",
-			formItem: {
-				account: "",
-				password: "",
-				pwdAgain: "",
-				auth: ""
-			},
+			title: "修改用户信息",
 			options: [
 				{ code: 0, name: "超级管理员" },
-				{ code: 1, name: "一般管理员" },
+				{ code: 1, name: "bmyx管理员" },
 				{ code: 2, name: "个人信息管理员" }
 			],
-			rules: Object.assign(valid_rules, {
-				pwdAgain: [
-					{
-						required: true,
-						message: "请再次输入密码",
-						trigger: "blur"
-					},
-					{ validator: checkpwd, trigger: "blur" }
-				]
-			})
+			rules: valid_rules
 		};
 	},
-	// watch: {
-	//     "formItem.auth": function (val) {
-	//         console.log(val);
-	//         let user_account = this.$store.state.account;
-	//         console.log(user_account);
-	//         if (val === 0 && user_account.auth !== 0) {
-	//             this.$message({
-	//                 message:
-	//                     "你不是超级管理员，不能添加权限等级比你高的账户！！",
-	//                 type: "warning",
-	//             });
-	//         }
-	//     },
-	// },
 	methods: {
 		/**
 		 * close 事件
@@ -132,24 +85,22 @@ export default {
 		onSubmit(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					const newAccount = Object.assign({}, this.formItem);
-					delete newAccount.pwdAgain;
-					await this.createNewProduct(newAccount);
+					await this.updatedAccount(this.formItem);
+					this.$refs["form"].resetFields();
+					this.$emit("close");
 				}
 			});
 		},
 
-		async createNewProduct(data) {
-			let ret = await this.$HttpApi.createAccount(data);
+		async updatedAccount(data) {
+			let ret = await this.$HttpApi.updatedAccount(data);
 			if (ret.status === 200) {
 				if (ret.data.code == 1000) {
 					this.$message({
-						message: ret.data.msg,
+						message: `修改成功！`,
 						type: "success"
 					});
 					this.$parent.setDataList();
-					this.$refs["form"].resetFields();
-					this.$emit("close");
 				} else {
 					this.$message({
 						message: ret.data.msg,

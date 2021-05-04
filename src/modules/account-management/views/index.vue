@@ -53,25 +53,25 @@
 						size="small"
 						title="编辑"
 					></el-button>
-					<!-- <el-popconfirm
-                        title="这是一段内容确定删除吗？"
-                        style="padding-left: 9px"
-                        @onConfirm="delConfirm(scope.row.id)"
-                    >
-                        <el-button
-                            type="danger"
-                            icon="el-icon-delete"
-                            circle
-                            size="small"
-                            title="移除"
-                            slot="reference"
-                        ></el-button>
-                    </el-popconfirm>-->
+					<el-popconfirm
+						title="这是一段内容确定删除吗？"
+						style="padding-left: 9px"
+						@onConfirm="delConfirm(scope.row.id)"
+					>
+						<el-button
+							type="danger"
+							icon="el-icon-delete"
+							circle
+							size="small"
+							title="移除"
+							slot="reference"
+						></el-button>
+					</el-popconfirm>
 				</template>
 			</el-table-column>
 		</el-table>
 
-		<create-new-account
+		<create-account
 			:visible="addItemVisible"
 			:form-item="itemValue"
 			@close="closeAddItem"
@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import CreateNewAccount from "./component/CreateNewAccount.vue";
-import EditAccount from "./component/EditAccount.vue";
+import createAccount from "@/modules/account-management/components/create-account.vue";
+import EditAccount from "../components/EditAccount.vue";
 
 export default {
 	name: "AccountMangement",
@@ -108,7 +108,7 @@ export default {
 	},
 	components: {
 		EditAccount,
-		CreateNewAccount
+		createAccount
 	},
 	mounted() {
 		this.setDataList();

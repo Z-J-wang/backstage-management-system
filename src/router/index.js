@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 import Cookie from '../util/cookie'
 import Axios from '../axios/index'
 
+import accountManagementRoutes from '@/modules/account-management/routes/'
+
 const axios = new Axios()
 const cookie = new Cookie()
 let auth = 3
@@ -63,14 +65,6 @@ const routes = [
       component: () => import(/* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
     },
     {
-      path: '/accountManagement',
-      name: '账户管理',
-      meta: {
-        auth: 0
-      },
-      component: () => import(/* webpackChunkName: "accountManagement" */ '../components/AccountManagement/index.vue')
-    },
-    {
       path: '/BMYX',
       name: 'BMYX',
       redirect: '/BMYX/product',
@@ -99,7 +93,9 @@ const routes = [
         },
         component: () => import(/* webpackChunkName: "BMYX_Notice" */ '../components/BMYX/Notice/index.vue')
       }]
-    }]
+    },
+    ...accountManagementRoutes
+  ]
   },
   {
     path: '/about',
