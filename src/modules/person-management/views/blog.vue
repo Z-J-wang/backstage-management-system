@@ -4,7 +4,7 @@
       <el-button
         type="primary"
         icon="el-icon-plus"
-        @click="addItemVisible = true"
+        @click="addBlogVisible = true"
       >新增一笔</el-button>
     </div>
     <el-table
@@ -16,24 +16,28 @@
       :data="dataList"
     >
       <el-table-column
-        width="180"
-        label="经历"
-        prop="theme"
+        sortable
+        prop="title"
+        label="博客标题"
       ></el-table-column>
       <el-table-column
         sortable
         width="240"
-        label="时间"
-        prop="dateTime"
-      >
-        <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.dateTime.join(" 至 ") }}</span>
-        </template>
-      </el-table-column>
+        label="发布时间"
+        prop="publishTime"
+      ></el-table-column>
       <el-table-column
-        label="详情"
-        prop="detail"
+        prop="href"
+        width="240"
+        label="博客链接"
+      ></el-table-column>
+      <el-table-column
+        prop="imgSrc"
+        label="博客图片链接"
+      ></el-table-column>
+      <el-table-column
+        label="摘要"
+        prop="digest"
       ></el-table-column>
       <el-table-column
         width="140"
@@ -74,60 +78,54 @@
       </el-table-column>
     </el-table>
 
-    <create-new-experience
-      :dialog-visible="addItemVisible"
-      @close="closeAddItemVisible"
+    <create-new-blog
+      :dialog-visible="addBlogVisible"
+      @close="closeAddBlog"
     />
 
-    <edit-experience
-      :form-item="itemValue"
+    <edit-blog
       :dialog-visible="itemEditorVisible"
+      :form-item="itemValue"
       @close="closeItemEditor"
     />
 
-    <check-experience
-      :item="itemValue"
+    <check-blog
       :drawer-visible="itemCheckVisible"
+      :item="itemValue"
       @close="closeItemCheck"
     />
   </div>
 </template>
 
 <script>
-import CreateNewExperience from "./component/CreateNewExperience.vue"; // item 编辑器
-import EditExperience from "./component/EditExperience.vue"; // item 编辑器
-import CheckExperience from "./component/CheckExperience.vue"; // item 查看器
+import CreateNewBlog from "@/modules/person-management/components/blog/CreateNewBlog.vue";
+import EditBlog from "@/modules/person-management/components/blog/EditBlog.vue";
+import CheckBlog from "@/modules/person-management/components/blog/CheckBlog.vue";
 
 export default {
-  name: "Edu_Experience",
+  name: "BlogManagement",
+  components: {
+    EditBlog,
+    CheckBlog,
+    CreateNewBlog,
+  },
+
   data() {
     return {
-      itemEditorVisible: false,
-      addItemVisible: false,
+      addBlogVisible: false,
       itemCheckVisible: false,
-
-      itemValue: {
-        theme: "",
-        dateTime: "",
-        detail: "",
-      },
-
+      itemEditorVisible: false,
+      itemValue: {}, // 传递给子组件
       dataList: [],
       pagination: {
         total: 0,
         currentPage: 1,
         size: 10,
-      }
-    }
+      },
+    };
   },
 
-  components: {
-    CreateNewExperience,
-    EditExperience,
-    CheckExperience,
-  },
-
-  created() {
+  mounted() {
     this.getData();
   },
 
@@ -148,11 +146,8 @@ export default {
       this.itemEditorVisible = false;
     },
 
-    /**
-     * 关闭 addItem
-     */
-    closeAddItemVisible() {
-      this.addItemVisible = false;
+    closeAddBlog() {
+      this.addBlogVisible = false;
     },
 
     /**
@@ -175,17 +170,17 @@ export default {
      * 获取表格数据
      */
     async getData() {
-      let data = await this.getExperiences();
+      let data = await this.getBlogs();
       if (data) {
         this.dataList = data.rows;
       }
     },
 
     /**
-     * 删除教育经历
+     * 删除博客
      */
     async delItem(id) {
-      let data = await this.deleteExperience(id);
+      let data = await this.deleteBlog(id);
       if (data) {
         this.$message({
           type: "success",
@@ -196,8 +191,10 @@ export default {
     },
 
     /***************************** ajax 操作部分 Start  *********************************/
-
-    async getExperiences(size, currentPage, selectCond) {
+    /**
+     * 获取博客列表
+     */
+    async getBlogs(size, currentPage, selectCond) {
       let params = {
         cond: selectCond,
         pageSize: size || this.pagination.size,
@@ -206,7 +203,7 @@ export default {
           this.dataList.length || 0,
       };
 
-      let res = await this.$HttpApi.getExperiences(params);
+      let res = await this.$HttpApi.getBlogs(params);
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.data;
@@ -220,8 +217,8 @@ export default {
     /**
      * 删除
      */
-    async deleteExperience(id) {
-      let res = await this.$HttpApi.deleteExperience({ id: id });
+    async deleteBlog(id) {
+      let res = await this.$HttpApi.deleteBlog({ id: id });
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.msg;

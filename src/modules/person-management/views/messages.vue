@@ -4,7 +4,7 @@
       <el-button
         type="primary"
         icon="el-icon-plus"
-        @click="addBlogVisible = true"
+        @click="addMessageVisible = true"
       >新增一笔</el-button>
     </div>
     <el-table
@@ -17,48 +17,44 @@
     >
       <el-table-column
         sortable
-        prop="title"
-        label="博客标题"
+        prop="name"
+        label="发信人"
       ></el-table-column>
       <el-table-column
         sortable
         width="240"
-        label="发布时间"
-        prop="publishTime"
+        prop="datetime"
+        label="发信时间"
       ></el-table-column>
       <el-table-column
-        prop="href"
         width="240"
-        label="博客链接"
+        label="邮箱"
+        prop="email"
       ></el-table-column>
       <el-table-column
-        prop="imgSrc"
-        label="博客图片链接"
+        label="网站"
+        prop="website"
       ></el-table-column>
       <el-table-column
-        label="摘要"
-        prop="digest"
+        label="主题"
+        prop="subject"
       ></el-table-column>
       <el-table-column
-        width="140"
+        label="内容"
+        prop="content"
+      ></el-table-column>
+      <el-table-column
+        width="100"
         label="操作"
         fixed="right"
       >
         <template slot-scope="scope">
           <el-button
             circle
-            title="查看"
             size="small"
+            title="查看"
             icon="el-icon-view"
             @click.native.prevent="itemCheck(scope.row)"
-          ></el-button>
-          <el-button
-            circle
-            title="编辑"
-            size="small"
-            type="primary"
-            icon="el-icon-edit"
-            @click.native.prevent="itemChange(scope.row)"
           ></el-button>
           <el-popconfirm
             style="padding-left: 9px"
@@ -67,8 +63,8 @@
           >
             <el-button
               circle
-              title="移除"
               size="small"
+              title="移除"
               type="danger"
               slot="reference"
               icon="el-icon-delete"
@@ -78,18 +74,12 @@
       </el-table-column>
     </el-table>
 
-    <create-new-blog
-      :dialog-visible="addBlogVisible"
-      @close="closeAddBlog"
+    <create-new-message
+      :dialog-visible="addMessageVisible"
+      @close="closeAddMessage"
     />
 
-    <edit-blog
-      :dialog-visible="itemEditorVisible"
-      :form-item="itemValue"
-      @close="closeItemEditor"
-    />
-
-    <check-blog
+    <check-message
       :drawer-visible="itemCheckVisible"
       :item="itemValue"
       @close="closeItemCheck"
@@ -98,24 +88,29 @@
 </template>
 
 <script>
-import CreateNewBlog from "./component/CreateNewBlog.vue";
-import EditBlog from "./component/EditBlog.vue";
-import CheckBlog from "./component/CheckBlog.vue";
-
+import CheckMessage from "@/modules/person-management/components/messages/CheckMessage.vue";
+import CreateNewMessage from "@/modules/person-management/components/messages/CreateNewMessage.vue";
 export default {
-  name: "BlogManagement",
+  name: "MessageManagement",
   components: {
-    EditBlog,
-    CheckBlog,
-    CreateNewBlog,
+    CheckMessage,
+    CreateNewMessage,
   },
 
   data() {
     return {
-      addBlogVisible: false,
+      addMessageVisible: false,
       itemCheckVisible: false,
-      itemEditorVisible: false,
-      itemValue: {}, // 传递给子组件
+      itemValue: {
+        id: 1,
+        name: "",
+        datatime: "",
+        emial: "",
+        website: "",
+        subject: "",
+        content: "",
+      },
+
       dataList: [],
       pagination: {
         total: 0,
@@ -125,29 +120,16 @@ export default {
     };
   },
 
-  mounted() {
+  created() {
     this.getData();
   },
 
   methods: {
     /**
-     * 编辑一条记录
-     * @param  data
-     */
-    itemChange(data) {
-      this.itemValue = Object.assign({}, data);
-      this.itemEditorVisible = true;
-    },
-
-    /**
      * 关闭 itemEditor
      */
-    closeItemEditor() {
-      this.itemEditorVisible = false;
-    },
-
-    closeAddBlog() {
-      this.addBlogVisible = false;
+    closeAddMessage() {
+      this.addMessageVisible = false;
     },
 
     /**
@@ -170,7 +152,7 @@ export default {
      * 获取表格数据
      */
     async getData() {
-      let data = await this.getBlogs();
+      let data = await this.getMsgs();
       if (data) {
         this.dataList = data.rows;
       }
@@ -180,7 +162,7 @@ export default {
      * 删除博客
      */
     async delItem(id) {
-      let data = await this.deleteBlog(id);
+      let data = await this.deleteMsg(id);
       if (data) {
         this.$message({
           type: "success",
@@ -192,9 +174,9 @@ export default {
 
     /***************************** ajax 操作部分 Start  *********************************/
     /**
-     * 获取博客列表
+     * 获取信息列表
      */
-    async getBlogs(size, currentPage, selectCond) {
+    async getMsgs(size, currentPage, selectCond) {
       let params = {
         cond: selectCond,
         pageSize: size || this.pagination.size,
@@ -203,7 +185,7 @@ export default {
           this.dataList.length || 0,
       };
 
-      let res = await this.$HttpApi.getBlogs(params);
+      let res = await this.$HttpApi.getMsgs(params);
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.data;
@@ -217,8 +199,8 @@ export default {
     /**
      * 删除
      */
-    async deleteBlog(id) {
-      let res = await this.$HttpApi.deleteBlog({ id: id });
+    async deleteMsg(id) {
+      let res = await this.$HttpApi.deleteMsg({ id: id });
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.msg;

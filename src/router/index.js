@@ -5,7 +5,8 @@ import Home from '../views/Home.vue'
 import Cookie from '../util/cookie'
 import Axios from '../axios/index'
 
-import accountManagementRoutes from '@/modules/account-management/routes/'
+import accountManagementRoutes from '@/modules/account-management/routes/index'
+import personManagementRoutes from '@/modules/person-management/routes/index'
 
 const axios = new Axios()
 const cookie = new Cookie()
@@ -32,38 +33,7 @@ const routes = [
     name: 'Home',
     component: Home,
     redirect: 'Home',
-    children: [{
-      path: '/personalInfo',
-      name: '个人基础信息',
-      meta: {
-        auth: 2
-      },
-      component: () => import(/* webpackChunkName: "PersonalInfo" */ '../components/Person/BasicInfo/index.vue')
-    },
-    {
-      path: '/edu_experience',
-      name: '教育经历',
-      meta: {
-        auth: 2
-      },
-      component: () => import(/* webpackChunkName: "edu_experience" */ '../components/Person/Edu_experience/index.vue')
-    },
-    {
-      path: '/blogs',
-      name: '个人博客',
-      meta: {
-        auth: 2
-      },
-      component: () => import(/* webpackChunkName: "edu_experience" */ '../components/Person/Blog/index.vue')
-    },
-    {
-      path: '/messages',
-      name: '信息管理',
-      meta: {
-        auth: 2
-      },
-      component: () => import(/* webpackChunkName: "Messages" */ '../components/Person/Messages/index.vue')
-    },
+    children: [
     {
       path: '/BMYX',
       name: 'BMYX',
@@ -94,7 +64,8 @@ const routes = [
         component: () => import(/* webpackChunkName: "BMYX_Notice" */ '../components/BMYX/Notice/index.vue')
       }]
     },
-    ...accountManagementRoutes
+    ...accountManagementRoutes,
+    ...personManagementRoutes
   ]
   },
   {
