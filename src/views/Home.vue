@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import asideMenu from "@c/common/AsideMenu.vue";
-import headerBar from "@c/common/HeaderBar.vue";
-// import footerbar from "@c/common/FooterBar.vue";
-import backtop from "@c/common/BackTop.vue";
+import asideMenu from "@c/backstage/AsideMenu.vue";
+import headerBar from "@c/backstage/HeaderBar.vue";
+// import footerbar from "@c/backstage/FooterBar.vue";
+import backtop from "@c/backstage/BackTop.vue";
 
 export default {
   name: "Home",

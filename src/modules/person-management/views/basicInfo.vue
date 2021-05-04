@@ -251,7 +251,7 @@
 
 <script>
 import HeadPortrait from "@/modules/person-management/components/baseinfo/HeadPortrait.vue";
-import DistrictSelect from "@c/common/From_tools/DIstrictSelect.vue";
+import DistrictSelect from "@c/from-tools/DIstrictSelect.vue";
 import validate_rules from "@/modules/person-management/assets/basicInfo/validate_rules"; // 引入 validate rules
 
 export default {

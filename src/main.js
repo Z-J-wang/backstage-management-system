@@ -10,7 +10,7 @@ import Axios from './axios/index.js'
 import custom_validator from '@a/js/custom-validator.js'
 
 import '@a/css/common.less'
-import footBar from './components/common/FooterBar.vue'
+import footBar from '@/components/backstage/FooterBar.vue'
 
 Vue.config.productionTip = false
 Vue.prototype.$Cookie = new Cookies()

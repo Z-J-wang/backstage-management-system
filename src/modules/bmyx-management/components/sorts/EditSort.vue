@@ -47,7 +47,7 @@
 	</el-dialog>
 </template>
 <script>
-import uploadImage from "@c/common/From_tools/UploadImage.vue";
+import uploadImage from "@c/from-tools/UploadImage.vue";
 export default {
 	name: "EditSort",
 	components: {

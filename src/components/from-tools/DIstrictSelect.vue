@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import city from "../../../../public/chinaProvince.js";
+import city from "../../../public/chinaProvince";
 
 export default {
   name: "DistrictSelect",

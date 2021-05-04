@@ -109,8 +109,8 @@
 	</el-dialog>
 </template>
 <script>
-import uploadVideo from "@c/common/From_tools/UploadVideo.vue";
-import uploadImageList from "@c/common/From_tools/UploadImageList.vue";
+import uploadVideo from "@c/from-tools/UploadVideo.vue";
+import uploadImageList from "@c/from-tools/UploadImageList.vue";
 import validate_rules from "@/modules/bmyx-management/assets/products/validate-rule";
 
 export default {
