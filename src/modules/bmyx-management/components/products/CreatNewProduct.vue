@@ -96,12 +96,12 @@
 	</el-dialog>
 </template>
 <script>
-import uploadVideo from "@c/from-tools/UploadVideo.vue";
-import uploadImageList from "@c/from-tools/UploadImageList.vue";
-import validate_rules from "@/modules/bmyx-management/assets/products/validate-rule";
+import uploadVideo from '@c/from-tools/UploadVideo.vue';
+import uploadImageList from '@c/from-tools/UploadImageList.vue';
+import validate_rules from '@/modules/bmyx-management/assets/products/validate-rule';
 
 export default {
-	name: "CreatNewProduct",
+	name: 'CreatNewProduct',
 	components: {
 		uploadImageList,
 		uploadVideo
@@ -118,20 +118,20 @@ export default {
 		let validatePrice = this.$CustomValidator.validatePrice;
 
 		return {
-			action: this.$store.state.server_url + "/api/bmyx/uploadImage",
+			action: this.$store.state.server_url + '/api/bmyx/uploadImage',
 			options: [],
-			title: "新增一条菜品",
+			title: '新增一条菜品',
 
 			headers: {
-				"Content-Type": "multipart/form-data"
+				'Content-Type': 'multipart/form-data'
 			},
 
 			formItem: {
-				name: "",
-				s_Id: "",
-				nowPrice: "",
+				name: '',
+				s_Id: '',
+				nowPrice: '',
 				imgSrcList: [],
-				detail: ""
+				detail: ''
 			},
 
 			rules: Object.assign(
@@ -142,10 +142,10 @@ export default {
 						// 自定义表单验证规则会覆盖 validate_rules.js 中的对应规则，需重写
 						{
 							required: true,
-							message: "请输入今天的价格",
-							trigger: "blur"
+							message: '请输入今天的价格',
+							trigger: 'blur'
 						},
-						{ validator: validatePrice, trigger: "blur" }
+						{ validator: validatePrice, trigger: 'blur' }
 					]
 				}
 			)
@@ -187,14 +187,14 @@ export default {
 		inputNowPrice() {
 			this.formItem.nowPrice = this.formItem.nowPrice.match(/\d+(\.\d{0,2})?/)
 				? this.formItem.nowPrice.match(/\d+(\.\d{0,2})?/)[0]
-				: "";
+				: '';
 		},
 
 		/**
 		 * close 事件
 		 */
 		handleClose() {
-			this.$confirm("确认关闭？")
+			this.$confirm('确认关闭？')
 				.then(() => {
 					this.formItem.imgSrcList.forEach(element => {
 						this.delUploadImage(element);
@@ -202,8 +202,8 @@ export default {
 					if (this.formItem.videoSrc) {
 						this.delUploadImage(this.formItem.videoSrc);
 					}
-					this.$refs["form"].resetFields();
-					this.$emit("close");
+					this.$refs['form'].resetFields();
+					this.$emit('close');
 				})
 				.catch(() => {});
 		},
@@ -212,8 +212,8 @@ export default {
 			let valid = await this.$refs[formName].validate();
 			if (valid) {
 				await this.createNewProduct(this.formItem);
-				this.$refs["form"].resetFields();
-				this.$emit("close");
+				this.$refs['form'].resetFields();
+				this.$emit('close');
 			}
 		},
 
@@ -225,11 +225,11 @@ export default {
 			if (ret.status === 200 && ret.data.code == 1000) {
 				this.$message({
 					message: `${ret.data.data.name} 添加成功！`,
-					type: "success"
+					type: 'success'
 				});
 				this.$parent.setDataList();
 			} else {
-				this.$message.error("系统出错，请重试！");
+				this.$message.error('系统出错，请重试！');
 			}
 		},
 
@@ -258,7 +258,7 @@ export default {
 				console.log(`删除文件：${filename}`);
 				flat = true;
 			} else {
-				console.log("文件删除失败");
+				console.log('文件删除失败');
 				flat = false;
 			}
 
