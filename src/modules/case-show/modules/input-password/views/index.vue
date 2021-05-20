@@ -13,7 +13,7 @@
 
 <script>
 import inputPwdVue from '../components/input-pwd.vue';
-
+import code from '../assets/code'
 export default {
 	name: '',
 	components: {
@@ -31,31 +31,9 @@ export default {
 		};
 	},
 	created() {
-		this.sourcecode.HTML = `<template>
-	<div class="password-input" :style="{ width: width }">
-		<input
-			style="ime-mode: disabled"
-			:value="hideValue"
-			@compositionstart="compositionstartHandle"
-			@compositionend="compositionendHandle"
-			@input="inputHandel"
-			ref="password-input"
-			:placeholder="placeholder"
-		/>
-		<div class="btn-show" @click="isShow = !isShow">
-			<img
-				v-if="isShow"
-				src="@/modules/case-show/modules/input-password/assets/pwd-show.png"
-			/>
-			<img
-				v-else
-				src="@/modules/case-show/modules/input-password/assets/pwd-hide.png"
-			/>
-		</div>
-	</div>
-</template>`;
-		// this.sourcecode.Javascript = code.Javascript;
-		// this.sourcecode.CSS = code.CSS;
+		this.sourcecode.HTML = code.HTML;
+		this.sourcecode.Javascript = code.Javascript;
+		this.sourcecode.CSS = code.CSS;
 	}
 };
 </script>
