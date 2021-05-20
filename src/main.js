@@ -12,7 +12,8 @@ import custom_validator from '@a/js/custom-validator.js';
 
 import '@a/css/common.less';
 import footBar from '@/components/backstage/FooterBar.vue';
-
+import VueHighlightJS from 'vue-highlightjs';
+import 'highlight.js/styles/atom-one-light.css';
 
 Vue.config.productionTip = false;
 Vue.prototype.$Cookie = new Cookies();
@@ -22,6 +23,7 @@ Vue.prototype.$Util = util;
 
 // 全局注册 element-ui
 Vue.use(ElementUI);
+Vue.use(VueHighlightJS);
 Vue.component('footBar', footBar);
 
 new Vue({
