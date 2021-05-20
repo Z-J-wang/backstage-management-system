@@ -1,13 +1,19 @@
 <template>
-	<div>
-		<h3>密码输入框组件</h3>
-		<inputPwdVue v-model="password" />
-		<pre v-highlightjs="sourcecode"><code class="javascript"></code></pre>
-	</div>
+	<template-code
+		:HTML="sourcecode.HTML"
+		:Javascript="sourcecode.Javascript"
+		:CSS="sourcecode.CSS"
+	>
+		<h3 slot="title">密码输入框组件</h3>
+		<div slot="show">
+			<inputPwdVue v-model="password" />
+		</div>
+	</template-code>
 </template>
 
 <script>
 import inputPwdVue from '../components/input-pwd.vue';
+
 export default {
 	name: '',
 	components: {
@@ -15,13 +21,17 @@ export default {
 	},
 	data() {
 		return {
+			collapseName: 'HTML',
 			password: '',
-			sourcecode: ``
+			sourcecode: {
+				HTML: ``,
+				Javascript: '',
+				CSS: ''
+			}
 		};
 	},
 	created() {
-		this.sourcecode = `
-<template></template>
+		this.sourcecode.HTML = `<template>
 	<div class="password-input" :style="{ width: width }">
 		<input
 			style="ime-mode: disabled"
@@ -44,12 +54,21 @@ export default {
 		</div>
 	</div>
 </template>`;
+		// this.sourcecode.Javascript = code.Javascript;
+		// this.sourcecode.CSS = code.CSS;
 	}
 };
 </script>
 
 <style lang='less' scoped>
-.javascript {
-	text-align: left;
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	& > div {
+		flex: 1;
+		padding: 30px;
+		text-align: left;
+	}
 }
 </style>

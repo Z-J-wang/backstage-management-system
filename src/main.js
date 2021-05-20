@@ -14,6 +14,7 @@ import '@a/css/common.less';
 import footBar from '@/components/backstage/FooterBar.vue';
 import VueHighlightJS from 'vue-highlightjs';
 import 'highlight.js/styles/atom-one-light.css';
+import templateCode from '@/components/common/template-code.vue'
 
 Vue.config.productionTip = false;
 Vue.prototype.$Cookie = new Cookies();
@@ -25,6 +26,7 @@ Vue.prototype.$Util = util;
 Vue.use(ElementUI);
 Vue.use(VueHighlightJS);
 Vue.component('footBar', footBar);
+Vue.component('template-code', templateCode);
 
 new Vue({
 	router,
