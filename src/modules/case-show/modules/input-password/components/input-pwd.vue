@@ -1,5 +1,5 @@
 <template>
-	<div class="password-input">
+	<div class="password-input" :style="{ width: width }">
 		<input
 			style="ime-mode: disabled"
 			:value="hideValue"
@@ -10,8 +10,14 @@
 			:placeholder="placeholder"
 		/>
 		<div class="btn-show" @click="isShow = !isShow">
-			<img v-if="isShow" src="@/modules/case-show/modules/input-password/assets/pwd-show.png" />
-			<img v-else src="@/modules/case-show/modules/input-password/assets/pwd-hide.png" />
+			<img
+				v-if="isShow"
+				src="@/modules/case-show/modules/input-password/assets/pwd-show.png"
+			/>
+			<img
+				v-else
+				src="@/modules/case-show/modules/input-password/assets/pwd-hide.png"
+			/>
 		</div>
 	</div>
 </template>
@@ -23,6 +29,10 @@ export default {
 		placeholder: {
 			type: String,
 			default: '请输入'
+		},
+		width: {
+			type: String,
+			default: '300px'
 		}
 	},
 	model: {
@@ -50,7 +60,7 @@ export default {
 			if (this.isShow) {
 				this.hideValue = val;
 			} else {
-				this.hideValue = val.replace(/[^●]/g, '●');
+				this.hideValue = val.replace(/[^•]/g, '•');
 			}
 		},
 
@@ -92,7 +102,7 @@ export default {
 					const del_string = old_pwd.substring(cursorIndex, stop); // 获取用户删除的字符串
 					new_pwd = old_pwd.replace(del_string, ''); // 将旧的真实密码中对应的删除字符串替换为'',实现对真实密码的删除操作
 				} else {
-					const reg = /[^●]/.exec(val); // 获取虚假密码中新增的密码字符
+					const reg = /[^•]/.exec(val); // 获取虚假密码中新增的密码字符
 					new_pwd = this.insertStr(old_pwd, reg.index, reg[0]); // 将用户新输入的字符插入旧的真实密码
 					this.cursorMove(pwd_input_elem, reg.index + 1); // 设置光标的位置
 				}
@@ -134,7 +144,7 @@ export default {
 		limitCN() {
 			let val = this.$refs['password-input'].value; // 获取输入框中的值
 			// eslint-disable-next-line no-control-regex
-			val = val.replace(/[^\x00-\x80●]/gi, '');
+			val = val.replace(/[^\x00-\x80•]/gi, '');
 			this.$refs['password-input'].value = val;
 			this.cursorMove(
 				this.$refs['password-input'],
@@ -148,6 +158,7 @@ export default {
 <style lang="less" scoped>
 .password-input {
 	position: relative;
+	margin: 0 auto;
 	input {
 		height: 28px;
 		width: 100%;

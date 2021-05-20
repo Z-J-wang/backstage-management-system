@@ -1,20 +1,20 @@
 <template>
 	<div>
-    <h3>密码输入框组件</h3>
-		<inputPwdVue v-model="password" />
+    <h3>富文本编辑器组件-wangEditor</h3>
+		<theEditor v-model="content" />
 	</div>
 </template>
 
 <script>
-import inputPwdVue from '../components/input-pwd.vue';
+import theEditor from '../components/the-editor.vue';
 export default {
 	name: '',
 	components: {
-		inputPwdVue
+		theEditor
 	},
 	data() {
 		return {
-			password: ''
+			content: ''
 		};
 	}
 };
