@@ -37,16 +37,3 @@ export default {
 	}
 };
 </script>
-
-<style lang='less' scoped>
-.main {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	& > div {
-		flex: 1;
-		padding: 30px;
-		text-align: left;
-	}
-}
-</style>

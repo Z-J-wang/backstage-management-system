@@ -54,6 +54,8 @@ export default {
 	flex-direction: row;
 	justify-content: center;
 	& > div {
+		max-width: 50%;
+		overflow: auto;
 		flex: 1;
 		padding: 30px;
 		text-align: left;
