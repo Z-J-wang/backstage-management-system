@@ -8,6 +8,7 @@ import Axios from '../axios/index';
 import accountManagementRoutes from '@/modules/account-management/routes/index';
 import personManagementRoutes from '@/modules/person-management/routes/index';
 import bmyxManagementRoutes from '@/modules/bmyx-management/routes/index';
+import caseShowRoutes from '@/modules/case-show/routes/index';
 
 const axios = new Axios();
 const cookie = new Cookie();
@@ -23,6 +24,11 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: '/',
+		redirect: 'case-show',
+		component: { render: (e) => e('router-view') }
+	},
+	{
+		path: '/lodin',
 		name: 'Login',
 		meta: {
 			auth: 3
@@ -57,7 +63,8 @@ const routes = [
 			auth: 3
 		},
 		component: () => import(/* webpackChunkName: "404" */ '../views/404.vue')
-	}
+	},
+	...caseShowRoutes
 ];
 
 const router = new VueRouter({
@@ -68,6 +75,8 @@ router.beforeEach((to, from, next) => {
 	if (to.name == null) {
 		next({ name: '404' });
 	} else if (to.name == '404') {
+		next();
+	} else if (to.meta.auth == 3) {
 		next();
 	} else {
 		const token = cookie.getToken();

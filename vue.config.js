@@ -128,7 +128,7 @@ module.exports = {
 	parallel: require('os').cpus().length > 1, // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
 	// webpack-dev-server 相关配置
 	devServer: {
-		open: true,
+		open: false,
 		// inline: true, // 开启实时刷新
 		// host: '0.0.0.0', // 允许外部ip访问
 		port: 8024, // 端口

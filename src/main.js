@@ -1,28 +1,35 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
-import Cookies from './util/cookie'
-import Axios from './axios/index.js'
-import custom_validator from '@a/js/custom-validator.js'
+import util from '@/util/index';
+import Cookies from './util/cookie';
+import Axios from './axios/index.js';
+import custom_validator from '@a/js/custom-validator.js';
 
-import '@a/css/common.less'
-import footBar from '@/components/backstage/FooterBar.vue'
+import '@a/css/common.less';
+import footBar from '@/components/backstage/FooterBar.vue';
+import VueHighlightJS from 'vue-highlightjs';
+import 'highlight.js/styles/atom-one-light.css';
+import templateCode from '@/components/common/template-code.vue'
 
-Vue.config.productionTip = false
-Vue.prototype.$Cookie = new Cookies()
-Vue.prototype.$HttpApi = new Axios()
-Vue.prototype.$CustomValidator = custom_validator
+Vue.config.productionTip = false;
+Vue.prototype.$Cookie = new Cookies();
+Vue.prototype.$HttpApi = new Axios();
+Vue.prototype.$CustomValidator = custom_validator;
+Vue.prototype.$Util = util;
 
 // 全局注册 element-ui
-Vue.use(ElementUI)
-Vue.component('footBar', footBar)
+Vue.use(ElementUI);
+Vue.use(VueHighlightJS);
+Vue.component('footBar', footBar);
+Vue.component('template-code', templateCode);
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+	router,
+	store,
+	render: (h) => h(App)
+}).$mount('#app');
