@@ -6,6 +6,7 @@ const HTML = `<template>
     @compositionstart="compositionstartHandle"
     @compositionend="compositionendHandle"
     @input="inputHandel"
+    @paste.capture.prevent="pasteHandle"
     ref="password-input"
     :placeholder="placeholder"
   />
@@ -20,7 +21,8 @@ const HTML = `<template>
     />
   </div>
 </div>
-</template>`;
+</template>
+`;
 
 const Javascript = `<script>
 export default {
@@ -84,6 +86,10 @@ export default {
         return false;
       }
       this.formatPassword();
+    },
+
+    pasteHandle() {
+      return false;
     },
 
     formatPassword() {
