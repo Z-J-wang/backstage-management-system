@@ -1,9 +1,9 @@
-<template>
-  <div :id="editorName" class="editor"></div>
+const HTML = `<template>
+<div :id="editorName" class="editor"></div>
 </template>
+`;
 
-<script>
-import E from 'wangeditor';
+const Javascript = `import E from 'wangeditor';
 
 export default {
   name: 'the-editor',
@@ -37,41 +37,22 @@ export default {
   data() {
     return {
       editor: undefined,
-      menus: [
-        'head',
-        'bold',
-        'fontSize',
-        'fontName',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'indent',
-        'lineHeight',
-        'foreColor',
-        'backColor',
-        'link',
-        'list',
-        'todo',
-        'justify',
-        'quote',
-        'emoticon',
-        'image',
-        'table',
-        'code',
-        'splitLine',
-        'undo',
-        'redo'
-      ]
+      menus: ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'indent', 'lineHeight', 'foreColor', 'backColor', 'link', 'list', 'todo', 'justify', 'quote', 'emoticon', 'image', 'table', 'code', 'splitLine', 'undo', 'redo']
     };
+  },
+  watch: {
+    content: function (val) {
+      console.log(val);
+      this.editor.txt.html(this.content); // 初始化设置编辑器内容
+    }
   },
   mounted() {
     this.initEditor();
-    this.editor.txt.html(this.content); // 初始化设置编辑器内容
   },
   methods: {
     // 富文本编辑器初始化
     initEditor() {
-      const editor = new E(`#${this.editorName}`);
+      const editor = new E(\`#\${this.editorName}\`);
       editor.config.onchange = this.changeHandle;
       editor.config.menus = this.menus;
       editor.config = { ...editor.config, ...this.config }; // 合并配置
@@ -129,17 +110,22 @@ export default {
       elem.innerHTML = content;
       const imgNum = elem.getElementsByTagName('img').length;
       if (imgNum >= this.maxImageNum) {
-        this.$message.error(`最多允许上传${this.maxImageNum}张图片`);
+        this.$message.error(\`最多允许上传\${this.maxImageNum}张图片\`);
       }
 
       return imgNum >= this.maxImageNum ? false : true;
     }
   }
-};
-</script>
+};`;
 
-<style lang="less" scoped>
-.editor {
+const CSS = `<style lang="less" scoped>
+.editor{
   text-align: left;
 }
-</style>
+</style>`;
+
+export default {
+  HTML,
+  Javascript,
+  CSS
+};

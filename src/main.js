@@ -15,6 +15,7 @@ import footBar from '@/components/backstage/FooterBar.vue';
 import VueHighlightJS from 'vue-highlightjs';
 import 'highlight.js/styles/atom-one-light.css';
 import templateCode from '@/components/common/template-code.vue'
+import messageBox from '@/modules/case-show/modules/messageBox/components/messageBox'
 
 Vue.config.productionTip = false;
 Vue.prototype.$Cookie = new Cookies();
@@ -25,6 +26,7 @@ Vue.prototype.$Util = util;
 // 全局注册 element-ui
 Vue.use(ElementUI);
 Vue.use(VueHighlightJS);
+Vue.use(messageBox);
 Vue.component('footBar', footBar);
 Vue.component('template-code', templateCode);
 
