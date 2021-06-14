@@ -6,7 +6,11 @@
   >
     <h3 slot="title">富文本编辑器组件-wangEditor</h3>
     <div slot="show">
-      <el-button @click="open">点击此处打开 messageBox</el-button>
+      <el-button @click="open('success')">success messageBox</el-button>
+      <el-button @click="open('warning')">warning messageBox</el-button>
+      <el-button @click="open('error')">error messageBox</el-button>
+      <el-button @click="open('info')">info messageBox</el-button>
+      <el-button @click="open('question')">question messageBox</el-button>
     </div>
   </template-code>
 </template>
@@ -30,19 +34,19 @@ export default {
     this.sourcecode.Javascript = code.Javascript;
     this.sourcecode.CSS = code.CSS;
   },
-  methods:{
-    open(){
-      this.$customConfirm('你好！世界！', {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消'
-    })
-      .then(() => {
-        this.$message.success('确认')
-        console.log('确认');
+  methods: {
+    open(type) {
+      this.$messageBox('你好！世界！', '', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: type
       })
-      .catch(() => {
-        this.$message.success('取消')
-      });
+        .then(() => {
+          this.$message.success('您点击了：确认');
+        })
+        .catch(() => {
+          this.$message.success('您点击了：取消');
+        });
     }
   }
 };
