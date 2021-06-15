@@ -9,6 +9,7 @@ import accountManagementRoutes from '@/modules/account-management/routes/index';
 import personManagementRoutes from '@/modules/person-management/routes/index';
 import bmyxManagementRoutes from '@/modules/bmyx-management/routes/index';
 import caseShowRoutes from '@/modules/case-show/routes/index';
+import markdownRoutes from '@/modules/markdown/routes/index';
 
 const axios = new Axios();
 const cookie = new Cookie();
@@ -64,7 +65,8 @@ const routes = [
 		},
 		component: () => import(/* webpackChunkName: "404" */ '../views/404.vue')
 	},
-	...caseShowRoutes
+	...caseShowRoutes,
+	...markdownRoutes
 ];
 
 const router = new VueRouter({
