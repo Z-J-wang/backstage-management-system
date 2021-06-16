@@ -1,17 +1,29 @@
 <template>
-  <div>
-    <mavon-editor v-model="content" :toolbars="toolbars"></mavon-editor>
+  <div class="md-editor">
+    <div class="toolbar-top">
+      <router-link to="/">
+        <el-button round icon="el-icon-arrow-left">返回</el-button>
+      </router-link>
+      <el-input placeholder="文章标题" v-model="title"></el-input>
+      <el-button type="primary" round @click="save">保存</el-button>
+    </div>
+    <mavon-editor
+      class="mavon"
+      v-model="content"
+      :toolbars="toolbars"
+    ></mavon-editor>
   </div>
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
+import { mavonEditor } from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
 
 export default {
   name: 'md-editor',
   data() {
     return {
+      title: '',
       content: '',
       toolbars: {
         bold: true, // 粗体
@@ -54,9 +66,49 @@ export default {
     mavonEditor
   },
   mounted() {},
-  methods: {}
+  methods: {
+    save() {
+      if (!this.title) {
+        this.$message.warning('请输入标题');
+        return false;
+      }
+
+      if (!this.content) {
+        this.$message.warning('文章内容不能为空');
+        return false;
+      }
+
+      const params = {
+        title: this.title,
+        content: this.content
+      };
+
+      console.log(params);
+    }
+  }
 };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+.md-editor {
+  .toolbar-top {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 20px;
+    .el-input {
+      flex: 1;
+      margin: 0 10px;
+      .el-input__inner {
+        border-radius: 20px;
+      }
+    }
+  }
+  .mavon {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 130px);
+    margin: 0 auto;
+  }
+}
 </style>
