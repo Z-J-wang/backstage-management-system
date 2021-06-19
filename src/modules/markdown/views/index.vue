@@ -67,7 +67,7 @@ export default {
   },
   mounted() {},
   methods: {
-    save() {
+    async save() {
       if (!this.title) {
         this.$message.warning('请输入标题');
         return false;
@@ -82,8 +82,8 @@ export default {
         title: this.title,
         content: this.content
       };
-
-      console.log(params);
+      const res = await this.$HttpApi.createArticle(params);
+      console.log(res);
     }
   }
 };
