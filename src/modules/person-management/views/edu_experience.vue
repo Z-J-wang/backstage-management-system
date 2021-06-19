@@ -1,12 +1,7 @@
 <template>
   <div class="tableContain">
     <div class="table_tool">
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        @click="addItemVisible = true"
-      >新增一笔</el-button
-      >
+      <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
     </div>
     <el-table
       stripe
@@ -20,9 +15,7 @@
       <el-table-column sortable width="240" label="时间" prop="dateTime">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{
-            scope.row.dateTime.join(" 至 ")
-          }}</span>
+          <span style="margin-left: 10px">{{scope.row.dateTime.join(" 至 ")}}</span>
         </template>
       </el-table-column>
       <el-table-column label="详情" prop="detail"></el-table-column>
@@ -61,10 +54,7 @@
       </el-table-column>
     </el-table>
 
-    <create-new-experience
-      :dialog-visible="addItemVisible"
-      @close="closeAddItemVisible"
-    />
+    <create-new-experience :dialog-visible="addItemVisible" @close="closeAddItemVisible" />
 
     <edit-experience
       :form-item="itemValue"
@@ -72,11 +62,7 @@
       @close="closeItemEditor"
     />
 
-    <check-experience
-      :item="itemValue"
-      :drawer-visible="itemCheckVisible"
-      @close="closeItemCheck"
-    />
+    <check-experience :item="itemValue" :drawer-visible="itemCheckVisible" @close="closeItemCheck" />
   </div>
 </template>
 
@@ -120,47 +106,47 @@ export default {
 
   methods: {
     /**
-		 * 编辑一条记录
-		 * @param  data
-		 */
+     * 编辑一条记录
+     * @param  data
+     */
     itemChange(data) {
       this.itemValue = Object.assign({}, data);
       this.itemEditorVisible = true;
     },
 
     /**
-		 * 关闭 itemEditor
-		 */
+     * 关闭 itemEditor
+     */
     closeItemEditor() {
       this.itemEditorVisible = false;
     },
 
     /**
-		 * 关闭 addItem
-		 */
+     * 关闭 addItem
+     */
     closeAddItemVisible() {
       this.addItemVisible = false;
     },
 
     /**
-		 * 查看一条记录
-		 * @param data
-		 */
+     * 查看一条记录
+     * @param data
+     */
     itemCheck(data) {
       this.itemValue = Object.assign({}, data);
       this.itemCheckVisible = true;
     },
 
     /**
-		 * 关闭 itemCheck
-		 */
+     * 关闭 itemCheck
+     */
     closeItemCheck() {
       this.itemCheckVisible = false;
     },
 
     /**
-		 * 获取表格数据
-		 */
+     * 获取表格数据
+     */
     async getData() {
       let data = await this.getExperiences();
       if (data) {
@@ -169,8 +155,8 @@ export default {
     },
 
     /**
-		 * 删除教育经历
-		 */
+     * 删除教育经历
+     */
     async delItem(id) {
       let data = await this.deleteExperience(id);
       if (data) {
@@ -188,8 +174,7 @@ export default {
       let params = {
         cond: selectCond,
         pageSize: size || this.pagination.size,
-        start:
-					(currentPage - 1) * this.pagination.size + this.dataList.length || 0
+        start: (currentPage - 1) * this.pagination.size + this.dataList.length || 0
       };
 
       let res = await this.$HttpApi.getExperiences(params);
@@ -204,8 +189,8 @@ export default {
     },
 
     /**
-		 * 删除
-		 */
+     * 删除
+     */
     async deleteExperience(id) {
       let res = await this.$HttpApi.deleteExperience({ id: id });
       let data = {};
@@ -226,12 +211,12 @@ export default {
 
 <style scoped lang="less">
 .tableContain {
-	max-width: 1200px;
-	margin-left: 60px;
-	.table_tool {
-		margin-bottom: 20px;
-		padding-right: 25px;
-		text-align: right;
-	}
+  max-width: 1200px;
+  margin-left: 60px;
+  .table_tool {
+    margin-bottom: 20px;
+    padding-right: 25px;
+    text-align: right;
+  }
 }
 </style>

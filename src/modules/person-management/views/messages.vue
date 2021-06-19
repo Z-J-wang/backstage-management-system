@@ -1,11 +1,7 @@
 <template>
   <div class="tableContain">
     <div class="table_tool">
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        @click="addMessageVisible = true"
-      >新增一笔</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="addMessageVisible = true">新增一笔</el-button>
     </div>
     <el-table
       stripe
@@ -15,39 +11,13 @@
       highlight-current-row
       :data="dataList"
     >
-      <el-table-column
-        sortable
-        prop="name"
-        label="发信人"
-      ></el-table-column>
-      <el-table-column
-        sortable
-        width="240"
-        prop="datetime"
-        label="发信时间"
-      ></el-table-column>
-      <el-table-column
-        width="240"
-        label="邮箱"
-        prop="email"
-      ></el-table-column>
-      <el-table-column
-        label="网站"
-        prop="website"
-      ></el-table-column>
-      <el-table-column
-        label="主题"
-        prop="subject"
-      ></el-table-column>
-      <el-table-column
-        label="内容"
-        prop="content"
-      ></el-table-column>
-      <el-table-column
-        width="100"
-        label="操作"
-        fixed="right"
-      >
+      <el-table-column sortable prop="name" label="发信人"></el-table-column>
+      <el-table-column sortable width="240" prop="datetime" label="发信时间"></el-table-column>
+      <el-table-column width="240" label="邮箱" prop="email"></el-table-column>
+      <el-table-column label="网站" prop="website"></el-table-column>
+      <el-table-column label="主题" prop="subject"></el-table-column>
+      <el-table-column label="内容" prop="content"></el-table-column>
+      <el-table-column width="100" label="操作" fixed="right">
         <template slot-scope="scope">
           <el-button
             circle
@@ -74,16 +44,9 @@
       </el-table-column>
     </el-table>
 
-    <create-new-message
-      :dialog-visible="addMessageVisible"
-      @close="closeAddMessage"
-    />
+    <create-new-message :dialog-visible="addMessageVisible" @close="closeAddMessage" />
 
-    <check-message
-      :drawer-visible="itemCheckVisible"
-      :item="itemValue"
-      @close="closeItemCheck"
-    />
+    <check-message :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck" />
   </div>
 </template>
 
@@ -94,7 +57,7 @@ export default {
   name: 'message-management',
   components: {
     CheckMessage,
-    CreateNewMessage,
+    CreateNewMessage
   },
 
   data() {
@@ -108,15 +71,15 @@ export default {
         emial: '',
         website: '',
         subject: '',
-        content: '',
+        content: ''
       },
 
       dataList: [],
       pagination: {
         total: 0,
         currentPage: 1,
-        size: 10,
-      },
+        size: 10
+      }
     };
   },
 
@@ -166,7 +129,7 @@ export default {
       if (data) {
         this.$message({
           type: 'success',
-          message: '删除成功',
+          message: '删除成功'
         });
         this.getData();
       }
@@ -180,9 +143,7 @@ export default {
       let params = {
         cond: selectCond,
         pageSize: size || this.pagination.size,
-        start:
-          (currentPage - 1) * this.pagination.size +
-          this.dataList.length || 0,
+        start: (currentPage - 1) * this.pagination.size + this.dataList.length || 0
       };
 
       let res = await this.$HttpApi.getMsgs(params);
@@ -211,9 +172,9 @@ export default {
       }
 
       return data;
-    },
+    }
     /***************************** ajax 操作部分 End  *********************************/
-  },
+  }
 };
 </script>
 

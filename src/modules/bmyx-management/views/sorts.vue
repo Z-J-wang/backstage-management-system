@@ -10,12 +10,7 @@
       <i class="el-icon-mobile-phone"></i>
     </el-divider>
     <div class="table_tool">
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        @click="addItemVisible = true"
-      >新增一笔</el-button
-      >
+      <el-button type="primary" icon="el-icon-plus" @click="addItemVisible = true">新增一笔</el-button>
     </div>
     <el-table
       border
@@ -26,12 +21,7 @@
       :data="dataList"
     >
       <el-table-column width="50" type="index"></el-table-column>
-      <el-table-column
-        sortable
-        prop="id"
-        label="id"
-        width="240"
-      ></el-table-column>
+      <el-table-column sortable prop="id" label="id" width="240"></el-table-column>
       <el-table-column sortable prop="name" label="分类名称"></el-table-column>
       <el-table-column label="图片" prop="imgSrc">
         <template slot-scope="scope">
@@ -69,11 +59,7 @@
       </el-table-column>
     </el-table>
 
-    <edit-sort
-      :form-item="itemValue"
-      :dialog-visible="itemEditorVisible"
-      @close="closeItemEditor"
-    />
+    <edit-sort :form-item="itemValue" :dialog-visible="itemEditorVisible" @close="closeItemEditor" />
 
     <create-new-sort :visible="addItemVisible" @close="closeAddItem" />
   </div>
@@ -120,33 +106,33 @@ export default {
     },
 
     /**
-		 * 关闭 addItem
-		 */
+     * 关闭 addItem
+     */
     closeAddItem() {
       this.addItemVisible = false;
     },
 
     /**
-		 * 编辑一条记录
-		 * @param  data
-		 */
+     * 编辑一条记录
+     * @param  data
+     */
     itemChange(data) {
       this.itemValue = Object.assign({}, data);
       this.itemEditorVisible = true;
     },
 
     /**
-		 * 关闭 itemEditor
-		 */
+     * 关闭 itemEditor
+     */
     closeItemEditor() {
       this.itemEditorVisible = false;
     },
 
     // ajax 部分
     /**
-		 * 条件查询
-		 * @param selectCond
-		 */
+     * 条件查询
+     * @param selectCond
+     */
     async getData(selectCond) {
       let res = await this.$HttpApi.getBMYXSort(selectCond);
       let data = [];
@@ -160,9 +146,9 @@ export default {
     },
 
     /**
-		 * 删除指定的 product
-		 * @param {number} id
-		 */
+     * 删除指定的 product
+     * @param {number} id
+     */
     async delSort(id) {
       let res = await this.$HttpApi.delSort({ id: id });
 
@@ -182,13 +168,13 @@ export default {
 
 <style scoped lang="less">
 .tableContain {
-	max-width: 1200px;
-	margin-left: 60px;
-	margin-bottom: 50px;
-	.table_tool {
-		margin-bottom: 20px;
-		padding-right: 25px;
-		text-align: right;
-	}
+  max-width: 1200px;
+  margin-left: 60px;
+  margin-bottom: 50px;
+  .table_tool {
+    margin-bottom: 20px;
+    padding-right: 25px;
+    text-align: right;
+  }
 }
 </style>

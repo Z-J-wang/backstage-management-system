@@ -41,17 +41,9 @@
       <el-collapse-item name="2" title="通告编辑">
         <div class="noticeEditor">
           <div>
-            <el-form
-              ref="form"
-              :model="newNoticeFrom"
-              class="text-l"
-              label-width="200px"
-            >
+            <el-form ref="form" :model="newNoticeFrom" class="text-l" label-width="200px">
               <el-form-item prop="content" label="通告内容：">
-                <el-input
-                  v-model="newNoticeFrom.content"
-                  type="textarea"
-                ></el-input>
+                <el-input v-model="newNoticeFrom.content" type="textarea"></el-input>
               </el-form-item>
               <el-form-item prop="scrollable" label="是否开启滚动播放：">
                 <el-switch v-model="newNoticeFrom.scrollable"></el-switch>
@@ -86,7 +78,7 @@ export default {
     };
   },
   watch: {
-    'newNoticeFrom.scrollable': function(val) {
+    'newNoticeFrom.scrollable': function (val) {
       let message = '';
       if (val) {
         message = '您将开启通告滚动播放功能';
@@ -129,8 +121,8 @@ export default {
 
     // ajax 部分
     /**
-		 * 条件查询
-		 */
+     * 条件查询
+     */
     async getData() {
       let res = await this.$HttpApi.getBMYXNotice();
       let data = [];
@@ -162,18 +154,18 @@ export default {
 
 <style scoped lang="less">
 .tableContain {
-	max-width: 1200px;
-	margin-left: 60px;
-	.explain {
-		span {
-			font-size: 18px;
-			color: #6b6a6a;
-		}
-	}
-	.noticeShow {
-		.el-row {
-			margin-top: 50px;
-		}
-	}
+  max-width: 1200px;
+  margin-left: 60px;
+  .explain {
+    span {
+      font-size: 18px;
+      color: #6b6a6a;
+    }
+  }
+  .noticeShow {
+    .el-row {
+      margin-top: 50px;
+    }
+  }
 }
 </style>

@@ -10,8 +10,7 @@
         </el-aside>
 
         <el-main>
-          <el-page-header @back="goBack" :content="$route.name">
-          </el-page-header>
+          <el-page-header @back="goBack" :content="$route.name"></el-page-header>
           <slot></slot>
         </el-main>
       </el-container>

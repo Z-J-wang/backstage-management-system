@@ -1,12 +1,7 @@
 <template>
   <div class="tableContain">
     <div class="table_tool">
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        @click="addBlogVisible = true"
-      >新增一笔</el-button
-      >
+      <el-button type="primary" icon="el-icon-plus" @click="addBlogVisible = true">新增一笔</el-button>
     </div>
     <el-table
       stripe
@@ -17,17 +12,8 @@
       :data="dataList"
     >
       <el-table-column sortable prop="title" label="博客标题"></el-table-column>
-      <el-table-column
-        sortable
-        width="240"
-        label="发布时间"
-        prop="publishTime"
-      ></el-table-column>
-      <el-table-column
-        prop="href"
-        width="240"
-        label="博客链接"
-      ></el-table-column>
+      <el-table-column sortable width="240" label="发布时间" prop="publishTime"></el-table-column>
+      <el-table-column prop="href" width="240" label="博客链接"></el-table-column>
       <el-table-column prop="imgSrc" label="博客图片链接"></el-table-column>
       <el-table-column label="摘要" prop="digest"></el-table-column>
       <el-table-column width="140" label="操作" fixed="right">
@@ -67,17 +53,9 @@
 
     <create-new-blog :dialog-visible="addBlogVisible" @close="closeAddBlog" />
 
-    <edit-blog
-      :dialog-visible="itemEditorVisible"
-      :form-item="itemValue"
-      @close="closeItemEditor"
-    />
+    <edit-blog :dialog-visible="itemEditorVisible" :form-item="itemValue" @close="closeItemEditor" />
 
-    <check-blog
-      :drawer-visible="itemCheckVisible"
-      :item="itemValue"
-      @close="closeItemCheck"
-    />
+    <check-blog :drawer-visible="itemCheckVisible" :item="itemValue" @close="closeItemCheck" />
   </div>
 </template>
 
@@ -182,8 +160,7 @@ export default {
       let params = {
         cond: selectCond,
         pageSize: size || this.pagination.size,
-        start:
-          (currentPage - 1) * this.pagination.size + this.dataList.length || 0
+        start: (currentPage - 1) * this.pagination.size + this.dataList.length || 0
       };
 
       let res = await this.$HttpApi.getBlogs(params);

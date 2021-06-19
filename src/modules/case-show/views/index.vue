@@ -4,9 +4,7 @@
     <div class="list-contaner">
       <ul>
         <li v-for="(item, i) in componentList" :key="i">
-          <router-link :to="item.path" tag="a">{{
-            item.meta.name
-          }}</router-link>
+          <router-link :to="item.path" tag="a">{{item.meta.name}}</router-link>
         </li>
       </ul>
     </div>
@@ -31,27 +29,27 @@ export default {
 
 <style lang='less' scoped>
 .case-show {
-	h2 {
-		margin-bottom: 80px;
-	}
-	.list-contaner {
-		width: 1180px;
-		margin: 0 auto;
-		ul {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			li {
-				width: 33%;
-				padding-left: 20px;
-				text-align: left;
-				list-style: inside;
+  h2 {
+    margin-bottom: 80px;
+  }
+  .list-contaner {
+    width: 1180px;
+    margin: 0 auto;
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      li {
+        width: 33%;
+        padding-left: 20px;
+        text-align: left;
+        list-style: inside;
         font-size: 20px;
-				a {
-					text-decoration: none;
-				}
-			}
-		}
-	}
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 </style>
