@@ -6,10 +6,11 @@ const moudulesApi = util.automatedImportForArray(
 	require.context('@/modules', true, /axios\/.+\.js/)
 );
 
-export default class httpApi extends util.classMixin(...moudulesApi) {
+export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
 	constructor() {
 		super();
 		this.cookie = new Cookie();
+		this.axios = super.getInstance();
 	}
 
 	/**
@@ -17,7 +18,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	getBasicinfo(params) {
-		return instance.get('/api/person/getBasicinfo', { params: params });
+		return this.axios.get('/api/person/getBasicinfo', { params: params });
 	}
 
 	/**
@@ -25,7 +26,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	updateBasicinfo(params) {
-		return instance.post('/api/person/update', params);
+		return this.axios.post('/api/person/update', params);
 	}
 
 	/**
@@ -33,7 +34,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	getExperiences(params) {
-		return instance.get('/api/person/getExperiences', { params: params });
+		return this.axios.get('/api/person/getExperiences', { params: params });
 	}
 
 	/**
@@ -41,7 +42,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	createExperience(params) {
-		return instance.post('/api/person/createExperience', params);
+		return this.axios.post('/api/person/createExperience', params);
 	}
 
 	/**
@@ -49,7 +50,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	updateExperience(params) {
-		return instance.post('/api/person/updateExperience', params);
+		return this.axios.post('/api/person/updateExperience', params);
 	}
 
 	/**
@@ -57,7 +58,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	deleteExperience(params) {
-		return instance.post('/api/person/deleteExperience', params);
+		return this.axios.post('/api/person/deleteExperience', params);
 	}
 
 	/**
@@ -65,7 +66,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	getBlogs(params) {
-		return instance.get('/api/person/getBlogs', { params: params });
+		return this.axios.get('/api/person/getBlogs', { params: params });
 	}
 
 	/**
@@ -73,7 +74,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	createBlog(params) {
-		return instance.post('/api/person/createBlog', params);
+		return this.axios.post('/api/person/createBlog', params);
 	}
 
 	/**
@@ -81,7 +82,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	updateBlog(params) {
-		return instance.post('/api/person/updateBlog', params);
+		return this.axios.post('/api/person/updateBlog', params);
 	}
 
 	/**
@@ -89,7 +90,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	deleteBlog(params) {
-		return instance.post('/api/person/deleteBlog', params);
+		return this.axios.post('/api/person/deleteBlog', params);
 	}
 
 	/**
@@ -97,7 +98,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	getMsgs(params) {
-		return instance.get('/api/person/getMsgs', { params: params });
+		return this.axios.get('/api/person/getMsgs', { params: params });
 	}
 
 	/**
@@ -105,7 +106,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	createMsg(params) {
-		return instance.post('/api/person/createMsg', params);
+		return this.axios.post('/api/person/createMsg', params);
 	}
 
 	/**
@@ -113,7 +114,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	deleteMsg(params) {
-		return instance.post('/api/person/deleteMsg', params);
+		return this.axios.post('/api/person/deleteMsg', params);
 	}
 
 	/**
@@ -121,7 +122,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	getBMYXProductList(params) {
-		return instance.get('/api/bmyx/getData', { params: params });
+		return this.axios.get('/api/bmyx/getData', { params: params });
 	}
 
 	/**
@@ -129,7 +130,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	searchByNameOrSort(params) {
-		return instance.post('/api/bmyx/searchByNameOrSort', params);
+		return this.axios.post('/api/bmyx/searchByNameOrSort', params);
 	}
 
 	/**
@@ -137,7 +138,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	createProduct(params) {
-		return instance.post('/api/bmyx/createProduct', params);
+		return this.axios.post('/api/bmyx/createProduct', params);
 	}
 
 	/**
@@ -145,7 +146,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	updatedProduct(params) {
-		return instance.post('/api/bmyx/updateProduct', params);
+		return this.axios.post('/api/bmyx/updateProduct', params);
 	}
 
 	/**
@@ -153,7 +154,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	changeProductBan(params) {
-		return instance.post('/api/bmyx/changeProductBan', params);
+		return this.axios.post('/api/bmyx/changeProductBan', params);
 	}
 
 	/**
@@ -161,7 +162,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {*} params
 	 */
 	delProduct(params) {
-		return instance.post('/api/bmyx/delProduct', params);
+		return this.axios.post('/api/bmyx/delProduct', params);
 	}
 
 	/**
@@ -169,7 +170,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	getBMYXSort(params) {
-		return instance.get('/api/bmyx/getSort', { params: params });
+		return this.axios.get('/api/bmyx/getSort', { params: params });
 	}
 
 	/**
@@ -177,7 +178,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	updatedSort(params) {
-		return instance.post('/api/bmyx/updateSort', params);
+		return this.axios.post('/api/bmyx/updateSort', params);
 	}
 
 	/**
@@ -185,7 +186,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	createSort(params) {
-		return instance.post('/api/bmyx/createSort', params);
+		return this.axios.post('/api/bmyx/createSort', params);
 	}
 
 	/**
@@ -193,7 +194,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	delSort(params) {
-		return instance.post('/api/bmyx/delSort', params);
+		return this.axios.post('/api/bmyx/delSort', params);
 	}
 
 	/**
@@ -201,14 +202,14 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	delUploadImage(params) {
-		return instance.post('/api/bmyx/delUploadImage', { filename: params });
+		return this.axios.post('/api/bmyx/delUploadImage', { filename: params });
 	}
 
 	/**
 	 * 获取 notice
 	 */
 	getBMYXNotice() {
-		return instance.get('/api/bmyx/getNotice');
+		return this.axios.get('/api/bmyx/getNotice');
 	}
 
 	/**
@@ -216,7 +217,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	updatedNotice(params) {
-		return instance.post('/api/bmyx/updateNotice', params);
+		return this.axios.post('/api/bmyx/updateNotice', params);
 	}
 
 	/**
@@ -224,14 +225,14 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	login(params) {
-		return instance.post('/api/account/login', params);
+		return this.axios.post('/api/account/login', params);
 	}
 
 	/**
 	 * 登出
 	 */
 	logout() {
-		return instance.get('/api/account/logout');
+		return this.axios.get('/api/account/logout');
 	}
 
 	/**
@@ -239,7 +240,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	getAccountByCond(params) {
-		return instance.get('/api/account/getAccountByCond', { params: params });
+		return this.axios.get('/api/account/getAccountByCond', { params: params });
 	}
 
 	/**
@@ -247,7 +248,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	createAccount(params) {
-		return instance.post('/api/account/createAccount', params);
+		return this.axios.post('/api/account/createAccount', params);
 	}
 
 	/**
@@ -255,7 +256,7 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 * @param {object} params
 	 */
 	updatedAccount(params) {
-		return instance.post('/api/account/updateAccount', params);
+		return this.axios.post('/api/account/updateAccount', params);
 	}
 
 	/**
@@ -263,16 +264,9 @@ export default class httpApi extends util.classMixin(...moudulesApi) {
 	 */
 	getCurrentAccount() {
 		const account = this.cookie.getUserInfo();
-		return instance.get('/api/account/getCurrentAccount', {
+		return this.axios.get('/api/account/getCurrentAccount', {
 			params: { account: account }
 		});
 	}
 
-	/**
-	 * 创建文章
-	 * @param {*} params
-	 * @returns
-	 */
-	createArticle = (params) =>
-		instance.post('/api/article/createArticle', params);
 }
