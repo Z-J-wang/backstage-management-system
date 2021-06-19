@@ -11,11 +11,11 @@ import bmyxManagementRoutes from '@/modules/bmyx-management/routes/index';
 import caseShowRoutes from '@/modules/case-show/routes/index';
 import markdownRoutes from '@/modules/markdown/routes/index';
 
+let auth = 3;
 const axios = new Axios();
 const cookie = new Cookie();
-let auth = 3;
-
 const originalPush = VueRouter.prototype.push;
+
 VueRouter.prototype.push = function push(location) {
 	return originalPush.call(this, location).catch((err) => err);
 };
@@ -29,7 +29,7 @@ const routes = [
 		component: { render: (e) => e('router-view') }
 	},
 	{
-		path: '/lodin',
+		path: '/login',
 		name: 'Login',
 		meta: {
 			auth: 3

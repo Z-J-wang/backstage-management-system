@@ -5,7 +5,8 @@
         type="primary"
         icon="el-icon-plus"
         @click="addBlogVisible = true"
-      >新增一笔</el-button>
+        >新增一笔</el-button
+      >
     </div>
     <el-table
       stripe
@@ -15,11 +16,7 @@
       highlight-current-row
       :data="dataList"
     >
-      <el-table-column
-        sortable
-        prop="title"
-        label="博客标题"
-      ></el-table-column>
+      <el-table-column sortable prop="title" label="博客标题"></el-table-column>
       <el-table-column
         sortable
         width="240"
@@ -31,19 +28,9 @@
         width="240"
         label="博客链接"
       ></el-table-column>
-      <el-table-column
-        prop="imgSrc"
-        label="博客图片链接"
-      ></el-table-column>
-      <el-table-column
-        label="摘要"
-        prop="digest"
-      ></el-table-column>
-      <el-table-column
-        width="140"
-        label="操作"
-        fixed="right"
-      >
+      <el-table-column prop="imgSrc" label="博客图片链接"></el-table-column>
+      <el-table-column label="摘要" prop="digest"></el-table-column>
+      <el-table-column width="140" label="操作" fixed="right">
         <template slot-scope="scope">
           <el-button
             circle
@@ -78,10 +65,7 @@
       </el-table-column>
     </el-table>
 
-    <create-new-blog
-      :dialog-visible="addBlogVisible"
-      @close="closeAddBlog"
-    />
+    <create-new-blog :dialog-visible="addBlogVisible" @close="closeAddBlog" />
 
     <edit-blog
       :dialog-visible="itemEditorVisible"
@@ -98,16 +82,16 @@
 </template>
 
 <script>
-import CreateNewBlog from "@/modules/person-management/components/blog/CreateNewBlog.vue";
-import EditBlog from "@/modules/person-management/components/blog/EditBlog.vue";
-import CheckBlog from "@/modules/person-management/components/blog/CheckBlog.vue";
+import CreateNewBlog from '@/modules/person-management/components/blog/CreateNewBlog.vue';
+import EditBlog from '@/modules/person-management/components/blog/EditBlog.vue';
+import CheckBlog from '@/modules/person-management/components/blog/CheckBlog.vue';
 
 export default {
-  name: "BlogManagement",
+  name: 'BlogManagement',
   components: {
     EditBlog,
     CheckBlog,
-    CreateNewBlog,
+    CreateNewBlog
   },
 
   data() {
@@ -120,8 +104,8 @@ export default {
       pagination: {
         total: 0,
         currentPage: 1,
-        size: 10,
-      },
+        size: 10
+      }
     };
   },
 
@@ -183,8 +167,8 @@ export default {
       let data = await this.deleteBlog(id);
       if (data) {
         this.$message({
-          type: "success",
-          message: "删除成功",
+          type: 'success',
+          message: '删除成功'
         });
         this.getData();
       }
@@ -199,8 +183,7 @@ export default {
         cond: selectCond,
         pageSize: size || this.pagination.size,
         start:
-          (currentPage - 1) * this.pagination.size +
-          this.dataList.length || 0,
+          (currentPage - 1) * this.pagination.size + this.dataList.length || 0
       };
 
       let res = await this.$HttpApi.getBlogs(params);
@@ -229,9 +212,9 @@ export default {
       }
 
       return data;
-    },
+    }
     /***************************** ajax 操作部分 End  *********************************/
-  },
+  }
 };
 </script>
 

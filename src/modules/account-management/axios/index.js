@@ -29,6 +29,16 @@ class Api extends AxiosConfig {
 	updatedAccount(params) {
 		return this.axios.post('/api/account/updateAccount', params);
 	}
+
+	/**
+	 * 获取当前用户信息
+	 */
+	getCurrentAccount() {
+		const account = this.cookie.getUserInfo();
+		return this.axios.get('/api/account/getCurrentAccount', {
+			params: { account: account }
+		});
+	}
 }
 
 export default Api;
