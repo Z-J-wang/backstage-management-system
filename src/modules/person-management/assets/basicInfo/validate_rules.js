@@ -29,6 +29,6 @@ const rules = {
     message: '现居地不能为空',
     trigger: 'blur'
   }]
-}
+};
 
-export default rules
+export default rules;

@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "uploadImage",
+  name: 'upload-image',
   props: {
     imageUrl: {
       type: String,
@@ -35,12 +35,12 @@ export default {
 
     width: {
       type: String,
-      default: "178",
+      default: '178',
     },
 
     height: {
       type: String,
-      default: "178",
+      default: '178',
     },
   },
 
@@ -48,7 +48,7 @@ export default {
     return {
       mutableImageUrl: this.imageUrl,
       oldSrc: {
-        oldImgSrc: "",
+        oldImgSrc: '',
       },
     };
   },
@@ -58,18 +58,18 @@ export default {
   methods: {
     handleAvatarSuccess(res) {
       this.mutableImageUrl = res.data;
-      this.$emit("updateImgSrc", this.mutableImageUrl);
+      this.$emit('updateImgSrc', this.mutableImageUrl);
     },
 
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
+      const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error("上传图片只能是 JPG 格式!");
+        this.$message.error('上传图片只能是 JPG 格式!');
       }
       if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 2MB!");
+        this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
     },

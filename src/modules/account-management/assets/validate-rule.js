@@ -24,6 +24,6 @@ const rules = {
     message: '请选择账户权限',
     trigger: 'blur'
   }]
-}
+};
 
-export default rules
+export default rules;

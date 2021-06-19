@@ -29,7 +29,7 @@ Vue.use(messageBox);
 Vue.use(globalDirectives);
 
 new Vue({
-	router,
-	store,
-	render: (h) => h(App)
+  router,
+  store,
+  render: (h) => h(App)
 }).$mount('#app');

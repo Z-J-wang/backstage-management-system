@@ -3,12 +3,12 @@
 // 金额校验
 const validatePrice = (rule, value, callback) => {
   if (isNaN(value)) {
-    callback(new Error('请输入正确的金额'))
+    callback(new Error('请输入正确的金额'));
   } else {
-    callback()
+    callback();
   }
-}
+};
 
 export default {
   validatePrice
-}
+};

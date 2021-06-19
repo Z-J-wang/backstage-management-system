@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "CheckExperience",
+  name: 'check-experience',
   props: {
     drawerVisible: {
       type: Boolean,
@@ -45,7 +45,7 @@ export default {
 
   methods: {
     handleClose() {
-      this.$emit("close");
+      this.$emit('close');
     },
   },
 };

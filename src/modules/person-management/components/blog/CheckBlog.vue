@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  name: "CheckBlog",
+  name: 'check-blog',
   props: {
     drawerVisible: {
       type: Boolean,
@@ -59,7 +59,7 @@ export default {
 
   methods: {
     handleClose() {
-      this.$emit("close");
+      this.$emit('close');
     },
   },
 };

@@ -95,7 +95,7 @@
 </template>
 <script>
 export default {
-  name: "CreateNewMessage",
+  name: 'create-new-message',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -106,36 +106,36 @@ export default {
   data() {
     return {
       formItem: {
-        name: "",
-        datetime: "",
-        email: "",
-        website: "",
-        subject: "",
-        content: "",
+        name: '',
+        datetime: '',
+        email: '',
+        website: '',
+        subject: '',
+        content: '',
       },
 
       rules: {
         name: [
           {
             required: true,
-            message: "请输入发信人",
-            trigger: "blur",
+            message: '请输入发信人',
+            trigger: 'blur',
           },
         ],
 
         datetime: [
           {
             required: true,
-            message: "请输入发信时间",
-            trigger: "blur",
+            message: '请输入发信时间',
+            trigger: 'blur',
           },
         ],
 
         email: [
           {
             required: true,
-            message: "请输入邮箱",
-            trigger: "blur",
+            message: '请输入邮箱',
+            trigger: 'blur',
           },
         ],
 
@@ -150,26 +150,26 @@ export default {
         subject: [
           {
             required: true,
-            message: "请输入主题",
-            trigger: "blur",
+            message: '请输入主题',
+            trigger: 'blur',
           },
         ],
 
         content: [
           {
             required: true,
-            message: "请输入内容",
-            trigger: "blur",
+            message: '请输入内容',
+            trigger: 'blur',
           },
           {
             maxLength: 250,
-            message: "限定长度为250个字符",
-            trigger: "blur",
+            message: '限定长度为250个字符',
+            trigger: 'blur',
           },
         ],
       },
 
-      title: "新增一条教育经历记录",
+      title: '新增一条教育经历记录',
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -177,25 +177,25 @@ export default {
 
         shortcuts: [
           {
-            text: "今天",
+            text: '今天',
             onClick(picker) {
-              picker.$emit("pick", new Date());
+              picker.$emit('pick', new Date());
             },
           },
           {
-            text: "昨天",
+            text: '昨天',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit("pick", date);
+              picker.$emit('pick', date);
             },
           },
           {
-            text: "一周前",
+            text: '一周前',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", date);
+              picker.$emit('pick', date);
             },
           },
         ],
@@ -205,10 +205,10 @@ export default {
 
   methods: {
     handleClose() {
-      this.$confirm("确认关闭？")
+      this.$confirm('确认关闭？')
         .then(() => {
-          this.$refs["form"].resetFields();
-          this.$emit("close");
+          this.$refs['form'].resetFields();
+          this.$emit('close');
         })
         .catch(() => { });
     },
@@ -219,10 +219,10 @@ export default {
           let data = this.createMsg(this.formItem);
           if (data) {
             this.$message({
-              type: "success",
-              message: "新增成功",
+              type: 'success',
+              message: '新增成功',
             });
-            this.$emit("close");
+            this.$emit('close');
             this.$parent.getData();
           }
         } else {

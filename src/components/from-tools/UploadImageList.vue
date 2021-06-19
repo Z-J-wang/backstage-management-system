@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "uploadImageList",
+  name: 'upload-image-list',
   props: {
     action: {
       type: String,
@@ -70,10 +70,10 @@ export default {
 
   methods: {
     change(file, fileList) {
-      const typeList = ["image/jpeg", "image/png", "image/jpg"];
+      const typeList = ['image/jpeg', 'image/png', 'image/jpg'];
       const isLt2M = file.raw.size / 1024 / 1024 < 0.5;
       if (typeList.indexOf(file.raw.type) < 0) {
-        this.$message.error("上传图片只能是 jpg / png / jpeg 格式!");
+        this.$message.error('上传图片只能是 jpg / png / jpeg 格式!');
         fileList.pop();
         this.fileList = fileList;
 
@@ -81,19 +81,19 @@ export default {
       }
 
       if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 500 kb!");
+        this.$message.error('上传图片大小不能超过 500 kb!');
         fileList.pop();
         this.fileList = fileList;
 
         return false;
       }
-      this.$refs["uploadList"].submit();
+      this.$refs['uploadList'].submit();
     },
 
     handleExceed() {
       this.$message({
         message: `一个商品只能添加${this.limit}张图片。`,
-        type: "warning",
+        type: 'warning',
       });
     },
 
@@ -106,11 +106,11 @@ export default {
           this.imageUrlList.push(element.response.data);
         }
       });
-      this.$emit("updateImgSrcList", this.imageUrlList);
+      this.$emit('updateImgSrcList', this.imageUrlList);
     },
 
     handleRemove(file) {
-      this.$emit("delUploadImage", file.name);
+      this.$emit('delUploadImage', file.name);
     },
   },
 };

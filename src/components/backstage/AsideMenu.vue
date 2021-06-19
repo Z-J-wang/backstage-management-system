@@ -70,29 +70,29 @@
 
 <script>
 export default {
-  name: "aside-menu",
+  name: 'aside-menu',
   data() {
     return {
       isCollapse: false,
       menuList: [
         {
-          title: "个人信息管理",
-          path: "",
+          title: '个人信息管理',
+          path: '',
           group: [
             {
-              groupTitle: "分组一",
+              groupTitle: '分组一',
               groupList: [
                 {
-                  title: "个人基础信息",
-                  path: "/PersonalInfo",
+                  title: '个人基础信息',
+                  path: '/PersonalInfo',
                 },
                 {
-                  title: "dataView",
-                  path: "/tableView",
+                  title: 'dataView',
+                  path: '/tableView',
                 },
                 {
-                  title: "测试图片压缩",
-                  path: "/test",
+                  title: '测试图片压缩',
+                  path: '/test',
                 },
               ],
             },
@@ -100,37 +100,37 @@ export default {
         },
 
         {
-          title: "导航二",
-          path: "",
+          title: '导航二',
+          path: '',
           group: [
             {
-              groupTitle: "分组一",
+              groupTitle: '分组一',
               groupList: [
                 {
-                  title: "选项1",
-                  path: "",
+                  title: '选项1',
+                  path: '',
                 },
                 {
-                  title: "选项2",
-                  path: "",
-                },
-              ],
-            },
-            {
-              groupTitle: "分组2",
-              groupList: [
-                {
-                  title: "选项3",
-                  path: "",
+                  title: '选项2',
+                  path: '',
                 },
               ],
             },
             {
-              groupTitle: "",
+              groupTitle: '分组2',
               groupList: [
                 {
-                  title: "选项4",
-                  path: "",
+                  title: '选项3',
+                  path: '',
+                },
+              ],
+            },
+            {
+              groupTitle: '',
+              groupList: [
+                {
+                  title: '选项4',
+                  path: '',
                 },
               ],
             },
@@ -142,7 +142,7 @@ export default {
   },
 
   mounted() {
-    this.auth = this.$Cookie.getCookie("auth");
+    this.auth = this.$Cookie.getCookie('auth');
   },
 };
 </script>

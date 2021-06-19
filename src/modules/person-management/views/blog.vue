@@ -5,7 +5,7 @@
         type="primary"
         icon="el-icon-plus"
         @click="addBlogVisible = true"
-        >新增一笔</el-button
+      >新增一笔</el-button
       >
     </div>
     <el-table
@@ -87,7 +87,7 @@ import EditBlog from '@/modules/person-management/components/blog/EditBlog.vue';
 import CheckBlog from '@/modules/person-management/components/blog/CheckBlog.vue';
 
 export default {
-  name: 'BlogManagement',
+  name: 'blog-management',
   components: {
     EditBlog,
     CheckBlog,

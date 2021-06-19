@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "uploadVideo",
+  name: 'upload-video',
   props: {
     videoUrl: {
       type: String,
@@ -41,12 +41,12 @@ export default {
 
     width: {
       type: String,
-      default: "178",
+      default: '178',
     },
 
     height: {
       type: String,
-      default: "178",
+      default: '178',
     },
   },
 
@@ -54,7 +54,7 @@ export default {
     return {
       mutablevideoUrl: this.videoUrl, // 上传成功的视频路径
       oldSrc: {
-        oldvideoSrc: "",
+        oldvideoSrc: '',
       },
     };
   },
@@ -66,19 +66,19 @@ export default {
   methods: {
     handleAvatarSuccess(res) {
       this.mutablevideoUrl = res.data;
-      this.$emit("updatevideoSrc", this.mutablevideoUrl);
+      this.$emit('updatevideoSrc', this.mutablevideoUrl);
     },
 
     beforeAvatarUpload(file) {
       console.log(file);
-      const isJPG = file.type === "video/mp4";
+      const isJPG = file.type === 'video/mp4';
       const isLt2M = file.size / 1024 / 1024 < 50;
 
       if (!isJPG) {
-        this.$message.error("上传视频只能是 mp4 格式!");
+        this.$message.error('上传视频只能是 mp4 格式!');
       }
       if (!isLt2M) {
-        this.$message.error("上传视频大小不能超过 50 MB!");
+        this.$message.error('上传视频大小不能超过 50 MB!');
       }
 
       return isJPG && isLt2M;

@@ -5,7 +5,7 @@
  * @param {Function} context require.context()返回的结果；
  * @returns {Array} 查找到的模块加载后,存入一个数组抛出
  */
- function automatedImportForArray(context) {
+function automatedImportForArray(context) {
   return context.keys().map(item => {
     var value = context(item);
     return value.default || value;

@@ -83,7 +83,7 @@
 </template>
 <script>
 export default {
-  name: "EditBlog",
+  name: 'edit-blog',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -101,24 +101,24 @@ export default {
         title: [
           {
             required: true,
-            message: "请输入博客标题",
-            trigger: "blur",
+            message: '请输入博客标题',
+            trigger: 'blur',
           },
         ],
 
         publishTime: [
           {
             required: true,
-            message: "请输入博客发布时间",
-            trigger: "blur",
+            message: '请输入博客发布时间',
+            trigger: 'blur',
           },
         ],
 
         href: [
           {
             required: true,
-            message: "请输入博客链接",
-            trigger: "blur",
+            message: '请输入博客链接',
+            trigger: 'blur',
           },
         ],
 
@@ -138,13 +138,13 @@ export default {
           // },
           {
             maxLength: 250,
-            message: "请输入博客摘要",
-            trigger: "blur",
+            message: '请输入博客摘要',
+            trigger: 'blur',
           },
         ],
       },
 
-      title: "修改博客信息",
+      title: '修改博客信息',
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -152,25 +152,25 @@ export default {
 
         shortcuts: [
           {
-            text: "今天",
+            text: '今天',
             onClick(picker) {
-              picker.$emit("pick", new Date());
+              picker.$emit('pick', new Date());
             },
           },
           {
-            text: "昨天",
+            text: '昨天',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit("pick", date);
+              picker.$emit('pick', date);
             },
           },
           {
-            text: "一周前",
+            text: '一周前',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", date);
+              picker.$emit('pick', date);
             },
           },
         ],
@@ -180,10 +180,10 @@ export default {
 
   methods: {
     handleClose() {
-      this.$confirm("确认关闭？")
+      this.$confirm('确认关闭？')
         .then(() => {
-          this.$refs["form"].resetFields();
-          this.$emit("close");
+          this.$refs['form'].resetFields();
+          this.$emit('close');
         })
         .catch(() => { });
     },
@@ -194,11 +194,11 @@ export default {
           let data = await this.updateBlog(this.formItem);
           if (data) {
             this.$message({
-              type: "success",
-              message: "更新成功",
+              type: 'success',
+              message: '更新成功',
             });
             this.$parent.getData();
-            this.$emit("close");
+            this.$emit('close');
           }
         } else {
           return false;

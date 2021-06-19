@@ -198,10 +198,10 @@ class PasswordInput {
   }
 }`;
 
-const CSS = ``;
+const CSS = '';
 
 export default {
-	HTML,
-	Javascript,
-	CSS
+  HTML,
+  Javascript,
+  CSS
 };

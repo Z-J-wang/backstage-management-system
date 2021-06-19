@@ -21,6 +21,6 @@ const rules = {
       trigger: 'blur'
     }
   ]
-}
+};
 
-export default rules
+export default rules;

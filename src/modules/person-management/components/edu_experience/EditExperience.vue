@@ -66,7 +66,7 @@
 </template>
 <script>
 export default {
-  name: "EditExperience",
+  name: 'edit-experience',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -82,27 +82,27 @@ export default {
     return {
       rules: {
         theme: [
-          { required: true, message: "请输入主题", trigger: "blur" },
+          { required: true, message: '请输入主题', trigger: 'blur' },
         ],
 
         dateTime: [
-          { required: true, message: "请输入时间", trigger: "blur" },
+          { required: true, message: '请输入时间', trigger: 'blur' },
         ],
 
         detail: [
-          { required: true, message: "请输入描述", trigger: "blur" },
+          { required: true, message: '请输入描述', trigger: 'blur' },
         ],
       },
-      title: "教育经历编辑",
+      title: '教育经历编辑',
     };
   },
 
   methods: {
     handleClose() {
-      this.$confirm("确认关闭？")
+      this.$confirm('确认关闭？')
         .then(() => {
-          this.$refs["form"].resetFields();
-          this.$emit("close");
+          this.$refs['form'].resetFields();
+          this.$emit('close');
         })
         .catch(() => { });
     },
@@ -113,12 +113,12 @@ export default {
           let data = await this.updateExperience(this.formItem);
           if (data) {
             this.$message({
-              type: "success",
-              message: "更新成功",
+              type: 'success',
+              message: '更新成功',
             });
             this.$parent.getData();
-            this.$emit("close");
-            this.$refs["form"].resetFields();
+            this.$emit('close');
+            this.$refs['form'].resetFields();
           }
         } else {
           return false;

@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "HeaderBar",
+  name: 'header-bar',
   data() {
     return {
       userInfo: {},
@@ -35,8 +35,8 @@ export default {
       } else {
         this.$Cookie.removeToken();
         this.$Cookie.removeUserInfo();
-        this.$Cookie.removeCookie("auth");
-        this.$router.push({ name: "login" });
+        this.$Cookie.removeCookie('auth');
+        this.$router.push({ name: 'login' });
       }
     },
   },

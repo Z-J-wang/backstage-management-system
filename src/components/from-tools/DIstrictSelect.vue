@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import city from "../../../public/chinaProvince";
+import city from '../../../public/chinaProvince';
 
 export default {
-  name: "DistrictSelect",
+  name: 'district-select',
 
   // 自定义组件实现v-model
   model: {
-    prop: "district",
-    event: "returnBack",
+    prop: 'district',
+    event: 'returnBack',
   },
 
   props: {
     size: {
       type: String,
-      default: "medium", // medium / small / mini
+      default: 'medium', // medium / small / mini
     },
 
     width: {
@@ -57,7 +57,7 @@ export default {
 
   methods: {
     handleChange(value) {
-      this.$emit("returnBack", value);
+      this.$emit('returnBack', value);
     },
   },
 };

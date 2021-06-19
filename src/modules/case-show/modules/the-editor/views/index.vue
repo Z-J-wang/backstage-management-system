@@ -23,7 +23,7 @@ export default {
     return {
       content: '<p>阿萨大大十大</p>',
       sourcecode: {
-        HTML: ``,
+        HTML: '',
         Javascript: '',
         CSS: ''
       }

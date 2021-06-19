@@ -88,10 +88,10 @@
 </template>
 
 <script>
-import CheckMessage from "@/modules/person-management/components/messages/CheckMessage.vue";
-import CreateNewMessage from "@/modules/person-management/components/messages/CreateNewMessage.vue";
+import CheckMessage from '@/modules/person-management/components/messages/CheckMessage.vue';
+import CreateNewMessage from '@/modules/person-management/components/messages/CreateNewMessage.vue';
 export default {
-  name: "MessageManagement",
+  name: 'message-management',
   components: {
     CheckMessage,
     CreateNewMessage,
@@ -103,12 +103,12 @@ export default {
       itemCheckVisible: false,
       itemValue: {
         id: 1,
-        name: "",
-        datatime: "",
-        emial: "",
-        website: "",
-        subject: "",
-        content: "",
+        name: '',
+        datatime: '',
+        emial: '',
+        website: '',
+        subject: '',
+        content: '',
       },
 
       dataList: [],
@@ -165,8 +165,8 @@ export default {
       let data = await this.deleteMsg(id);
       if (data) {
         this.$message({
-          type: "success",
-          message: "删除成功",
+          type: 'success',
+          message: '删除成功',
         });
         this.getData();
       }

@@ -66,7 +66,7 @@
 </template>
 <script>
 export default {
-  name: "CreateNewExperience",
+  name: 'create-new-experience',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -77,35 +77,35 @@ export default {
   data() {
     return {
       formItem: {
-        theme: "",
-        dateTime: "",
-        detail: "",
+        theme: '',
+        dateTime: '',
+        detail: '',
       },
 
       rules: {
         theme: [
-          { required: true, message: "请输入主题", trigger: "blur" },
+          { required: true, message: '请输入主题', trigger: 'blur' },
         ],
 
         dateTime: [
-          { required: true, message: "请输入时间", trigger: "blur" },
+          { required: true, message: '请输入时间', trigger: 'blur' },
         ],
 
         detail: [
-          { required: true, message: "请输入描述", trigger: "blur" },
+          { required: true, message: '请输入描述', trigger: 'blur' },
         ],
       },
 
-      title: "新增一条教育经历记录",
+      title: '新增一条教育经历记录',
     };
   },
 
   methods: {
     handleClose() {
-      this.$confirm("确认关闭？")
+      this.$confirm('确认关闭？')
         .then(() => {
-          this.$refs["form"].resetFields();
-          this.$emit("close");
+          this.$refs['form'].resetFields();
+          this.$emit('close');
         })
         .catch(() => { });
     },
@@ -116,11 +116,11 @@ export default {
           let data = this.createExperience(this.formItem);
           if (data) {
             this.$message({
-              type: "success",
-              message: "新增成功",
+              type: 'success',
+              message: '新增成功',
             });
-            this.$refs["form"].resetFields();
-            this.$emit("close");
+            this.$refs['form'].resetFields();
+            this.$emit('close');
             this.$parent.getData();
           }
         } else {
