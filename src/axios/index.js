@@ -1,8 +1,14 @@
 import instance from './config';
 import Cookie from '../util/cookie';
+import util from '@/util/index';
 
-export default class HttpApi {
+const moudulesApi = util.automatedImportForArray(
+	require.context('@/modules', true, /axios\/.+\.js/)
+);
+
+export default class httpApi extends util.classMixin(...moudulesApi) {
 	constructor() {
+		super();
 		this.cookie = new Cookie();
 	}
 

@@ -2,7 +2,7 @@ import util from '@/util/index';
 
 let modulesRoutes = []; // modules 中的路由
 // 自动加载 /case-show/modules/ 里全部的路由文件
-const arr_imports = util.automatedImport(
+const arr_imports = util.automatedImportForArray(
 	require.context('@/modules/case-show/modules/', true, /routes\/index\.js/)
 );
 
