@@ -248,7 +248,7 @@ export default class HttpApi {
 	 * 创建账户
 	 * @param {object} params
 	 */
-	updatedAccount() {
+	updatedAccount(params) {
 		return instance.post('/api/account/updateAccount', params);
 	}
 
