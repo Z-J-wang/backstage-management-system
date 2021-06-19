@@ -11,11 +11,10 @@ import Axios from './axios/index.js';
 import custom_validator from '@a/js/custom-validator.js';
 
 import '@a/css/common.less';
-import footBar from '@/components/backstage/FooterBar.vue';
 import VueHighlightJS from 'vue-highlightjs';
 import 'highlight.js/styles/atom-one-light.css';
-import templateCode from '@/components/common/template-code.vue'
-import messageBox from '@/modules/case-show/modules/messageBox/components/messageBox'
+import messageBox from '@/modules/case-show/modules/messageBox/components/messageBox';
+import globalDirectives from '@/global-components/index';
 
 Vue.config.productionTip = false;
 Vue.prototype.$Cookie = new Cookies();
@@ -27,8 +26,7 @@ Vue.prototype.$Util = util;
 Vue.use(ElementUI);
 Vue.use(VueHighlightJS);
 Vue.use(messageBox);
-Vue.component('footBar', footBar);
-Vue.component('template-code', templateCode);
+Vue.use(globalDirectives);
 
 new Vue({
 	router,

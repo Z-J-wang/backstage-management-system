@@ -12,10 +12,7 @@
         <el-main>
           <el-page-header @back="goBack" :content="$route.name">
           </el-page-header>
-          <router-view></router-view>
-          <!-- <el-footer>
-                        <footer-bar></footer-bar>
-                    </el-footer> -->
+          <slot></slot>
         </el-main>
       </el-container>
     </el-container>
@@ -26,7 +23,6 @@
 <script>
 import asideMenu from '@c/backstage/AsideMenu.vue';
 import headerBar from '@c/backstage/HeaderBar.vue';
-// import footerbar from "@c/backstage/FooterBar.vue";
 import backtop from '@c/backstage/BackTop.vue';
 
 export default {
@@ -34,7 +30,6 @@ export default {
   components: {
     'aside-menu': asideMenu,
     'header-bar': headerBar,
-    // "footer-bar": footerbar,
     'back-top': backtop
   },
 
