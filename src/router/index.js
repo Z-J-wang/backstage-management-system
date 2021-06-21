@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 // import store from '../store/index'
-import Home from '../views/Home.vue';
 import Cookie from '../util/cookie';
 import Axios from '../axios/index';
-
 import accountManagementRoutes from '@/modules/account-management/routes/index';
 import personManagementRoutes from '@/modules/person-management/routes/index';
 import bmyxManagementRoutes from '@/modules/bmyx-management/routes/index';
@@ -17,7 +15,7 @@ const cookie = new Cookie();
 const originalPush = VueRouter.prototype.push;
 
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err);
+  return originalPush.call(this, location).catch(err => err);
 };
 
 Vue.use(VueRouter);
@@ -25,8 +23,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: 'case-show',
-    component: { render: (e) => e('router-view') }
+    name: 'home',
+    meta: {
+      auth: 3
+    },
+    component: () => import(/* webpackChunkName: "home" */ '../views/home.vue')
   },
   {
     path: '/login',
@@ -34,19 +35,13 @@ const routes = [
     meta: {
       auth: 3
     },
-    component: () =>
-      import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
-    path: '/Home',
-    name: 'Home',
-    component: Home,
-    redirect: 'Home',
-    children: [
-      ...accountManagementRoutes,
-      ...personManagementRoutes,
-      ...bmyxManagementRoutes
-    ]
+    path: '/backstage',
+    name: 'backstage',
+    component: () => import(/* webpackChunkName: "backsstage" */ '../views/backstage.vue'),
+    children: [...accountManagementRoutes, ...personManagementRoutes, ...bmyxManagementRoutes]
   },
   {
     path: '/about',
@@ -54,8 +49,7 @@ const routes = [
     meta: {
       auth: 0
     },
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/404',
@@ -85,10 +79,10 @@ router.beforeEach((to, from, next) => {
     if (token) {
       axios
         .getCurrentAccount()
-        .then((res) => {
+        .then(res => {
           auth = res.data.data.auth;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         })
         .finally(() => {
