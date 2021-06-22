@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <p class="footer-bar">
     <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery">ICP 备案号：粤ICP备2020073597号</a>
   </p>
 </template>
@@ -10,5 +10,9 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.footer-bar{
+  padding: 16px 0;
+  margin: 0;
+}
 </style>

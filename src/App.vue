@@ -4,9 +4,9 @@
       <el-main class="app_mian">
         <router-view />
       </el-main>
-      <el-footer class="app_footer">
+      <!-- <el-footer class="app_footer">
         <foot-bar />
-      </el-footer>
+      </el-footer> -->
     </el-container>
   </div>
 </template>
