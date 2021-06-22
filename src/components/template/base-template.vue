@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import homeHeader from '@/components/Home/header.vue';
+import homeHeader from '@/components/home/header.vue';
 export default {
   name: 'home',
   components: { homeHeader }
@@ -21,7 +21,7 @@ export default {
   min-height: 100vh;
   background-color: #e9eaed;
   .main{
-    height: calc(100vh - 62px - 53px);
+    min-height: calc(100vh - 62px - 53px);
   }
 }
 </style>

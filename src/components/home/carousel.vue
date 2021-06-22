@@ -10,7 +10,7 @@
 .carousel {
   padding: 0 100px;
   background-color: #fff;
-  box-shadow: 0 4px 4px #fff;
+  // box-shadow: 0 4px 4px #fff;
   .el-carousel {
     /deep/ * {
       .el-carousel__item h3 {
