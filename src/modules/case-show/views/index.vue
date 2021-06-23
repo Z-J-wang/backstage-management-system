@@ -32,7 +32,9 @@ export default {
 <style lang='less' scoped>
 .case-show {
   h2 {
-    margin-bottom: 80px;
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 80px;
   }
   .list-contaner {
     width: 1180px;
@@ -45,10 +47,14 @@ export default {
         width: 33%;
         padding-left: 20px;
         text-align: left;
-        list-style: inside;
+        list-style: none;
         font-size: 20px;
         a {
           text-decoration: none;
+          color: #fff;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
