@@ -40,9 +40,16 @@ export default {
   align-items: center;
   width: 100%;
   height: 200px;
+  margin-bottom: 20px;
   padding-right: 20px;
   padding-left: 20px;
   border-bottom: 1px solid #e5e5e5;
+  transition: all 0.5s;
+  &:hover {
+    background: #fff;
+    box-shadow: #ccc 1px 1px 8px;
+    border-radius: 10px;
+  }
   .el-image {
     width: 160px;
     height: 160px;
@@ -54,11 +61,12 @@ export default {
     text-align: left;
     .title {
       cursor: pointer;
-      a{
+      a {
         text-decoration: none;
-        color: #000;
-        &:hover{
-          color: aqua;
+        transition: all 0.5s;
+        color: #8a988e;
+        &:hover {
+          color: #1a6840;
         }
       }
     }
@@ -66,6 +74,7 @@ export default {
       height: 65px;
       margin: 0;
       font-size: 14px;
+      color: #2b312c;
     }
     .tags {
       margin: 10px 0;
@@ -75,9 +84,17 @@ export default {
         display: inline-block;
         padding-right: 10px;
       }
+      /deep/ * {
+        .el-tag--plain {
+          background-color: #fff;
+          border-color: #8a988e;
+          color: #8a988e;
+        }
+      }
     }
     .datetime {
       margin: 0;
+      text-align: right;
       font-size: 14px;
     }
   }

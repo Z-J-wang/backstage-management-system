@@ -1,14 +1,16 @@
 <template>
-  <div class="case-show">
-    <h2>案例展示</h2>
-    <div class="list-contaner">
-      <ul>
-        <li v-for="(item, i) in componentList" :key="i">
-          <router-link :to="item.path" tag="a">{{item.meta.name}}</router-link>
-        </li>
-      </ul>
+  <base-template>
+    <div class="case-show">
+      <h2>案例展示</h2>
+      <div class="list-contaner">
+        <ul>
+          <li v-for="(item, i) in componentList" :key="i">
+            <router-link :to="item.path" tag="a">{{item.meta.name}}</router-link>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </base-template>
 </template>
 
 <script>

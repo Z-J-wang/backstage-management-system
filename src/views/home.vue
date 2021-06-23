@@ -2,15 +2,14 @@
   <base-template>
     <carousel></carousel>
     <main>
-      <el-tabs type="border-card">
-        <el-tab-pane label="最近发布">
-          <card></card>
-          <card></card>
-          <card></card>
-          <card></card>
-          <card></card>
-        </el-tab-pane>
-      </el-tabs>
+      <h3>最新发布</h3>
+      <div>
+        <card></card>
+        <card></card>
+        <card></card>
+        <card></card>
+        <card></card>
+      </div>
     </main>
   </base-template>
 </template>
@@ -30,5 +29,13 @@ export default {
 main {
   width: 1180px;
   margin: 40px auto;
+  padding: 0 20px;
+  border-radius: 4px;
+  background-color: #fff;
+  h3 {
+    color: #5e665b;
+    padding: 16px 0;
+    border-bottom: 1px solid #8a988e;
+  }
 }
 </style>

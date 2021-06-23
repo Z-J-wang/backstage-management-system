@@ -4,14 +4,14 @@
       <div class="logo">Jay 的个人网站</div>
       <el-menu
         router
-        :default-active="active"
+        :default-active="$route.path"
         class="el-menu-demo"
         mode="horizontal"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
       >
-        <el-menu-item index="1">首页</el-menu-item>
+        <el-menu-item index="/">首页</el-menu-item>
         <el-menu-item index="2">博客</el-menu-item>
         <el-menu-item index="/case-show">案例</el-menu-item>
         <el-menu-item index="4">关于我</el-menu-item>
@@ -25,19 +25,13 @@
 
 <script>
 export default {
-  name: 'header',
-  data() {
-    return {
-      active: '1'
-    };
-  }
+  name: 'header'
 };
 </script>
 
 <style lang="less" scoped>
 .header {
   background-color: #545c64;
-  border-bottom: solid 1px #e6e6e6;
   .contain {
     display: flex;
     width: 1180px;
@@ -51,7 +45,7 @@ export default {
     }
     .el-menu {
       position: relative;
-      bottom: -1px;
+      border: none;
       flex: 1;
     }
     .toolbar {
