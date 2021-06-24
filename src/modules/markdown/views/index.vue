@@ -5,26 +5,25 @@
         <el-button round icon="el-icon-arrow-left">返回</el-button>
       </router-link>
       <el-input placeholder="文章标题" v-model="title"></el-input>
-      <el-button type="primary" round @click="save">保存</el-button>
+      <el-button type="primary" round @click="drawerVisible = true">保存</el-button>
     </div>
-    <mavon-editor
-      class="mavon"
-      v-model="content"
-      :toolbars="toolbars"
-    ></mavon-editor>
+    <mavon-editor class="mavon" v-model="content" :toolbars="toolbars"></mavon-editor>
+    <public-drawer :visible="drawerVisible" @close="drawerVisible = false"></public-drawer>
   </div>
 </template>
 
 <script>
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
-
+import publicDrawer from '@/modules/markdown/compontents/pulic-drawer.vue';
 export default {
   name: 'md-editor',
+  components: { publicDrawer, mavonEditor },
   data() {
     return {
       title: '',
       content: '',
+      drawerVisible: false,
       toolbars: {
         bold: true, // 粗体
         italic: true, // 斜体
@@ -62,10 +61,6 @@ export default {
       }
     };
   },
-  components: {
-    mavonEditor
-  },
-  mounted() {},
   methods: {
     async save() {
       if (!this.title) {
@@ -91,12 +86,14 @@ export default {
 
 <style lang="less">
 .md-editor {
+  margin: 0;
+  height: 100vh;
+  background-color: #869d9d;
   .toolbar-top {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 10px 0;
-    padding: 0 20px;
+    padding: 10px 20px 20px 20px;
     .el-input {
       flex: 1;
       margin: 0 10px;
@@ -105,6 +102,21 @@ export default {
       }
     }
   }
+  .el-button:focus,
+  .el-button:hover {
+    color: #5d3131;
+    border-color: #5d313173;
+    background-color: #5d313173;
+  }
+  .el-button--primary {
+    background-color: #5d3131;
+    border-color: #5d3131;
+  }
+  .el-input.is-active .el-input__inner,
+  .el-input__inner:focus {
+    border-color: #5d3131;
+  }
+
   .mavon {
     width: calc(100vw - 40px);
     height: calc(100vh - 130px);

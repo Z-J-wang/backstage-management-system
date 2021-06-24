@@ -14,7 +14,8 @@
         <el-menu-item index="/">首页</el-menu-item>
         <el-menu-item index="/blog-list">博客</el-menu-item>
         <el-menu-item index="/case-show">案例</el-menu-item>
-        <el-menu-item index="4">关于我</el-menu-item>
+        <el-menu-item index="/">关于我</el-menu-item>
+        <el-menu-item index="/markdown">发表</el-menu-item>
       </el-menu>
       <div class="toolbar">
         <router-link to="/login">
