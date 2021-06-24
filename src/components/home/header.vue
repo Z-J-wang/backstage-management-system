@@ -12,12 +12,14 @@
         active-text-color="#ffd04b"
       >
         <el-menu-item index="/">首页</el-menu-item>
-        <el-menu-item index="2">博客</el-menu-item>
+        <el-menu-item index="/blog-list">博客</el-menu-item>
         <el-menu-item index="/case-show">案例</el-menu-item>
         <el-menu-item index="4">关于我</el-menu-item>
       </el-menu>
       <div class="toolbar">
-        <el-button type="primary">登录</el-button>
+        <router-link to="/login">
+          <el-button type="primary">登录</el-button>
+        </router-link>
       </div>
     </div>
   </div>

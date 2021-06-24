@@ -8,6 +8,7 @@ import personManagementRoutes from '@/modules/person-management/routes/index';
 import bmyxManagementRoutes from '@/modules/bmyx-management/routes/index';
 import caseShowRoutes from '@/modules/case-show/routes/index';
 import markdownRoutes from '@/modules/markdown/routes/index';
+import blogsRoutes from '@/modules/blogs/routes/index';
 
 let auth = 3;
 const axios = new Axios();
@@ -60,7 +61,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "404" */ '../views/404.vue')
   },
   ...caseShowRoutes,
-  ...markdownRoutes
+  ...markdownRoutes,
+  ...blogsRoutes
 ];
 
 const router = new VueRouter({
