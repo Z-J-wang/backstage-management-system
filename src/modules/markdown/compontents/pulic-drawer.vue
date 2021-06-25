@@ -14,7 +14,7 @@
           size="small"
           @click="tagControlVisible = true"
           v-show="4 - pulicData.tags.length"
-        >+ New Tag</el-button>
+        >+ 添加</el-button>
         <div class="tag-contain" v-show="tagControlVisible">
           <p>可以添加标签: {{ 4 - pulicData.tags.length }} 个</p>
           <i class="close el-icon-close" @click="tagControlVisible = false"></i>
@@ -139,7 +139,7 @@ export default {
   position: relative;
   margin-top: 20px;
   padding: 15px;
-  border: 1px solid #000;
+  border: 1px solid #2e317c;
   border-radius: 5px;
   p {
     margin: 0;

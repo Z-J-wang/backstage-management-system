@@ -23,7 +23,7 @@ export default {
     return {
       title: '',
       content: '',
-      drawerVisible: true,
+      drawerVisible: false,
       toolbars: {
         bold: true, // 粗体
         italic: true, // 斜体
@@ -84,7 +84,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .md-editor {
   margin: 0;
   height: 100vh;
@@ -102,20 +102,20 @@ export default {
       }
     }
   }
-  .el-button:focus,
-  .el-button:hover {
-    color: #5d3131;
-    border-color: #5d313173;
-    background-color: #5d313173;
-  }
-  .el-button--primary {
-    background-color: #5d3131;
-    border-color: #5d3131;
-  }
-  .el-input.is-active .el-input__inner,
-  .el-input__inner:focus {
-    border-color: #5d3131;
-  }
+  // .el-button:focus,
+  // .el-button:hover {
+  //   color: #5d3131;
+  //   border-color: #5d313173;
+  //   background-color: #5d313173;
+  // }
+  // .el-button--primary {
+  //   background-color: #5d3131;
+  //   border-color: #5d3131;
+  // }
+  // .el-input.is-active .el-input__inner,
+  // .el-input__inner:focus {
+  //   border-color: #5d3131;
+  // }
 
   .mavon {
     width: calc(100vw - 40px);
