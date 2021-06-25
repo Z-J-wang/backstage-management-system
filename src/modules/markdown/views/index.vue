@@ -23,7 +23,7 @@ export default {
     return {
       title: '',
       content: '',
-      drawerVisible: false,
+      drawerVisible: true,
       toolbars: {
         bold: true, // 粗体
         italic: true, // 斜体
