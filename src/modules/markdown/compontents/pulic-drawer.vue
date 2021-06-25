@@ -87,12 +87,17 @@ export default {
     }
   },
   methods: {
+    // 关闭事件
     handleClose() {
       this.$emit('close');
     },
+
+    // 删除标签
     delTag(index) {
       this.pulicData.tags.splice(index, 1);
     },
+
+    // 新增标签
     addTag() {
       if (4 - this.pulicData.tags.length) {
         this.pulicData.tags.push(this.newTag);
@@ -101,6 +106,8 @@ export default {
         this.$message.warning('最多可以添加 4 个标签');
       }
     },
+
+    // 选定标签
     selecTag(index) {
       if (4 - this.pulicData.tags.length) {
         this.pulicData.tags.push(this.allTags[index]);
@@ -108,6 +115,8 @@ export default {
         this.$message.warning('最多可以添加 4 个标签');
       }
     },
+
+    // 发布
     pulic() {
       this.$refs.pulicData.validate();
     }
