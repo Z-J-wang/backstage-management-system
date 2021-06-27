@@ -21,17 +21,22 @@
           <el-input v-model="newTag" size="small" placeholder="新增标签" @keyup.native.enter="addTag"></el-input>
           <div>
             <el-tag
-              v-for="(tag,i) in allTags"
-              :key="i"
+              v-for="tag in allTags"
+              :key="tag.id"
               :disable-transitions="false"
-              @click="selecTag(i)"
-            >{{tag}}</el-tag>
+              @click="selecTag(tag.name)"
+            >{{tag.name}}</el-tag>
           </div>
         </div>
       </el-form-item>
       <el-form-item label="文章分类：" prop="category">
         <el-select v-model="pulicData.category">
-          <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
+          <el-option
+            v-for="item in categories"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="文章简介：" prop="introduction">
@@ -75,16 +80,20 @@ export default {
         tags: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }],
         category: [{ required: true, message: '文章分类不能为空', trigger: 'blur' }]
       },
-      categories: ['类别一', '类别二'], // 已存在的文章分类
+      categories: [], // 已存在的文章分类
       newTag: '', // 新增标签
       tagControlVisible: false, // 标签设置模块显示隐藏
-      allTags: ['标签一', '标签一', '标签一', '标签一', '标签一', '标签一', '标签一', '标签一'] // 已存在的标签
+      allTags: [] // 已存在的标签
     };
   },
   watch: {
     visible() {
       this.drawer = this.visible;
     }
+  },
+  created() {
+    this.getTags();
+    this.getCategories();
   },
   methods: {
     // 关闭事件
@@ -108,9 +117,9 @@ export default {
     },
 
     // 选定标签
-    selecTag(index) {
+    selecTag(tag) {
       if (4 - this.pulicData.tags.length) {
-        this.pulicData.tags.push(this.allTags[index]);
+        this.pulicData.tags.push(tag);
       } else {
         this.$message.warning('最多可以添加 4 个标签');
       }
@@ -118,7 +127,42 @@ export default {
 
     // 发布
     pulic() {
-      this.$refs.pulicData.validate();
+      this.$refs.pulicData.validate(async (valid) => {
+        if (valid) {
+          const params = {
+            title: this.$parent.title,
+            content: this.$parent.content,
+            tags: this.pulicData.tags,
+            category: this.pulicData.category,
+            introduction: this.pulicData.introduction
+          };
+          const { data: res } = await this.$HttpApi.createArticle(params);
+          if (res?.code === 1000) {
+            this.$message.success('保存成功');
+            this.handleClose();
+          }
+        }
+      });
+    },
+
+    /**
+     * 获取已存在的标签
+     */
+    async getTags() {
+      const { data: res } = await this.$HttpApi.getTags();
+      if (res?.code === 1000) {
+        this.allTags = res.data;
+      }
+    },
+
+    /**
+     * 获取已存在的文章分类
+     */
+    async getCategories() {
+      const { data: res } = await this.$HttpApi.getCategories();
+      if (res?.code === 1000) {
+        this.categories = res.data;
+      }
     }
   }
 };

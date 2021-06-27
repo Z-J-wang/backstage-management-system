@@ -5,7 +5,7 @@
         <el-button round icon="el-icon-arrow-left">返回</el-button>
       </router-link>
       <el-input placeholder="文章标题" v-model="title"></el-input>
-      <el-button type="primary" round @click="drawerVisible = true">保存</el-button>
+      <el-button type="primary" round @click="save">保存</el-button>
     </div>
     <mavon-editor class="mavon" v-model="content" :toolbars="toolbars"></mavon-editor>
     <public-drawer :visible="drawerVisible" @close="drawerVisible = false"></public-drawer>
@@ -15,7 +15,7 @@
 <script>
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
-import publicDrawer from '@/modules/markdown/compontents/pulic-drawer.vue';
+import publicDrawer from '@/modules/markdown/components/pulic-drawer.vue';
 export default {
   name: 'md-editor',
   components: { publicDrawer, mavonEditor },
@@ -73,12 +73,7 @@ export default {
         return false;
       }
 
-      const params = {
-        title: this.title,
-        content: this.content
-      };
-      const res = await this.$HttpApi.createArticle(params);
-      console.log(res);
+      this.drawerVisible = true;
     }
   }
 };

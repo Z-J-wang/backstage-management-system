@@ -16,7 +16,7 @@
       <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
     <div class="list-contain">
-      <card v-for="item in 10" :key="item"></card>
+      <card v-for="item in dataList" :key="item.id"></card>
     </div>
     <div class="pagination">
       <el-pagination
@@ -44,8 +44,12 @@ export default {
       pagination: {
         size: 10,
         page: 1
-      }
+      },
+      dataList: []
     };
+  },
+  created() {
+    this.getArticlesByPage();
   },
   methods: {
     // 切换分页
@@ -72,6 +76,20 @@ export default {
         page: this.pagination.page
       };
       console.log(params);
+    },
+
+    async getArticlesByPage() {
+      const params = {
+        search: this.searchKey,
+        type: this.type,
+        sort: this.sort,
+        pageSize: this.pagination.size,
+        page: this.pagination.page
+      };
+      const { data: res } = await this.$HttpApi.getArticlesByPage(params);
+      if (res?.code === 1000) {
+        this.dataList = res?.data?.rows;
+      }
     }
   }
 };
