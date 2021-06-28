@@ -4,11 +4,7 @@
     <main>
       <h3>最新发布</h3>
       <div>
-        <card></card>
-        <card></card>
-        <card></card>
-        <card></card>
-        <card></card>
+        <card v-for="item in dataList" :key="item.id" :artileData="item"></card>
       </div>
     </main>
   </base-template>
@@ -22,6 +18,32 @@ export default {
   components: {
     carousel,
     card
+  },
+  data() {
+    return {
+      dataList: []
+    };
+  },
+  created(){
+    this.getBolgsOfNewest();
+  },
+  methods: {
+    /**
+     * 获取最新发布的文章
+     */
+    async getBolgsOfNewest() {
+      const params = {
+        search: '',
+        category: '',
+        sort: 'desc',
+        pageSize: 10,
+        page: 1
+      };
+      const { data: res } = await this.$HttpApi.getArticlesByPage(params);
+      if (res?.code === 1000) {
+        this.dataList = res?.data?.rows;
+      }
+    }
   }
 };
 </script>
@@ -36,6 +58,9 @@ main {
     color: #5e665b;
     padding: 16px 0;
     border-bottom: 1px solid #8a988e;
+  }
+  div{
+    padding-bottom: 1px;
   }
 }
 </style>
