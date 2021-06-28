@@ -5,7 +5,15 @@ const routes = [
     meta: {
       auth: 3
     },
-    component: () => import(/* webpackChunkName: "accountManagement" */ '@/modules/blogs/views/index.vue')
+    component: () => import(/* webpackChunkName: "blog-list" */ '@/modules/blogs/views/index.vue')
+  },
+  {
+    path: '/blog-detail/:id',
+    name: 'blog-detail',
+    meta: {
+      auth: 3
+    },
+    component: () => import(/* webpackChunkName: "blog-detail" */ '@/modules/blogs/views/detail.vue')
   }
 ];
 
