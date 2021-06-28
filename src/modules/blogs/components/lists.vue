@@ -4,13 +4,8 @@
       <el-button @click="reset">全部</el-button>
       <el-button v-show="sort === 'desc'" @click="sort = 'asc'">时间降序</el-button>
       <el-button v-show="sort === 'asc'" @click="sort = 'desc'">时间升序</el-button>
-      <el-select v-model="type" placeholder="分类">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
+      <el-select v-model="category" placeholder="分类" @change="select">
+        <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.name"></el-option>
       </el-select>
       <el-input v-model="searchKey" placeholder="请输入关键字"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -22,7 +17,8 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="11"
+        :total="pagination.total"
+        :page-size="pagination.size"
         :hide-on-single-page="true"
         @current-change="paginationChange"
       ></el-pagination>
@@ -37,51 +33,53 @@ export default {
   components: { card },
   data() {
     return {
-      options: ['asdas', 'ssdsds'],
+      categories: [],
       searchKey: '',
-      type: '',
+      category: '',
       sort: 'desc',
       pagination: {
-        size: 10,
-        page: 1
+        size: 2,
+        page: 1,
+        total: 0
       },
       dataList: []
     };
   },
   created() {
-    this.getArticlesByPage();
+    this.select();
+    this.getCategories();
+  },
+  watch: {
+    sort: function () {
+      this.select();
+    }
   },
   methods: {
     // 切换分页
     paginationChange(page) {
       this.pagination.page = page;
+      this.select();
     },
+
     // 重置
     reset() {
       this.searchKey = '';
-      this.type = '';
+      this.category = '';
       this.sort = 'desc';
-      this.pagination.size = 1;
+      this.pagination.page = 1;
+      this.select();
     },
+
     // 查询
     search() {
       this.pagination.size = 1;
-    },
-    select() {
-      const params = {
-        search: this.searchKey,
-        type: this.type,
-        sort: this.sort,
-        pageSize: this.pagination.size,
-        page: this.pagination.page
-      };
-      console.log(params);
+      this.select();
     },
 
-    async getArticlesByPage() {
+    async select() {
       const params = {
         search: this.searchKey,
-        type: this.type,
+        category: this.category,
         sort: this.sort,
         pageSize: this.pagination.size,
         page: this.pagination.page
@@ -89,6 +87,17 @@ export default {
       const { data: res } = await this.$HttpApi.getArticlesByPage(params);
       if (res?.code === 1000) {
         this.dataList = res?.data?.rows;
+        this.pagination.total = res?.data?.count;
+      }
+    },
+
+    /**
+     * 获取已存在的文章分类
+     */
+    async getCategories() {
+      const { data: res } = await this.$HttpApi.getCategories();
+      if (res?.code === 1000) {
+        this.categories = res.data;
       }
     }
   }

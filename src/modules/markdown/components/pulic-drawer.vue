@@ -30,7 +30,7 @@
         </div>
       </el-form-item>
       <el-form-item label="文章分类：" prop="category">
-        <el-select v-model="pulicData.category">
+        <el-select v-model="pulicData.category"  filterable allow-create>
           <el-option
             v-for="item in categories"
             :key="item.id"
@@ -71,7 +71,7 @@ export default {
       drawer: this.visible, // drawer 显示隐藏
       pulicData: {
         // 文章表单数据
-        tags: ['标签一', '标签一'],
+        tags: [],
         category: '',
         introduction: ''
       },
