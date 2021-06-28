@@ -6,12 +6,16 @@
       </section>
       <aside>
         <aside-contain>
-          <span slot="title">标题</span>
-          <div>内容内容内容内容内容内容</div>
+          <span slot="title">标签</span>
+          <div>
+            <el-tag v-for="item in allTags" :key="item.id" effect="plain">{{ item.name }}</el-tag>
+          </div>
         </aside-contain>
         <aside-contain>
-          <span slot="title">标题</span>
-          <div>内容内容内容内容内容内容</div>
+          <span slot="title">文章分类</span>
+          <div>
+            <el-tag v-for="item in categories" :key="item.id" effect="plain">{{ item.name }}</el-tag>
+          </div>
         </aside-contain>
       </aside>
     </main>
@@ -25,9 +29,36 @@ export default {
   name: 'bolgs',
   components: { asideContain, list },
   data() {
-    return {};
+    return {
+      allTags: [],
+      categories: []
+    };
   },
-  methods: {}
+  created() {
+    this.getTags();
+    this.getCategories();
+  },
+  methods: {
+    /**
+     * 获取已存在的标签
+     */
+    async getTags() {
+      const { data: res } = await this.$HttpApi.getTags();
+      if (res?.code === 1000) {
+        this.allTags = res.data;
+      }
+    },
+
+    /**
+     * 获取已存在的文章分类
+     */
+    async getCategories() {
+      const { data: res } = await this.$HttpApi.getCategories();
+      if (res?.code === 1000) {
+        this.categories = res.data;
+      }
+    }
+  }
 };
 </script>
 
@@ -48,6 +79,10 @@ main {
     right: 0;
     width: 270px;
     border-radius: 5px;
+  }
+  .el-tag{
+    margin-right: 10px;
+    cursor: pointer;
   }
 }
 </style>

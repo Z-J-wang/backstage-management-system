@@ -1,17 +1,17 @@
 <template>
   <div class="card">
-    <el-image :src="mork.img"></el-image>
+    <el-image :src="artileData.img"></el-image>
     <div class="content">
       <h3 class="title">
-        <router-link to="/" tag="a">{{mork.title}}</router-link>
+        <router-link :to="{path:'/', query:{id:artileData.id}}" tag="a">{{artileData.title}}</router-link>
       </h3>
-      <p class="intro">{{mork.intro}}</p>
+      <p class="intro">{{artileData.introduction}}</p>
       <ul class="tags">
-        <li v-for="item in mork.tags" :key="item">
+        <li v-for="item in artileData.tags.split('-')" :key="item">
           <el-tag size="small" effect="plain">{{ item }}</el-tag>
         </li>
       </ul>
-      <p class="datetime">发布日期：{{mork.public_time}}</p>
+      <p class="datetime">发布日期：{{artileData.updatedAt}}</p>
     </div>
   </div>
 </template>
@@ -19,16 +19,11 @@
 <script>
 export default {
   name: 'card',
-  data() {
-    return {
-      mork: {
-        title: 'Vue 3 迁移策略笔记—— 第31节：scoped styles 的变化',
-        intro: '本笔记主要基于官方文档《0023-scoped-styles-changes.md》汇总而来。如有理解出入，请以官方文档为主。建议您以官方文档为主，本文为辅。这样您可以“以自己为主”审视的阅读，从而不被我的观点带偏。',
-        public_time: '2021/06/22',
-        tags: ['Vue', 'scoped', 'Vue 3'],
-        img: ''
-      }
-    };
+  props: {
+    artileData: {
+      type: Object,
+      require: true
+    }
   }
 };
 </script>

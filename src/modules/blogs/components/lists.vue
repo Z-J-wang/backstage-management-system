@@ -11,7 +11,7 @@
       <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
     <div class="list-contain">
-      <card v-for="item in dataList" :key="item.id"></card>
+      <card v-for="item in dataList" :key="item.id" :artileData="item"></card>
     </div>
     <div class="pagination">
       <el-pagination
@@ -38,7 +38,7 @@ export default {
       category: '',
       sort: 'desc',
       pagination: {
-        size: 2,
+        size: 10,
         page: 1,
         total: 0
       },
