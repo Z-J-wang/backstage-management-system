@@ -4,20 +4,20 @@
       <section>
         <mavon-editor
           class="mavon"
+          ref="mavon"
           v-model="artilce.content"
           defaultOpen="preview"
           :boxShadow="false"
           :editable="false"
           :subfield="false"
           :toolbarsFlag="false"
+          @change="change"
         ></mavon-editor>
       </section>
       <aside>
         <aside-contain>
-          <span slot="title">标签</span>
-          <div>
-            <el-tag v-for="item in allTags" :key="item.id" effect="plain">{{ item.name }}</el-tag>
-          </div>
+          <span slot="title">目录</span>
+          <div class="catalogue"></div>
         </aside-contain>
         <aside-contain>
           <span slot="title">文章分类</span>
@@ -83,6 +83,26 @@ export default {
       if (res?.code === 1000) {
         this.artilce = res.data;
       }
+    },
+
+    change() {
+      this.$nextTick(() => {
+        const categories = this.$refs.mavon.$el.querySelectorAll('.v-note-panel h1,.v-note-panel h2');
+        const fragment = document.createDocumentFragment();
+        categories.forEach((element) => {
+          console.log(element.tagName);
+          let elem = null;
+          if (element.tagName === 'H2') {
+            elem = document.createElement('h2');
+          } else if (element.tagName === 'H1') {
+            elem = document.createElement('h1');
+          }
+          elem.innerHTML = element.innerText;
+          fragment.appendChild(elem);
+        });
+
+        document.querySelector('.catalogue').appendChild(fragment);
+      });
     }
   }
 };
@@ -108,6 +128,13 @@ main {
   }
   .el-tag {
     margin-right: 10px;
+    cursor: pointer;
+  }
+}
+.catalogue {
+  font-size: 14px;
+  /deep/ h2 {
+    font-size: 14px;
     cursor: pointer;
   }
 }
