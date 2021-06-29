@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <el-image :src="artileData.img"></el-image>
+    <el-image v-show="artileData.img" :src="artileData.img"></el-image>
     <div class="content">
       <h3 class="title">
         <router-link :to="{path:`/blog-detail/${artileData.id}`}" tag="a">{{artileData.title}}</router-link>

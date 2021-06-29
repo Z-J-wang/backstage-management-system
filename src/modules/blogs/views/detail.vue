@@ -2,6 +2,13 @@
   <base-template>
     <main>
       <section>
+        <div class="head">
+          <h1>{{artilce.title}}</h1>
+          <div class="details">
+            <p>文章分类：{{ artilce.category }}</p>
+            <p>发布时间：{{ artilce.updatedAt }}</p>
+          </div>
+        </div>
         <mavon-editor
           class="mavon"
           ref="mavon"
@@ -114,6 +121,26 @@ main {
   width: 1180px;
   margin: 0 auto;
   padding: 10px 0 40px 0;
+  .head {
+    margin: 0 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #2c3e50;
+    h1 {
+      margin: 0;
+      padding: 30px 0 20px 0;
+      font-size: 1.7rem;
+    }
+    .details {
+      padding: 15px 10px;
+      text-align: left;
+      font-size: 14px;
+      background-color: #f8f4ed;
+      border-radius: 5px;
+      p {
+        margin: 5px;
+      }
+    }
+  }
   section {
     width: 880px;
     border-radius: 5px;
