@@ -14,7 +14,7 @@
         <aside-contain>
           <span slot="title">文章分类</span>
           <div>
-            <el-tag v-for="item in categories" :key="item.id" effect="plain">{{ item.name }}</el-tag>
+            <el-tag v-for="item in categories" :key="item.id" effect="plain" @click="goTo(item.name)">{{ item.name }}</el-tag>
           </div>
         </aside-contain>
       </aside>
@@ -39,6 +39,15 @@ export default {
     this.getCategories();
   },
   methods: {
+    goTo(name) {
+      this.$router.push({
+        name: 'blog-list',
+        params: {
+          category: name
+        }
+      });
+    },
+
     /**
      * 获取已存在的标签
      */
@@ -80,7 +89,7 @@ main {
     width: 270px;
     border-radius: 5px;
   }
-  .el-tag{
+  .el-tag {
     margin-right: 10px;
     cursor: pointer;
   }
