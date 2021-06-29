@@ -5,9 +5,12 @@
         <div class="head">
           <h1>{{artilce.title}}</h1>
           <div class="details">
-            <p>文章分类：{{ artilce.category }}</p>
-            <p>发布时间：{{ artilce.updatedAt }}</p>
+            <p>
+              文章分类：
+              <span class="category" @click="goTo(artilce.category)">{{ artilce.category }}</span>
+            </p>
             <p>浏览量：{{ artilce.pageViews }}</p>
+            <p>发布时间：{{ artilce.updatedAt }}</p>
           </div>
         </div>
         <mavon-editor
@@ -155,6 +158,12 @@ main {
       border-radius: 5px;
       p {
         margin: 5px;
+      }
+      .category{
+        cursor: pointer;
+        &:hover{
+          color: #869d9d;
+        }
       }
     }
   }
