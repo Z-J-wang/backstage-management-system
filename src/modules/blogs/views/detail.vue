@@ -7,6 +7,7 @@
           <div class="details">
             <p>文章分类：{{ artilce.category }}</p>
             <p>发布时间：{{ artilce.updatedAt }}</p>
+            <p>浏览量：{{ artilce.pageViews }}</p>
           </div>
         </div>
         <mavon-editor
@@ -103,6 +104,8 @@ export default {
       const { data: res } = await this.$HttpApi.getArticlesByID(this.$route.params.id);
       if (res?.code === 1000) {
         this.artilce = res.data;
+        this.artilce.pageViews++;
+        this.$HttpApi.pageViewAutoIncre(this.artilce.id);
       }
     },
 

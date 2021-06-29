@@ -19,6 +19,13 @@ class Api extends AxiosConfig {
    * @returns
    */
   getArticlesByID = id => this.axios.get('/api/article/getArticlesByID', { params: { id: id } });
+
+  /**
+   * 文章浏览量自增
+   * @param {*} id
+   * @returns
+   */
+  pageViewAutoIncre = id => this.axios.post('/api/article/pageViewAutoIncre', {id: id});
 }
 
 export default Api;

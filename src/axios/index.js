@@ -33,6 +33,9 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
    */
   getArticlesByPage = params => this.axios.get('/api/article/getArticlesByPage', { params: params });
 
+  // 更新文章
+  updateArticle = data => this.axios.post('/api/article/updateArticle', data);
+
   /**
    * 获取 tag 列表
    * @returns
