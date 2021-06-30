@@ -30,7 +30,7 @@
         </div>
       </el-form-item>
       <el-form-item label="文章分类：" prop="category">
-        <el-select v-model="pulicData.category"  filterable allow-create>
+        <el-select v-model="pulicData.category" filterable allow-create>
           <el-option
             v-for="item in categories"
             :key="item.id"
@@ -62,8 +62,12 @@ export default {
   name: 'public-drawer',
   props: {
     visible: {
-      typr: Boolean,
+      type: Boolean,
       default: false
+    },
+    artilce: {
+      type: Object,
+      require: true
     }
   },
   data() {
@@ -89,6 +93,9 @@ export default {
   watch: {
     visible() {
       this.drawer = this.visible;
+      this.pulicData.tags = this.artilce.tags.split('-');
+      this.pulicData.category = this.artilce.category;
+      this.pulicData.introduction = this.artilce.introduction;
     }
   },
   created() {
@@ -130,16 +137,24 @@ export default {
       this.$refs.pulicData.validate(async (valid) => {
         if (valid) {
           const params = {
-            title: this.$parent.title,
-            content: this.$parent.content,
+            id: this.artilce.id,
+            title: this.artilce.title,
+            content: this.artilce.content,
             tags: this.pulicData.tags,
             category: this.pulicData.category,
             introduction: this.pulicData.introduction
           };
-          const { data: res } = await this.$HttpApi.createArticle(params);
-          if (res?.code === 1000) {
+          let res;
+          if (this.$route.query.type === 'edit') {
+            res = await this.$HttpApi.updateArticle(params);
+          } else {
+            res = await this.$HttpApi.createArticle(params);
+          }
+          if (res?.data?.code === 1000) {
             this.$message.success('保存成功');
             this.handleClose();
+          } else {
+            this.$message.error(res?.data?.msg);
           }
         }
       });

@@ -11,6 +11,7 @@
             </p>
             <p>浏览量：{{ artilce.pageViews }}</p>
             <p>发布时间：{{ artilce.updatedAt }}</p>
+            <div class="edit" @click="goToEdit()">编辑</div>
           </div>
         </div>
         <mavon-editor
@@ -76,6 +77,16 @@ export default {
         name: 'blog-list',
         params: {
           category: name
+        }
+      });
+    },
+
+    goToEdit() {
+      this.$router.push({
+        name: 'markdown',
+        query: {
+          id: this.artilce.id,
+          type: 'edit'
         }
       });
     },
@@ -151,6 +162,7 @@ main {
       font-size: 1.7rem;
     }
     .details {
+      position: relative;
       padding: 15px 10px;
       text-align: left;
       font-size: 14px;
@@ -159,9 +171,18 @@ main {
       p {
         margin: 5px;
       }
-      .category{
+      .category {
         cursor: pointer;
-        &:hover{
+        &:hover {
+          color: #869d9d;
+        }
+      }
+      .edit {
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        cursor: pointer;
+        &:hover {
           color: #869d9d;
         }
       }

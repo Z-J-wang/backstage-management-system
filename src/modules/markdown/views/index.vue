@@ -4,11 +4,11 @@
       <router-link to="/">
         <el-button round icon="el-icon-arrow-left">返回</el-button>
       </router-link>
-      <el-input placeholder="文章标题" v-model="title"></el-input>
+      <el-input placeholder="文章标题" v-model="artilce.title"></el-input>
       <el-button type="primary" round @click="save">保存</el-button>
     </div>
-    <mavon-editor class="mavon" v-model="content" :toolbars="toolbars"></mavon-editor>
-    <public-drawer :visible="drawerVisible" @close="drawerVisible = false"></public-drawer>
+    <mavon-editor class="mavon" v-model="artilce.content" :toolbars="toolbars"></mavon-editor>
+    <public-drawer :visible="drawerVisible" :artilce="artilce" @close="drawerVisible = false"></public-drawer>
   </div>
 </template>
 
@@ -21,8 +21,10 @@ export default {
   components: { publicDrawer, mavonEditor },
   data() {
     return {
-      title: '',
-      content: '',
+      artilce: {
+        title: '',
+        content: ''
+      },
       drawerVisible: false,
       toolbars: {
         bold: true, // 粗体
@@ -61,19 +63,34 @@ export default {
       }
     };
   },
+  mounted() {
+    if (this.$route.query.id) {
+      this.getArticlesByID(this.$route.query.id);
+    }
+  },
   methods: {
     async save() {
-      if (!this.title) {
+      if (!this.artilce.title) {
         this.$message.warning('请输入标题');
         return false;
       }
 
-      if (!this.content) {
+      if (!this.artilce.content) {
         this.$message.warning('文章内容不能为空');
         return false;
       }
 
       this.drawerVisible = true;
+    },
+
+    /**
+     * 根据 ID 获取文章
+     */
+    async getArticlesByID(id) {
+      const { data: res } = await this.$HttpApi.getArticlesByID(id);
+      if (res?.code === 1000) {
+        this.artilce = res.data;
+      }
     }
   }
 };

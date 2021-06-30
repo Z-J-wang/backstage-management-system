@@ -12,6 +12,13 @@ class Api extends AxiosConfig {
    * @returns
    */
   createArticle = params => this.axios.post('/api/article/createArticle', params);
+
+  /**
+   * 更新文章
+   * @param {*} params
+   * @returns
+   */
+  updateArticle = params => this.axios.post('/api/article/updateArticle', params);
 }
 
 export default Api;
