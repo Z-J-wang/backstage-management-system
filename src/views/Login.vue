@@ -117,11 +117,11 @@ export default {
       });
       try {
         let res = await this.$HttpApi.login(data);
-        if (res.data.code === 1000) {
-          let auth = res.data.data.auth;
-          this.$Cookie.setUserInfo(res.data.data.account);
+        if (res.code === 1000) {
+          let auth = res.data.auth;
+          this.$Cookie.setUserInfo(res.data.account);
           this.$Cookie.setCookie('auth', auth);
-          this.$Cookie.setToken(res.data.data.token);
+          this.$Cookie.setToken(res.data.token);
           if (auth === 2) {
             this.$router.push({ path: '/personalInfo' });
           } else if (auth === 1) {
@@ -129,8 +129,6 @@ export default {
           } else if (auth == 0) {
             this.$router.push({ path: '/accountManagement' });
           }
-        } else {
-          this.$message.error(res.data.msg);
         }
       } finally {
         loading.close();

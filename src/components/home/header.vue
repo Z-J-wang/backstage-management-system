@@ -15,11 +15,11 @@
         <el-menu-item index="/blog-list">博客</el-menu-item>
         <el-menu-item index="/case-show">案例</el-menu-item>
         <el-menu-item index="/">关于我</el-menu-item>
-        <el-menu-item index="/markdown">发表</el-menu-item>
+        <el-menu-item index="/markdown" v-if="$store.state.userinfo.account">发表</el-menu-item>
       </el-menu>
-      <div class="toolbar">
-        <router-link to="/login">
-          <el-button type="primary">登录</el-button>
+      <div class="toolbar" v-if="$store.state.userinfo.account">
+        <router-link to="/accountManagement">
+          <el-button type="primary">后台管理</el-button>
         </router-link>
       </div>
     </div>

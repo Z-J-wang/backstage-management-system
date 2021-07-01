@@ -1,6 +1,8 @@
 import instance from './config';
 import Cookie from '../util/cookie';
 import util from '@/util/index';
+import store from '@/store/index';
+import { Message } from 'element-ui';
 
 const moudulesApi = util.automatedImportForArray(require.context('@/modules', true, /axios\/.+\.js/));
 
@@ -15,8 +17,18 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
    * 登录
    * @param {object} params
    */
-  login(params) {
-    return this.axios.post('/api/account/login', params);
+  async login(params) {
+    const { data: res } = await this.axios.post('/api/account/login', params);
+    if (res.code === 1000) {
+      store.commit('setUserinfo', res.data);
+    } else {
+      Message({
+        message: res.msg,
+        type: 'error'
+      });
+    }
+
+    return res;
   }
 
   /**
@@ -26,6 +38,25 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
     return this.axios.get('/api/account/logout');
   }
 
+  /**
+   * 根据token获取用户信息
+   * @returns
+   */
+  async getUserinfo() {
+    let token = this.cookie.getToken();
+    if (!token) {
+      return false;
+    }
+    const { data: res } = await this.axios.get('/api/account/getUserinfo');
+    if (res.code === 1000) {
+      store.commit('setUserinfo', res.data);
+    } else {
+      Message({
+        message: res.msg,
+        type: 'error'
+      });
+    }
+  }
   /**
    * 分页查询博客列表
    * @param {*} params

@@ -6,14 +6,22 @@
       </el-main>
       <!-- <el-footer class="app_footer">
         <foot-bar />
-      </el-footer> -->
+      </el-footer>-->
     </el-container>
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$HttpApi.getUserinfo();
+  }
+};
+</script>
+
 <style lang="less">
 @app-footer-height: 60px;
-@app-main-height: calc(~"100vh - @{app-footer-height}");
+@app-main-height: calc(~'100vh - @{app-footer-height}');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
