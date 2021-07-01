@@ -11,7 +11,7 @@
             </p>
             <p>浏览量：{{ artilce.pageViews }}</p>
             <p>发布时间：{{ artilce.updatedAt }}</p>
-            <div class="edit" @click="goToEdit()">编辑</div>
+            <div class="edit" v-if="$store.state.userinfo.account" @click="goToEdit()">编辑</div>
           </div>
         </div>
         <mavon-editor
@@ -128,7 +128,6 @@ export default {
         const categories = this.$refs.mavon.$el.querySelectorAll('.v-note-panel h1,.v-note-panel h2');
         const fragment = document.createDocumentFragment();
         categories.forEach((element) => {
-          console.log(element.tagName);
           let elem = null;
           if (element.tagName === 'H2') {
             elem = document.createElement('h2');

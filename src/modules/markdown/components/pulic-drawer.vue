@@ -151,6 +151,9 @@ export default {
             res = await this.$HttpApi.createArticle(params);
           }
           if (res?.data?.code === 1000) {
+            this.$router.push({
+              path: `/blog-detail/${res?.data?.data.id}`
+            });
             this.$message.success('保存成功');
             this.handleClose();
           } else {
