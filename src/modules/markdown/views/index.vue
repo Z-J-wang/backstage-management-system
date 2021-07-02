@@ -7,7 +7,7 @@
       <el-input placeholder="文章标题" v-model="artilce.title"></el-input>
       <el-button type="primary" round @click="save">保存</el-button>
     </div>
-    <mavon-editor class="mavon" v-model="artilce.content" :toolbars="toolbars"></mavon-editor>
+    <mavon-editor class="mavon" v-model="artilce.content" :toolbars="toolbars" @imgAdd="$imgAdd"></mavon-editor>
     <public-drawer :visible="drawerVisible" :artilce="artilce" @close="drawerVisible = false"></public-drawer>
   </div>
 </template>
@@ -91,6 +91,15 @@ export default {
       if (res?.code === 1000) {
         this.artilce = res.data;
       }
+    },
+
+    $imgAdd(pos, $file) {
+      console.log(pos);
+      console.log($file);
+      // 将图片上传到服务器.
+      var formdata = new FormData();
+      formdata.append('file', $file);
+      this.$HttpApi.uploadImage(formdata);
     }
   }
 };

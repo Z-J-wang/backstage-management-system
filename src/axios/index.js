@@ -78,4 +78,10 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
    * @returns
    */
   getCategories = () => this.axios.get('/api/category/getCategories');
+
+  /**
+   * 上传图片通用api
+   * @returns
+   */
+  uploadImage = data => this.axios.post('/api/uploadImage', data);
 }
