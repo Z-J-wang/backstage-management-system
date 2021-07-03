@@ -98,7 +98,7 @@ export default {
       var formdata = new FormData();
       formdata.append('file', $file);
       const { data: res } = await this.$HttpApi.uploadImage(formdata);
-      this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_SERVER_URL}/${res.url}`);
+      this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_IMAGE_URL}/${res.url}`);
     }
   }
 };
