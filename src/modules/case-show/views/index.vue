@@ -41,10 +41,12 @@ export default {
     margin: 0 auto;
     ul {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      flex-wrap: wrap;
       li {
         width: 33%;
+        margin-bottom: 20px;
         padding-left: 20px;
         text-align: left;
         list-style: none;
