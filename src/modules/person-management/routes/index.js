@@ -5,10 +5,7 @@ const routes = [
     meta: {
       auth: 2
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "PersonalInfo" */ '@/modules/person-management/views/basicInfo.vue'
-      )
+    component: () => import(/* webpackChunkName: "PersonalInfo" */ '@/modules/person-management/views/basicInfo.vue')
   },
   {
     path: '/edu_experience',
@@ -16,10 +13,15 @@ const routes = [
     meta: {
       auth: 2
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/edu_experience.vue'
-      )
+    component: () => import(/* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/edu_experience.vue')
+  },
+  {
+    path: '/job_experience',
+    name: '工作经历',
+    meta: {
+      auth: 2
+    },
+    component: () => import(/* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/job_experience.vue')
   },
   {
     path: '/blogs',
@@ -27,10 +29,7 @@ const routes = [
     meta: {
       auth: 2
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/blog.vue'
-      )
+    component: () => import(/* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/blog.vue')
   },
   {
     path: '/messages',
@@ -38,10 +37,7 @@ const routes = [
     meta: {
       auth: 2
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "Messages" */ '@/modules/person-management/views/messages.vue'
-      )
+    component: () => import(/* webpackChunkName: "Messages" */ '@/modules/person-management/views/messages.vue')
   }
 ];
 
