@@ -11,7 +11,12 @@
             </p>
             <p>浏览量：{{ artilce.pageViews }}</p>
             <p>发布时间：{{ artilce.updatedAt }}</p>
-            <div class="edit" v-if="$store.state.userinfo.account" @click="goToEdit()">编辑</div>
+            <p>发布时间：{{ artilce.ban }}</p>
+            <div class="edit" v-if="$store.state.userinfo.account">
+              <span @click="goToEdit()">编辑</span> |
+              <span v-if="!artilce.ban" @click="ban()">禁用</span>
+              <span v-else @click="unban()">解禁</span>
+            </div>
           </div>
         </div>
         <mavon-editor
@@ -123,6 +128,28 @@ export default {
       }
     },
 
+    // 文章禁用
+    async ban() {
+      const { data: res } = await this.$HttpApi.ban(this.$route.params.id);
+      if (res?.code == 1000) {
+        this.$message.success(res.msg);
+        this.getArticlesByID();
+      } else if (res.code == 5000) {
+        this.$message.error(res.msg);
+      }
+    },
+
+    // 文章解禁
+    async unban() {
+      const { data: res } = await this.$HttpApi.unban(this.$route.params.id);
+      if (res?.code == 1000) {
+        this.$message.success(res.msg);
+        this.getArticlesByID();
+      } else if (res.code == 5000) {
+        this.$message.error(res.msg);
+      }
+    },
+
     change() {
       this.$nextTick(() => {
         const categories = this.$refs.mavon.$el.querySelectorAll('.v-note-panel h1,.v-note-panel h2');
@@ -181,7 +208,7 @@ main {
         bottom: 15px;
         right: 20px;
         cursor: pointer;
-        &:hover {
+        & span:hover {
           color: #869d9d;
         }
       }

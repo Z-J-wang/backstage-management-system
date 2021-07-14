@@ -14,7 +14,7 @@
         <el-menu-item index="/">首页</el-menu-item>
         <el-menu-item index="/blog-list">博客</el-menu-item>
         <el-menu-item index="/case-show">案例</el-menu-item>
-        <el-menu-item index="/">关于我</el-menu-item>
+        <el-menu-item index="/about">关于我</el-menu-item>
         <el-menu-item index="/markdown" v-if="$store.state.userinfo.account">发表</el-menu-item>
       </el-menu>
       <div class="toolbar" v-if="$store.state.userinfo.account">

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{ban:artileData.ban}">
     <el-image v-show="artileData.img" :src="artileData.img"></el-image>
     <div class="content">
       <h3 class="title">
@@ -44,6 +44,10 @@ export default {
     background: #fff;
     box-shadow: #ccc 1px 1px 8px;
     border-radius: 10px;
+  }
+  &.ban {
+    border-radius: 10px;
+    background-color: #8a988e33;
   }
   .el-image {
     width: 160px;

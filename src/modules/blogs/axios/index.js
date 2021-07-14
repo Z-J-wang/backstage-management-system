@@ -25,7 +25,21 @@ class Api extends AxiosConfig {
    * @param {*} id
    * @returns
    */
-  pageViewAutoIncre = id => this.axios.post('/api/article/pageViewAutoIncre', {id: id});
+  pageViewAutoIncre = id => this.axios.post('/api/article/pageViewAutoIncre', { id: id });
+
+  /**
+   * 文章禁用
+   * @param {*} id
+   * @returns
+   */
+  ban = id => this.axios.post('/api/article/ban', { id: id });
+
+  /**
+   * 文章解禁
+   * @param {*} id
+   * @returns
+   */
+  unban = id => this.axios.post('/api/article/unban', { id: id });
 }
 
 export default Api;
