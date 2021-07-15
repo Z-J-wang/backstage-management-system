@@ -9,18 +9,18 @@
   >
     <div>
       <el-form ref="form" label-width="80px" label-position="left" :rules="rules" :model="formItem">
-        <el-form-item label="公司名称" prop="theme">
-          <el-input v-model="formItem.theme" placeholder="请输入公司名称"></el-input>
+        <el-form-item label="项目名称" prop="theme">
+          <el-input v-model="formItem.theme" placeholder="请输入项目名称"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="dateTime">
           <el-date-picker
             v-model="formItem.dateTime"
             type="daterange"
-            style="width: 100%;"
             range-separator="至"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
+            style="width: 100%;"
             value-format="yyyy-MM-dd"
+            end-placeholder="结束时间"
+            start-placeholder="开始时间"
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="描述" prop="detail">
@@ -42,31 +42,28 @@
 </template>
 <script>
 export default {
-  name: 'create-new-experience',
+  name: 'edit-experience',
   props: {
     dialogVisible: {
       type: Boolean,
       default: false
+    },
+
+    formItem: {
+      type: Object
     }
   },
 
   data() {
     return {
-      formItem: {
-        theme: '',
-        dateTime: '',
-        detail: ''
-      },
-
       rules: {
-        theme: [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
+        theme: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
 
         dateTime: [{ required: true, message: '请输入时间', trigger: 'blur' }],
 
         detail: [{ required: true, message: '请输入描述', trigger: 'blur' }]
       },
-
-      title: '新增一条工作经历记录'
+      title: '项目经历编辑'
     };
   },
 
@@ -83,15 +80,15 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          let data = this.create({ ...this.formItem });
+          let data = await this.updateJob({ ...this.formItem });
           if (data) {
             this.$message({
               type: 'success',
-              message: '新增成功'
+              message: '更新成功'
             });
-            this.$refs['form'].resetFields();
-            this.$emit('close');
             this.$parent.getData();
+            this.$emit('close');
+            this.$refs['form'].resetFields();
           }
         } else {
           return false;
@@ -100,12 +97,11 @@ export default {
     },
 
     /***************************** ajax 操作部分 Start  *********************************/
-    async create(form) {
-      console.log(form);
-      let res = await this.$HttpApi.createJobs(form);
+    async updateJob(form) {
+      let res = await this.$HttpApi.updateProject(form);
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
-        data = res.data.data;
+        data = res.data.msg;
       } else {
         this.$message.error(res.data.msg);
 

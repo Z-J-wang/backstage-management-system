@@ -117,6 +117,18 @@ class Api extends AxiosConfig {
   updateJob = params => this.axios.post('/api/jobs/updateJob', params);
 
   deleteJob = params => this.axios.post('/api/jobs/deleteJob', params);
+
+  // 获取全部项目经历
+  getProjects = () => this.axios.get('/api/projects/getDatas');
+
+  // 新增一笔项目经历
+  createProject = params => this.axios.post('/api/projects/create', params);
+
+  // 项目经历更新
+  updateProject = params => this.axios.post('/api/projects/update', params);
+
+  // 删除一笔项目经历
+  deleteProject = params => this.axios.post('/api/projects/delete', params);
 }
 
 export default Api;

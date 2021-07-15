@@ -9,8 +9,8 @@
   >
     <div>
       <el-form ref="form" label-width="80px" label-position="left" :rules="rules" :model="formItem">
-        <el-form-item label="主题" prop="theme">
-          <el-input v-model="formItem.theme" placeholder="请输入主题"></el-input>
+        <el-form-item label="公司名称" prop="theme">
+          <el-input v-model="formItem.theme" placeholder="请输入公司名称"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="dateTime">
           <el-date-picker
@@ -57,13 +57,13 @@ export default {
   data() {
     return {
       rules: {
-        theme: [{ required: true, message: '请输入主题', trigger: 'blur' }],
+        theme: [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
 
         dateTime: [{ required: true, message: '请输入时间', trigger: 'blur' }],
 
         detail: [{ required: true, message: '请输入描述', trigger: 'blur' }]
       },
-      title: '教育经历编辑'
+      title: '工作经历编辑'
     };
   },
 

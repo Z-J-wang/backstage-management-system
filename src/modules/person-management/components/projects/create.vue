@@ -9,8 +9,8 @@
   >
     <div>
       <el-form ref="form" label-width="80px" label-position="left" :rules="rules" :model="formItem">
-        <el-form-item label="公司名称" prop="theme">
-          <el-input v-model="formItem.theme" placeholder="请输入公司名称"></el-input>
+        <el-form-item label="项目名称" prop="theme">
+          <el-input v-model="formItem.theme" placeholder="请输入项目名称"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="dateTime">
           <el-date-picker
@@ -59,14 +59,14 @@ export default {
       },
 
       rules: {
-        theme: [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
+        theme: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
 
         dateTime: [{ required: true, message: '请输入时间', trigger: 'blur' }],
 
         detail: [{ required: true, message: '请输入描述', trigger: 'blur' }]
       },
 
-      title: '新增一条工作经历记录'
+      title: '新增一条项目经历记录'
     };
   },
 
@@ -102,7 +102,7 @@ export default {
     /***************************** ajax 操作部分 Start  *********************************/
     async create(form) {
       console.log(form);
-      let res = await this.$HttpApi.createJobs(form);
+      let res = await this.$HttpApi.createProject(form);
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.data;

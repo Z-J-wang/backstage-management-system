@@ -2,12 +2,9 @@
   <el-menu
     router
     class="el-menu-vertical"
-    default-active="/accountManagement"
-    :default-openeds="['2']"
     :collapse="isCollapse"
   >
     <el-menu>
-      <!-- <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button> -->
       <el-button v-if="isCollapse" style="width:80%;" @click="isCollapse = false">
         <i class="el-icon-right"></i>
       </el-button>
@@ -24,6 +21,7 @@
         <el-menu-item index="/personalInfo">基础信息</el-menu-item>
         <el-menu-item index="/edu_experience">教育经历</el-menu-item>
         <el-menu-item index="/job_experience">工作经历</el-menu-item>
+        <el-menu-item index="/projects">项目经历</el-menu-item>
         <el-menu-item index="/blogs">个人博客</el-menu-item>
         <el-menu-item index="/messages">来访信件</el-menu-item>
       </el-menu-item-group>

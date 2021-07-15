@@ -55,11 +55,7 @@
               <el-form-item label="籍贯" prop="placeOfBirth">
                 <div class="p-l-60">
                   <div v-show="!placeOfBirth_editor" style="text-align: left">
-                    {{
-                    personalInfo.placeOfBirth
-                    ? personalInfo.placeOfBirth.join(" / ")
-                    : ""
-                    }}
+                    {{personalInfo.placeOfBirth? personalInfo.placeOfBirth.join(" / "): ""}}
                     <el-tooltip class="item" effect="light" placement="right" content="双击进行编辑">
                       <i
                         class="el-icon-edit pointer"
@@ -70,12 +66,6 @@
                       ></i>
                     </el-tooltip>
                   </div>
-                  <!-- <el-input
-                                        id="placeOfBirth"
-                                        v-model="personalInfo.placeOfBirth"
-                                        v-show="placeOfBirth_editor"
-                                        @click.stop.native
-                  ></el-input>-->
                   <district-select
                     v-show="placeOfBirth_editor"
                     id="placeOfBirth"
@@ -135,11 +125,7 @@
               <el-form-item label="现居地" prop="presentAddress">
                 <div class="p-l-60">
                   <div v-show="!presentAddress_editor" style="text-align: left">
-                    {{
-                    personalInfo.presentAddress
-                    ? personalInfo.presentAddress.join(" / ")
-                    : ""
-                    }}
+                    {{ personalInfo.presentAddress? personalInfo.presentAddress.join(" / "): "" }}
                     <el-tooltip class="item" effect="light" placement="right" content="双击进行编辑">
                       <i
                         class="el-icon-edit pointer"

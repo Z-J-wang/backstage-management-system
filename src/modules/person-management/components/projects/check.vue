@@ -1,12 +1,12 @@
 <template>
   <el-drawer
     direction="ltr"
-    title="工作经历详情"
+    title="项目经历详情"
     :visible.sync="drawerVisible"
     :before-close="handleClose"
   >
     <el-row>
-      <el-col :span="8">公司名称：</el-col>
+      <el-col :span="8">项目名称：</el-col>
       <el-col class="text-l" :span="16">{{ item.theme }}</el-col>
     </el-row>
     <el-row>

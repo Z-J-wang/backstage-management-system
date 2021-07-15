@@ -24,6 +24,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/job_experience.vue')
   },
   {
+    path: '/projects',
+    name: '项目经历',
+    meta: {
+      auth: 2
+    },
+    component: () => import(/* webpackChunkName: "edu_experience" */ '@/modules/person-management/views/projects.vue')
+  },
+  {
     path: '/blogs',
     name: '个人博客',
     meta: {
