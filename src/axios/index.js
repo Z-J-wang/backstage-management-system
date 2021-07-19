@@ -84,4 +84,6 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
    * @returns
    */
   uploadImage = data => this.axios.post('/api/uploadImage', data);
+
+  getResume = () => this.axios.get('/api/person/getResume');
 }
