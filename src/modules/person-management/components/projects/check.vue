@@ -18,7 +18,9 @@
     </el-row>
     <el-row>
       <el-col :span="8">详情：</el-col>
-      <el-col class="text-l text-indent-cn" :span="16">{{ item.detail }}</el-col>
+      <el-col class="text-l text-indent-cn" :span="16">
+        <p v-html="item.detail"></p>
+      </el-col>
     </el-row>
   </el-drawer>
 </template>

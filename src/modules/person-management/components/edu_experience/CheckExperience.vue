@@ -24,7 +24,7 @@
       <el-col
         class="text-l text-indent-cn"
         :span="16"
-      >{{ item.detail }}</el-col>
+      ><p v-html="item.detail"></p></el-col>
     </el-row>
   </el-drawer>
 </template>
