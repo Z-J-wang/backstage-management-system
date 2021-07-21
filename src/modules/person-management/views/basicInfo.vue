@@ -147,7 +147,7 @@
               <el-form-item label="个人简介" prop="introducts">
                 <div class="p-l-60">
                   <div v-show="!introducts_editor" style="text-align: left">
-                    {{ personalInfo.introducts }}
+                    <span v-html="personalInfo.introducts"></span>
                     <el-tooltip class="item" content="双击进行编辑" effect="light" placement="right">
                       <i
                         class="el-icon-edit pointer"

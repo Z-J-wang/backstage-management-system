@@ -36,7 +36,7 @@
           </ul>
           <!-- 个人介绍 -->
           <h3>自我介绍</h3>
-          <p class="intro">{{resumeData.basicinfo.introducts}}</p>
+          <p class="intro" v-html="resumeData.basicinfo.introducts"></p>
         </div>
       </div>
       <div class="edu">
@@ -60,20 +60,20 @@
             <div>{{job.dateTime | formatDateTime}}</div>
           </div>
           <div class="plane-body">
-            <p>{{job.detail}}</p>
+            <p v-html="job.detail"></p>
           </div>
         </div>
       </div>
       <!-- 项目经历 -->
       <div class="projects">
         <h3 class="text-l">项目经历</h3>
-        <div class="plane" v-for="job in resumeData.projects" :key="job.id">
+        <div class="plane" v-for="project in resumeData.projects" :key="project.id">
           <div class="plane-head">
-            <div>{{job.theme}}</div>
-            <div>{{job.dateTime | formatDateTime}}</div>
+            <div>{{project.theme}}</div>
+            <div>{{project.dateTime | formatDateTime}}</div>
           </div>
           <div class="plane-body">
-            <p>{{job.detail}}</p>
+            <p v-html="project.detail"></p>
           </div>
         </div>
       </div>
