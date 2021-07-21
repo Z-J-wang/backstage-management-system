@@ -15,8 +15,8 @@
       <el-table-column sortable width="240" prop="datetime" label="发信时间"></el-table-column>
       <el-table-column width="240" label="邮箱" prop="email"></el-table-column>
       <el-table-column label="网站" prop="website"></el-table-column>
-      <el-table-column label="主题" prop="subject"></el-table-column>
-      <el-table-column label="内容" prop="content"></el-table-column>
+      <el-table-column label="主题" prop="subject" show-overflow-tooltip></el-table-column>
+      <el-table-column label="内容" prop="content" show-overflow-tooltip></el-table-column>
       <el-table-column width="100" label="操作" fixed="right">
         <template slot-scope="scope">
           <el-button

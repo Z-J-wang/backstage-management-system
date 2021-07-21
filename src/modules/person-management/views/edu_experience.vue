@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
       <el-table-column label="详情" prop="detail"></el-table-column>
-      <el-table-column width="140" label="操作" fixed="right">
+      <el-table-column width="140" label="操作" fixed="right" show-overflow-tooltip>
         <template slot-scope="scope">
           <el-button
             circle

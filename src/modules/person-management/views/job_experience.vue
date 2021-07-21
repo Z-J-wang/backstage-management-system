@@ -18,7 +18,7 @@
           <span style="margin-left: 10px">{{scope.row.dateTime.join(" 至 ")}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="详情" prop="detail"></el-table-column>
+      <el-table-column label="详情" prop="detail" show-overflow-tooltip></el-table-column>
       <el-table-column width="140" label="操作" fixed="right">
         <template slot-scope="scope">
           <el-button
