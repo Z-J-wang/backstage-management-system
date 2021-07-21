@@ -25,6 +25,14 @@
               <span>现居地：</span>
               <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
             </li>
+            <li>
+              <span>期望薪资：</span>
+              <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
+            </li>
+            <li>
+              <span>到职日期：</span>
+              <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
+            </li>
           </ul>
           <!-- 个人介绍 -->
           <h3>自我介绍</h3>

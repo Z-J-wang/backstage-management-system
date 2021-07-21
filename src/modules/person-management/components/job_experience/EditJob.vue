@@ -24,13 +24,15 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="描述" prop="detail">
+          <the-editor v-if="dialogVisible" v-model="formItem.detail" editorName="content" />
+          <!--
           <el-input
             v-model="formItem.detail"
             type="textarea"
             maxlength="250"
             show-word-limit
             placeholder="请输入描述"
-          ></el-input>
+          ></el-input>-->
         </el-form-item>
       </el-form>
     </div>
@@ -69,12 +71,8 @@ export default {
 
   methods: {
     handleClose() {
-      this.$confirm('确认关闭？')
-        .then(() => {
-          this.$refs['form'].resetFields();
-          this.$emit('close');
-        })
-        .catch(() => {});
+      this.$refs['form'].resetFields();
+      this.$emit('close');
     },
 
     onSubmit(formName) {

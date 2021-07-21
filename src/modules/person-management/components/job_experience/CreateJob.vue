@@ -7,7 +7,7 @@
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
   >
-    <div>
+    <div v-if="dialogVisible">
       <el-form ref="form" label-width="80px" label-position="left" :rules="rules" :model="formItem">
         <el-form-item label="公司名称" prop="theme">
           <el-input v-model="formItem.theme" placeholder="请输入公司名称"></el-input>
@@ -24,13 +24,14 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="描述" prop="detail">
-          <el-input
+          <the-editor v-if="dialogVisible" v-model="formItem.detail" editorName="content" />
+          <!-- <el-input
             v-model="formItem.detail"
             type="textarea"
             maxlength="250"
             show-word-limit
             placeholder="请输入描述"
-          ></el-input>
+          ></el-input>-->
         </el-form-item>
       </el-form>
     </div>
@@ -72,27 +73,14 @@ export default {
 
   methods: {
     handleClose() {
-      this.$confirm('确认关闭？')
-        .then(() => {
-          this.$refs['form'].resetFields();
-          this.$emit('close');
-        })
-        .catch(() => {});
+      this.$refs['form'].resetFields();
+      this.$emit('close');
     },
 
     onSubmit(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          let data = this.create({ ...this.formItem });
-          if (data) {
-            this.$message({
-              type: 'success',
-              message: '新增成功'
-            });
-            this.$refs['form'].resetFields();
-            this.$emit('close');
-            this.$parent.getData();
-          }
+          this.create({ ...this.formItem });
         } else {
           return false;
         }
@@ -106,6 +94,13 @@ export default {
       let data = {};
       if (res.status === 200 && res.data.code === 1000) {
         data = res.data.data;
+        this.$message({
+          type: 'success',
+          message: '新增成功'
+        });
+        this.$refs['form'].resetFields();
+        this.$emit('close');
+        this.$parent.getData();
       } else {
         this.$message.error(res.data.msg);
 

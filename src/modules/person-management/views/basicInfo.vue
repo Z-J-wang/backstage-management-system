@@ -159,6 +159,13 @@
                       ></i>
                     </el-tooltip>
                   </div>
+                  <the-editor
+                    v-show="introducts_editor"
+                    @click.stop.native
+                    v-model="personalInfo.introducts"
+                    editorName="content"
+                  />
+                  <!--
                   <el-input
                     v-show="introducts_editor"
                     id="introducts"
@@ -168,7 +175,7 @@
                     type="textarea"
                     placeholder="请输入内容"
                     @click.stop.native
-                  ></el-input>
+                  ></el-input>-->
                 </div>
               </el-form-item>
               <el-form-item v-show="btn_changeVisible" style="margin-top: 100px">

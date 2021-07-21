@@ -7,7 +7,7 @@
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
   >
-    <div>
+    <div v-if="dialogVisible">
       <el-form ref="form" label-width="80px" label-position="left" :rules="rules" :model="formItem">
         <el-form-item label="项目名称" prop="theme">
           <el-input v-model="formItem.theme" placeholder="请输入项目名称"></el-input>
@@ -24,13 +24,15 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="描述" prop="detail">
+          <the-editor v-model="formItem.detail" editorName="content" />
+          <!--
           <el-input
             v-model="formItem.detail"
             type="textarea"
             maxlength="250"
             show-word-limit
             placeholder="请输入描述"
-          ></el-input>
+          ></el-input>-->
         </el-form-item>
       </el-form>
     </div>
@@ -69,12 +71,10 @@ export default {
 
   methods: {
     handleClose() {
-      this.$confirm('确认关闭？')
-        .then(() => {
-          this.$refs['form'].resetFields();
-          this.$emit('close');
-        })
-        .catch(() => {});
+      this.$refs['form'].resetFields();
+      this.$nextTick(() => {
+        this.$emit('close');
+      });
     },
 
     onSubmit(formName) {
