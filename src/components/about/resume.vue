@@ -25,7 +25,7 @@
               <span>现居地：</span>
               <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
             </li>
-            <li>
+            <li v-if="$route.query.all">
               <span>联系方式：</span>
               <span>{{resumeData.basicinfo.phone }}</span>
             </li>
