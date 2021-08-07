@@ -85,5 +85,20 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
    */
   uploadImage = data => this.axios.post('/api/uploadImage', data);
 
+  // 获取简历基础信息
   getResume = () => this.axios.get('/api/person/getResume');
+
+  /**
+   * 获取教育经历
+   * @param {*} params
+   */
+  getExperiences(params) {
+    return this.axios.get('/api/person/getExperiences', { params: params });
+  }
+
+  // 获取工作经历
+  getJobs = () => this.axios.get('/api/jobs/getJobs');
+
+  // 获取全部项目经历
+  getProjects = () => this.axios.get('/api/projects/getDatas');
 }

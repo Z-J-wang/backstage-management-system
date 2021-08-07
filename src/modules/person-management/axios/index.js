@@ -15,19 +15,20 @@ class Api extends AxiosConfig {
   }
 
   /**
+   * 新建个人基础信息
+   * @param {*} params 
+   * @returns 
+   */
+  createBasicinfo(params) {
+    return this.axios.post('/api/person/create', params);
+  }
+
+  /**
    * 更新个人基础信息
    * @param {*} params
    */
   updateBasicinfo(params) {
     return this.axios.post('/api/person/update', params);
-  }
-
-  /**
-   * 获取教育经历
-   * @param {*} params
-   */
-  getExperiences(params) {
-    return this.axios.get('/api/person/getExperiences', { params: params });
   }
 
   /**
@@ -110,16 +111,14 @@ class Api extends AxiosConfig {
     return this.axios.post('/api/person/deleteMsg', params);
   }
 
-  getJobs = () => this.axios.get('/api/jobs/getJobs');
-
+  // 新增一笔工作经历记录
   createJobs = params => this.axios.post('/api/jobs/createJob', params);
 
+  // 更新工作经历
   updateJob = params => this.axios.post('/api/jobs/updateJob', params);
 
+  // 删除工作经历
   deleteJob = params => this.axios.post('/api/jobs/deleteJob', params);
-
-  // 获取全部项目经历
-  getProjects = () => this.axios.get('/api/projects/getDatas');
 
   // 新增一笔项目经历
   createProject = params => this.axios.post('/api/projects/create', params);

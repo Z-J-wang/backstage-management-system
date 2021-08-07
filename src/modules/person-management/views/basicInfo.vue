@@ -100,6 +100,28 @@
                   ></el-date-picker>
                 </div>
               </el-form-item>
+              <el-form-item prop="email" label="邮箱">
+                <div class="p-l-60">
+                  <div v-show="!name_editor" style="text-align: left">
+                    {{ personalInfo.email }}
+                    <el-tooltip class="item" effect="light" placement="right" content="双击进行编辑">
+                      <i
+                        class="el-icon-edit pointer"
+                        @dblclick="
+                          name_editor = true;
+                          editorGetFocus('name');
+                        "
+                      ></i>
+                    </el-tooltip>
+                  </div>
+                  <el-input
+                    v-show="name_editor"
+                    id="email"
+                    v-model="personalInfo.email"
+                    @click.stop.native
+                  ></el-input>
+                </div>
+              </el-form-item>
               <el-form-item label="国籍" prop="nationality">
                 <div class="p-l-60">
                   <div v-show="!nationality_editor" style="text-align: left">
@@ -275,7 +297,11 @@ export default {
       if (ret_confirm) {
         let ret_valid = await this.$refs[formName].validate(); // 进行表单验证
         if (ret_valid) {
-          this.changeBasicinfo(this.personalInfo);
+          if (this.personalInfo.id) {
+            this.changeBasicinfo(this.personalInfo);
+          } else {
+            this.createBasicinfo(this.personalInfo);
+          }
         }
       }
     },
@@ -322,8 +348,8 @@ export default {
      * 获取个人基础信息
      */
     async getBasicinfo() {
-      let res = await this.$HttpApi.getBasicinfo();
-      if (res.status === 200) {
+      let { data: res } = await this.$HttpApi.getBasicinfo();
+      if (res.code === 1000) {
         if (typeof res.data == 'object') {
           this.personalInfo = res.data;
         }
@@ -336,13 +362,26 @@ export default {
       }
     },
 
+    async createBasicinfo(params) {
+      let { data: res } = await this.$HttpApi.createBasicinfo(params);
+      if (res.code === 1000) {
+        this.$message({
+          message: '个人基础信息更新成功！',
+          type: 'success'
+        });
+        this.btn_changeVisible = false;
+      } else {
+        this.$message.error('糟糕！！系统出错！请重试！');
+      }
+    },
+
     /**
      * 修改个人基础信息
      * @param {object} params
      */
     async changeBasicinfo(params) {
-      let res = await this.$HttpApi.updateBasicinfo(params);
-      if (res.status === 200) {
+      let { data: res } = await this.$HttpApi.updateBasicinfo(params);
+      if (res.code === 1000) {
         this.$message({
           message: '个人基础信息更新成功！',
           type: 'success'
@@ -355,9 +394,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less" scoped>
-// .personalInfo{
-//     padding-top: 100px;
-// }
-</style>

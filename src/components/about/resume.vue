@@ -41,20 +41,20 @@
       </div>
       <div class="edu">
         <h3 class="text-l">教育背景</h3>
-        <div class="plane">
+        <div class="plane" v-for="item in experiences" :key="item.id">
           <div class="plane-head">
-            <div>XX学校</div>
-            <div>2015-9 至 2019-7</div>
+            <div>{{item.theme}}</div>
+            <div>{{item.dateTime | formatDateTime}}</div>
           </div>
           <div class="plane-body">
-            <p>江户时代会计核算的付款就会受到</p>
+            <p>{{item.detail}}</p>
           </div>
         </div>
       </div>
       <!-- 工作经历 -->
       <div class="jobs">
         <h3 class="text-l">工作经历</h3>
-        <div class="plane" v-for="job in resumeData.jobs" :key="job.id">
+        <div class="plane" v-for="job in jobs" :key="job.id">
           <div class="plane-head">
             <div>{{job.theme}}</div>
             <div>{{job.dateTime | formatDateTime}}</div>
@@ -67,7 +67,7 @@
       <!-- 项目经历 -->
       <div class="projects">
         <h3 class="text-l">项目经历</h3>
-        <div class="plane" v-for="project in resumeData.projects" :key="project.id">
+        <div class="plane" v-for="project in projects" :key="project.id">
           <div class="plane-head">
             <div>{{project.theme}}</div>
             <div>{{project.dateTime | formatDateTime}}</div>
@@ -86,11 +86,16 @@ export default {
   name: 'resume',
   data() {
     return {
-      resumeData: {}
+      resumeData: {},
+      experiences: null,
+      jobs: null
     };
   },
   created() {
     this.getDate();
+    this.getExperiences();
+    this.getJobs();
+    this.getProjects();
   },
   filters: {
     formatAddress(address) {
@@ -108,7 +113,31 @@ export default {
       const { data: res } = await this.$HttpApi.getResume();
       if (res.code === 1000) {
         this.resumeData = res?.data;
-        console.log(this.resumeData);
+      }
+    },
+    async getExperiences() {
+      let res = await this.$HttpApi.getExperiences();
+      if (res.status === 200 && res.data.code === 1000) {
+        this.experiences = res.data.data.rows;
+      } else {
+        this.$message.error(res.data.msg);
+      }
+    },
+
+    async getJobs() {
+      let res = await this.$HttpApi.getJobs();
+      if (res.status === 200 && res.data.code === 1000) {
+        this.jobs = res.data.data;
+      } else {
+        this.$message.error(res.data.msg);
+      }
+    },
+    async getProjects() {
+      let res = await this.$HttpApi.getProjects();
+      if (res.status === 200 && res.data.code === 1000) {
+        this.projects = res.data.data;
+      } else {
+        this.$message.error(res.data.msg);
       }
     }
   }

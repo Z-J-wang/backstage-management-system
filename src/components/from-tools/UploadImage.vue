@@ -2,6 +2,7 @@
   <el-upload
     class="avatar-uploader"
     :data="oldSrc"
+    :headers="headers"
     :action="action"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
@@ -26,30 +27,33 @@ export default {
   name: 'upload-image',
   props: {
     imageUrl: {
-      type: String,
+      type: String
     },
 
     action: {
-      type: String,
+      type: String
     },
 
     width: {
       type: String,
-      default: '178',
+      default: '178'
     },
 
     height: {
       type: String,
-      default: '178',
-    },
+      default: '178'
+    }
   },
 
   data() {
     return {
       mutableImageUrl: this.imageUrl,
       oldSrc: {
-        oldImgSrc: '',
+        oldImgSrc: ''
       },
+      headers: {
+        Authorization: this.$Cookie.getToken()
+      }
     };
   },
   updated() {
@@ -72,8 +76,8 @@ export default {
         this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
-    },
-  },
+    }
+  }
 };
 </script>
 
