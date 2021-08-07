@@ -53,6 +53,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/resume',
+    name: 'resume',
+    meta: {
+      auth: 3
+    },
+    component: () => import(/* webpackChunkName: "resume" */ '../views/resume.vue')
+  },
+  {
     path: '/404',
     name: '404',
     meta: {

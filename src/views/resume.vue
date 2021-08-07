@@ -1,11 +1,10 @@
 <template>
   <div class="resume">
     <div class="main-title">
-      <h1>个人简历</h1>
+      <h2>个人简历</h2>
     </div>
     <div class="main">
       <div class="basicinfo">
-        <el-image :src="`${$store.state.server_url}/upload/${resumeData.basicinfo.avatar}`"></el-image>
         <div class="basicinfo-r">
           <h3>基本信息</h3>
           <ul>
@@ -38,10 +37,8 @@
               <span>一个月</span>
             </li>
           </ul>
-          <!-- 个人介绍 -->
-          <h3>自我介绍</h3>
-          <p class="intro" v-html="resumeData.basicinfo.introducts"></p>
         </div>
+        <el-image :src="`${$store.state.server_url}/upload/${resumeData.basicinfo.avatar}`"></el-image>
       </div>
       <div class="edu">
         <h3 class="text-l">教育背景</h3>
@@ -79,6 +76,13 @@
           <div class="plane-body">
             <p v-html="project.detail"></p>
           </div>
+        </div>
+      </div>
+      <!-- 个人介绍 -->
+      <div class="text-l">
+        <h3>自我介绍</h3>
+        <div class="plane">
+          <p class="intro" v-html="resumeData.basicinfo.introducts"></p>
         </div>
       </div>
     </div>
@@ -155,14 +159,14 @@ export default {
 @borderColor: #999;
 
 .resume {
+  max-width: 1170px;
+  margin: auto;
   position: relative;
   padding: 20px;
   background-color: #fff;
   .main-title {
     height: 50px;
-    h1 {
-      position: absolute;
-      left: 0;
+    h2 {
       width: 600px;
       margin: 0;
       padding-left: 20px;
@@ -176,9 +180,6 @@ export default {
   }
   .main {
     padding: 20px;
-    & > div {
-      margin-bottom: 60px;
-    }
   }
   h3 {
     position: relative;
@@ -199,10 +200,10 @@ export default {
 }
 .basicinfo {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
   .el-image {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     margin-left: 80px;
     border-radius: 50%;
   }
@@ -210,7 +211,6 @@ export default {
     flex: 1;
     text-align: left;
     ul {
-      width: 600px;
       list-style: none;
       padding-left: 10px;
       li {
