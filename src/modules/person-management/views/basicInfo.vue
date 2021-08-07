@@ -100,22 +100,44 @@
                   ></el-date-picker>
                 </div>
               </el-form-item>
-              <el-form-item prop="email" label="邮箱">
+              <el-form-item prop="phone" label="联系方式">
                 <div class="p-l-60">
-                  <div v-show="!name_editor" style="text-align: left">
-                    {{ personalInfo.email }}
+                  <div v-show="!phone_editor" style="text-align: left">
+                    {{ personalInfo.phone }}
                     <el-tooltip class="item" effect="light" placement="right" content="双击进行编辑">
                       <i
                         class="el-icon-edit pointer"
                         @dblclick="
-                          name_editor = true;
-                          editorGetFocus('name');
+                          phone_editor = true;
+                          editorGetFocus('phone');
                         "
                       ></i>
                     </el-tooltip>
                   </div>
                   <el-input
-                    v-show="name_editor"
+                    v-show="phone_editor"
+                    id="phone"
+                    v-model="personalInfo.phone"
+                    @click.stop.native
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item prop="email" label="邮箱">
+                <div class="p-l-60">
+                  <div v-show="!email_editor" style="text-align: left">
+                    {{ personalInfo.email }}
+                    <el-tooltip class="item" effect="light" placement="right" content="双击进行编辑">
+                      <i
+                        class="el-icon-edit pointer"
+                        @dblclick="
+                          email_editor = true;
+                          editorGetFocus('email');
+                        "
+                      ></i>
+                    </el-tooltip>
+                  </div>
+                  <el-input
+                    v-show="email_editor"
                     id="email"
                     v-model="personalInfo.email"
                     @click.stop.native
@@ -242,6 +264,8 @@ export default {
       nationality_editor: false,
       presentAddress_editor: false,
       introducts_editor: false,
+      phone_editor: false,
+      email_editor: false,
 
       // 个人基础数据
       personalInfo: {},

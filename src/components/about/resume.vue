@@ -26,12 +26,16 @@
               <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
             </li>
             <li>
-              <span>期望薪资：</span>
-              <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
+              <span>联系方式：</span>
+              <span>{{resumeData.basicinfo.phone }}</span>
             </li>
-            <li>
+            <li v-if="$route.query.all">
+              <span>期望薪资：</span>
+              <span>面议</span>
+            </li>
+            <li v-if="$route.query.all">
               <span>到职日期：</span>
-              <span>{{resumeData.basicinfo.presentAddress | formatAddress}}</span>
+              <span>一个月</span>
             </li>
           </ul>
           <!-- 个人介绍 -->
