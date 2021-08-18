@@ -46,6 +46,14 @@ const routes = [
       auth: 2
     },
     component: () => import(/* webpackChunkName: "Messages" */ '@/modules/person-management/views/messages.vue')
+  },
+  {
+    path: '/skills',
+    name: '个人技能',
+    meta: {
+      auth: 2
+    },
+    component: () => import(/* webpackChunkName: "Messages" */ '@/modules/person-management/views/skills.vue')
   }
 ];
 

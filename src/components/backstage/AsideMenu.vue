@@ -24,6 +24,7 @@
         <el-menu-item index="/projects">项目经历</el-menu-item>
         <el-menu-item index="/blogs">个人博客</el-menu-item>
         <el-menu-item index="/messages">来访信件</el-menu-item>
+        <el-menu-item index="/skills">个人技能</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu v-if="auth == 1 || auth == 0" index="2">

@@ -101,4 +101,7 @@ export default class httpApi extends util.classMixin(instance, ...moudulesApi) {
 
   // 获取全部项目经历
   getProjects = () => this.axios.get('/api/projects/getDatas');
+
+  // 获取全部的个人技能
+  getSkills = () => this.axios.get('/api/skills/getSkills');
 }
