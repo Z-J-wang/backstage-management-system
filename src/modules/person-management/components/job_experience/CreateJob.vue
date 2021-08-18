@@ -15,12 +15,12 @@
         <el-form-item label="时间" prop="dateTime">
           <el-date-picker
             v-model="formItem.dateTime"
-            type="daterange"
+            type="monthrange"
             style="width: 100%;"
             range-separator="至"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
-            value-format="yyyy-MM-dd"
+            value-format="yyyy-MM"
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="描述" prop="detail">
