@@ -52,6 +52,14 @@
           </div>
         </div>
       </div>
+      <div class="skills">
+        <h3 class="text-l">掌握技能</h3>
+        <el-row>
+          <el-col :span="4" v-for="skill in skills" :key="skill.id">
+            <progress-skill :skill="skill.name" :percentage="skill.level" />
+          </el-col>
+        </el-row>
+      </div>
       <!-- 工作经历 -->
       <div class="jobs">
         <h3 class="text-l">工作经历</h3>
@@ -90,20 +98,25 @@
 </template>
 
 <script>
+import progressSkill from '@/components/resume/progress-skill.vue';
+
 export default {
   name: 'resume',
   data() {
     return {
       resumeData: {},
       experiences: null,
-      jobs: null
+      jobs: null,
+      skills: null
     };
   },
+  components: { progressSkill },
   created() {
     this.getDate();
     this.getExperiences();
     this.getJobs();
     this.getProjects();
+    this.getSkills();
   },
   filters: {
     formatAddress(address) {
@@ -140,10 +153,20 @@ export default {
         this.$message.error(res.data.msg);
       }
     },
+
     async getProjects() {
       let res = await this.$HttpApi.getProjects();
       if (res.status === 200 && res.data.code === 1000) {
         this.projects = res.data.data;
+      } else {
+        this.$message.error(res.data.msg);
+      }
+    },
+
+    async getSkills() {
+      let res = await this.$HttpApi.getSkills();
+      if (res.status === 200 && res.data.code === 1000) {
+        this.skills = res.data.data;
       } else {
         this.$message.error(res.data.msg);
       }
