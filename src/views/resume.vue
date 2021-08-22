@@ -166,7 +166,9 @@ export default {
     async getSkills() {
       let res = await this.$HttpApi.getSkills();
       if (res.status === 200 && res.data.code === 1000) {
-        this.skills = res.data.data;
+        this.skills = res.data.data.sort((a, b) => {
+          return b.level - a.level;
+        });
       } else {
         this.$message.error(res.data.msg);
       }
