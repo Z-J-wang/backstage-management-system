@@ -16,8 +16,8 @@ class Api extends AxiosConfig {
 
   /**
    * 新建个人基础信息
-   * @param {*} params 
-   * @returns 
+   * @param {*} params
+   * @returns
    */
   createBasicinfo(params) {
     return this.axios.post('/api/person/create', params);
@@ -128,6 +128,15 @@ class Api extends AxiosConfig {
 
   // 删除一笔项目经历
   deleteProject = params => this.axios.post('/api/projects/delete', params);
+
+  // 新增一笔个人技能
+  createSkills = params => this.axios.post('/api/skills/create', params);
+
+  // 个人技能更新
+  updateSkills = params => this.axios.post('/api/skills/update', params);
+
+  // 删除一笔个人技能
+  deleteSkills = params => this.axios.post('/api/skills/delete', params);
 }
 
 export default Api;
