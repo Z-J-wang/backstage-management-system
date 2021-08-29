@@ -11,7 +11,6 @@
             </p>
             <p>浏览量：{{ artilce.pageViews }}</p>
             <p>发布时间：{{ artilce.updatedAt }}</p>
-            <p>发布时间：{{ artilce.ban }}</p>
             <div class="edit" v-if="$store.state.userinfo.account">
               <span @click="goToEdit()">编辑</span> |
               <span v-if="!artilce.ban" @click="ban()">禁用</span>
