@@ -5,10 +5,11 @@
       <el-button v-show="sort === 'desc'" @click="sort = 'asc'">时间降序</el-button>
       <el-button v-show="sort === 'asc'" @click="sort = 'desc'">时间升序</el-button>
       <el-select v-model="category" placeholder="分类" @change="select">
+        <el-option label="全部" value></el-option>
         <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.name"></el-option>
       </el-select>
       <el-input v-model="searchKey" placeholder="请输入关键字"></el-input>
-      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
     </div>
     <div class="list-contain">
       <card v-for="item in dataList" :key="item.id" :artileData="item"></card>
@@ -74,15 +75,16 @@ export default {
     },
 
     // 查询
-    search() {
-      this.pagination.size = 1;
-      this.select();
+    search(category, tag) {
+      this.pagination.page = 1;
+      this.select(category, tag);
     },
 
-    async select() {
+    async select(category = this.category, tag) {
       const params = {
         search: this.searchKey,
-        category: this.category,
+        category: category,
+        tag: tag,
         sort: this.sort,
         pageSize: this.pagination.size,
         page: this.pagination.page
