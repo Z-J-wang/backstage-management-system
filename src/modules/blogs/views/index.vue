@@ -2,19 +2,29 @@
   <base-template>
     <main>
       <section>
-        <list></list>
+        <list ref="list"></list>
       </section>
       <aside>
         <aside-contain>
           <span slot="title">标签</span>
           <div>
-            <el-tag v-for="item in allTags" :key="item.id" effect="plain">{{ item.name }}</el-tag>
+            <el-tag
+              v-for="item in allTags"
+              :key="item.id"
+              effect="plain"
+              @click="$refs.list.search('',item.name)"
+            >{{ item.name }}</el-tag>
           </div>
         </aside-contain>
         <aside-contain>
           <span slot="title">文章分类</span>
           <div>
-            <el-tag v-for="item in categories" :key="item.id" effect="plain" @click="goTo(item.name)">{{ item.name }}</el-tag>
+            <el-tag
+              v-for="item in categories"
+              :key="item.id"
+              effect="plain"
+              @click="$refs.list.search(item.name)"
+            >{{ item.name }}</el-tag>
           </div>
         </aside-contain>
       </aside>
@@ -39,15 +49,6 @@ export default {
     this.getCategories();
   },
   methods: {
-    goTo(name) {
-      this.$router.push({
-        name: 'blog-list',
-        params: {
-          category: name
-        }
-      });
-    },
-
     /**
      * 获取已存在的标签
      */
@@ -90,7 +91,7 @@ main {
     border-radius: 5px;
   }
   .el-tag {
-    margin-right: 10px;
+    margin: 0 5px 10px 5px;
     cursor: pointer;
   }
 }

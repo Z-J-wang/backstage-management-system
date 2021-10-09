@@ -1,9 +1,10 @@
 {
-  "name": "BMYX",
+  "name": "backstage-management-system",
   "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:pro": "cross-env NODE_ENV=production vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "standard"
@@ -27,13 +28,14 @@
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "image-webpack-loader": "^6.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "standard": "*",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.11",
-    "standard": "*"
+    "vue-template-compiler": "^2.6.11"
   }
 }
