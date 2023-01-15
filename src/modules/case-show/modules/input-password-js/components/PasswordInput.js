@@ -167,6 +167,7 @@ class PasswordInput {
   // 限制中文输入
   limitCN() {
     let val = this._inputElem.value; // 获取输入框中的值、
+    // eslint-disable-next-line no-control-regex
     val = val.replace(/[^\x00-\x80•]/gi, ''); // 把所有双字节字符替换为空(排除•)
     this._inputElem.value = val;
     this.cursorMove(this._inputElem, this.compositionStartCursorIndex); // 将光标重置为中文输入前的位置
