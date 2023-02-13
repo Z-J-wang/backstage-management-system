@@ -1,10 +1,11 @@
-name: NodeJS with Webpack
+name: lint
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,6 +24,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Build
-      run: |
-        npm install
-        npm run lint
+      run: npm install
+    - run: npm run lint
